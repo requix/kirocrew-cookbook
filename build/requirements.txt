@@ -1,0 +1,4 @@
+# Python packages for preview/build.py (the scripts/ helpers need only the standard library).
+markdown-it-py==3.0.0
+Pygments==2.19.2
+PyYAML==6.0.3

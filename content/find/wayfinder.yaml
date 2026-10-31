@@ -1,0 +1,19 @@
+# The three pages that help a reader find their way around KiroCrew.
+#
+# Each page in this list shows it near its top, through an empty `find-your-way`
+# code block, so a reader can tell which page answers which question. The text
+# lives only here. The build fails if a page in this list does not exist or does
+# not include the block.
+#
+#   page   cookbook page slug
+#   name   short name shown in the list
+#   job    the question that page answers, in a few words
+- page: find/dashboard-map
+  name: The dashboard map
+  job: What each part of the screen is for
+- page: find/where-is
+  name: Where is it?
+  job: The clicks to one hidden control
+- page: concepts/how-it-fits
+  name: How the pieces fit
+  job: How the ideas connect

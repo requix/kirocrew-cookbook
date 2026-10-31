@@ -1,0 +1,60 @@
+# The diagram on "How the pieces fit". Edit freely, then rebuild.
+#
+# The page's text is the source of the steps: each "### N. Title" section of
+# how-it-fits.md is one step, in order, and `steps` below says what that step
+# adds to the diagram. The build fails when the two counts differ, or when a
+# step names a node or link that does not exist.
+#
+# Drawing space is 760 x 560. Nodes are 140 x 52 unless `size` says otherwise.
+
+canvas: [760, 560]
+
+container:
+  id: gateway
+  name: KiroCrew gateway
+  sub: one process on your machine
+  box: [172, 30, 576, 522]
+
+nodes:
+  - { id: you,       name: You,                  sub: "dashboard, CLI, Slack, Teams", at: [12, 266] }
+  - { id: apps,      name: Apps,                 sub: add pieces of every kind,       at: [192, 52] }
+  - { id: mate,      name: Mate,                 sub: an agent with its own memory,   at: [192, 162] }
+  - { id: steering,  name: Steering,             sub: standing rules,                 at: [192, 374] }
+  - { id: agent,     name: Agent,                sub: "prompt, tools, MCP servers",   at: [360, 52] }
+  - { id: session,   name: Session,              sub: one chat,                       at: [360, 266] }
+  - { id: project,   name: Project folder,       sub: the working directory,          at: [360, 374] }
+  - { id: gate,      name: Approval gate,        sub: "",                             at: [501, 170], size: [90, 30] }
+  - { id: tools,     name: Tools,                sub: "shell, files, MCP",            at: [592, 52] }
+  - { id: schedule,  name: Schedule,             sub: starts sessions on a timer,     at: [592, 162] }
+  - { id: memory,    name: Memory,               sub: facts and lessons,              at: [592, 266] }
+  - { id: knowledge, name: Knowledge library,    sub: your documents,                 at: [592, 374] }
+  - { id: skills,    name: Skills,               sub: loaded when needed,             at: [592, 474] }
+
+# [from, to, label]
+links:
+  - [you, session, chat]
+  - [agent, session, runs as]
+  - [project, session, works in]
+  - [steering, session, always loaded]
+  - [skills, session, on demand]
+  - [session, gate, tool call]
+  - [gate, tools, if allowed]
+  - [session, memory, remembers]
+  - [session, knowledge, searches]
+  - [mate, agent, built from]
+  - [mate, memory, its own store]
+  - [schedule, session, starts]
+
+# One entry per "### N." section, in order. `show` adds nodes and links ("from>to");
+# `mark` outlines nodes the step talks about without adding them.
+steps:
+  - show: [you, gateway]
+  - show: [session, you>session]
+  - show: [agent, agent>session]
+  - show: [project, project>session]
+  - show: [steering, skills, steering>session, skills>session]
+  - show: [gate, tools, session>gate, gate>tools]
+  - show: [memory, knowledge, session>memory, session>knowledge]
+  - show: [mate, mate>agent, mate>memory]
+  - show: [schedule, apps, schedule>session]
+    mark: [agent, skills, tools, schedule]

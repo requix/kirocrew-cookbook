@@ -1,0 +1,44 @@
+name: Bug Report
+description: Report an error or problem with a recipe
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue! Please fill out the details below.
+
+  - type: input
+    id: recipe
+    attributes:
+      label: Recipe
+      description: Which recipe has the problem?
+      placeholder: "e.g., recipes/make-it-remember"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's wrong?
+      description: Describe the error or problem
+      placeholder: "The command in step 3 returns an error..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen?
+      description: What did you expect instead?
+    validations:
+      required: false
+
+  - type: input
+    id: kirocrew-version
+    attributes:
+      label: KiroCrew version
+      description: Run `kirocrew --version` to find this
+      placeholder: "e.g., 1.2.3"
+    validations:
+      required: false

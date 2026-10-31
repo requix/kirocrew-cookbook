@@ -1,0 +1,321 @@
+# Tasks for the "Where is…?" page. Edit freely, then rebuild.
+#
+# WHAT BELONGS HERE: only controls a beginner cannot just see. A task needs at
+# least one of these, named in `why`:
+#   menu     behind a menu, a hover, or a collapsed panel
+#   state    shows only in a certain state (an empty chat, an open job)
+#   preview  needs a switch turned on first
+#   name     KiroCrew calls it something you would not search for
+#   deep     three or more clicks into Settings or Customize
+# A button on the first screen (New, Settings, the search bar) does not belong.
+#
+# Each task points at one control in KiroCrew's own UI index
+# (cookbook-site/data/ui-index.json) with `at:`. The build turns that into the
+# click path, the "needs first" notes and the animation, and FAILS if the id no
+# longer exists, so a KiroCrew update cannot quietly break an answer.
+# A control the index does not list yet uses `manual:` instead: the steps by
+# hand, each one a drawn element (`draw:`), plus `source:` saying where the
+# path is documented.
+#
+#   id      stable, used in links: where-is.html#task=<id>
+#   task    what the reader wants, in their words
+#   terms   extra search words, especially the reader's own names for things
+#   note    one or two short lines shown under the path
+#   see     a cookbook page that explains the concept
+
+- group: In a chat
+  tasks:
+    - id: working-directory
+      task: Change the working directory
+      why: name
+      terms: [project, cwd, folder, repo, directory, workspace, pwd]
+      manual:
+        screen: chat
+        steps:
+          - { draw: page.chat, label: Sessions }
+          - { draw: x.project-pill, label: Project, under the message box }
+          - { draw: x.project-picker, label: Pick a folder }
+        source: "KiroCrew docs, configuration.md: click the project folder in the project pill"
+      note: Each chat has its own project folder. It sets the agent's working directory, file search and project steering.
+      see: concepts/what-kirocrew-is
+    - id: switch-agent
+      task: Use a different agent in this chat
+      why: name
+      terms: [agent, custom agent, switch agent, kiro_default, mode]
+      manual:
+        screen: chat
+        steps:
+          - { draw: page.chat, label: Sessions }
+          - { draw: x.agent-selector, label: Agent, under the message box }
+          - { draw: x.agent-list, label: Pick the agent }
+        source: "KiroCrew docs, agents.md: the agent selector, or /agent <name> in the chat"
+      note: "Or type /agent <name> in the chat."
+    - id: change-model
+      task: Change the model for this chat
+      why: name
+      at: chat.model-picker
+      terms: [model, llm, opus, sonnet, auto]
+      note: The model name sits under the message box, on the right. It shows auto until you pick one.
+    - id: approval-mode
+      task: Stop being asked before every tool call
+      why: name
+      at: composer.approval-mode
+      terms: [approve, approval, yolo, trust, reads, permissions, auto approve]
+      note: "Normal asks each time. Reads runs reads without asking. Trust trusts this chat. YOLO approves everything, so use it with care."
+      see: concepts/security
+    - id: memory-mode
+      task: Switch a new chat to incognito
+      why: state
+      at: chat.memory-mode
+      terms: [incognito, temporary, memory, private, forget]
+    - id: attach-file
+      task: Attach a file to a message
+      why: menu
+      at: composer.add-menu.upload
+      terms: [upload, attach, image, document, screenshot]
+    - id: run-skill
+      task: Use a skill in this chat
+      why: menu
+      at: composer.add-menu.skill
+      terms: [skill, apply skill, dollar]
+      note: "Or type $ and the skill's name in the message."
+      see: recipes/teach-it-a-skill
+    - id: set-goal
+      task: Give a chat a goal to keep working on
+      why: name
+      at: composer.automation
+      terms: [goal, loop, monitor, keep working, babysit]
+    - id: context-usage
+      task: See how full the chat's context is
+      why: state
+      at: composer.context-usage
+      terms: [tokens, context window, compaction, full]
+    - id: browser-panel
+      task: Open the browser beside the chat
+      why: menu
+      at: chat.side-panel.browser
+      terms: [browser, preview, side panel, web page]
+
+- group: The session list
+  tasks:
+    - id: chat-no-memory
+      task: Start a chat that saves no memory
+      why: menu
+      at: sessions.create-menu.incognito
+      terms: [incognito, temporary, private, forget]
+      note: "New temporary chat in the same menu goes further: it does not read memory either."
+    - id: chat-folders
+      task: Group chats in folders
+      why: menu
+      at: sessions.create-menu.new-folder
+      terms: [organize, folder]
+    - id: fork-chat
+      task: Copy a chat to try another idea
+      why: menu
+      at: sessions.row-duplicate
+      terms: [fork, duplicate, branch, copy]
+      note: The button shows when the pointer is over the chat in the list.
+    - id: pin-chat
+      task: Keep a chat at the top of the list
+      why: menu
+      at: sessions.row-menu.pin
+      terms: [pin, favorite, top]
+    - id: board-view
+      task: See chats as a board
+      why: menu
+      at: sessions.list-menu.view
+      terms: [board, kanban, columns, lanes, tags]
+    - id: switch-all-model
+      task: Move every open chat to one model
+      why: menu
+      at: sessions.list-menu.switch-model
+      terms: [model, all sessions, bulk]
+    - id: clean-up
+      task: Close many old chats at once
+      why: menu
+      at: sessions.list-menu.clean-up
+      terms: [clean up, close all, tidy, archive]
+
+- group: Teach it
+  tasks:
+    - id: find-skills
+      task: Find your skills
+      why: name
+      at: tab.capabilities.skills
+      terms: [skills, skill list]
+      note: Settings has a Skills tab too. That one holds skill settings, not your skills.
+      see: recipes/teach-it-a-skill
+    - id: create-skill
+      task: Create a new skill
+      why: name
+      at: skills.create
+      terms: [new skill, write skill]
+    - id: skill-folders
+      task: Load skills from another folder
+      why: deep
+      at: setting:skills.extra-skill-paths
+      terms: [skill path, skills folder, extra]
+    - id: steering
+      task: Find steering files
+      why: name
+      at: tab.capabilities.steering
+      terms: [steering, rules, instructions, agents.md, cursor rules]
+      see: start/bring-your-kiro-setup
+    - id: custom-agents
+      task: Edit a custom agent
+      why: name
+      at: tab.capabilities.templates
+      terms: [agent template, agent json, custom agent, agent config]
+    - id: add-mcp
+      task: Add an MCP server
+      why: name
+      at: mcp.add-server
+      terms: [mcp, tools, connection, server]
+    - id: probe-mcp
+      task: Check why an MCP server does not work
+      why: deep
+      at: mcp.probe
+      terms: [mcp broken, probe, test mcp, tools missing]
+    - id: knowledge
+      task: Add your docs to the knowledge library
+      why: name
+      at: tab.capabilities.knowledge
+      terms: [knowledge, docs, library, rag]
+      see: concepts/knowledge-base
+    - id: hooks
+      task: Run a script when a tool is used
+      why: name
+      at: tab.capabilities.hooks
+      terms: [hook, pre tool use, automation, script]
+
+- group: Crewmates
+  tasks:
+    - id: create-mate
+      task: Create a crewmate
+      why: name
+      at: agents.add
+      terms: [crewmate, mate, crew member, new agent, teammate]
+      see: concepts/crewmates
+    - id: mates-page
+      task: Show the Mates page in the sidebar
+      why: preview
+      at: setting:developer.mates
+      terms: [mates, crewmates, activate, preview, missing]
+      note: The Mates page is a preview, so it stays hidden until this switch is on.
+    - id: chat-with-mate
+      task: Chat with a crewmate
+      why: preview
+      at: members.roster-list
+      terms: [mate chat, crewmate chat, talk to mate]
+
+- group: Automate
+  tasks:
+    - id: schedule-job
+      task: Schedule a job
+      why: state
+      at: schedule.create-first
+      terms: [cron, schedule, recurring, reminder]
+      note: Once you have one job, the button is Add Job.
+      see: recipes/schedule-real-work
+    - id: run-job-now
+      task: Run a scheduled job right now
+      why: state
+      at: schedule.run-now
+      terms: [trigger, run now, test job]
+    - id: job-history
+      task: See past runs of a scheduled job
+      why: name
+      at: schedule.view-executions
+      terms: [history, runs, executions, logs, output]
+    - id: approve-secret
+      task: Let a scheduled job use a secret
+      why: state
+      at: schedule.secret-approve
+      terms: [secret, token, approve, credential]
+    - id: task-runner
+      task: Hand over a long multi-step job
+      why: name
+      at: page.projects
+      terms: [task runner, spec, unattended, projects]
+
+- group: Apps
+  tasks:
+    - id: app-on-off
+      task: Turn an app on or off
+      why: name
+      at: apps.library.app-list
+      terms: [enable app, disable app, library, installed]
+      see: apps/built-in-apps
+    - id: trust-apps
+      task: Trust third-party apps
+      why: deep
+      at: settings.sub.security.apps
+      terms: [trust, third party, consent]
+      note: Trusted app code runs inside the gateway with no sandbox.
+      see: apps/what-apps-are
+
+- group: Settings
+  tasks:
+    - id: reply-length
+      task: Get shorter or longer replies
+      why: deep
+      at: setting:chat.response-verbosity
+      terms: [verbosity, short answers, long answers, concise]
+    - id: default-model
+      task: Change the default model for new chats
+      why: deep
+      at: setting:chat.default-model
+      terms: [default model, model]
+    - id: about-you
+      task: Tell the agent about yourself
+      why: deep
+      at: settings.sub.chat.aboutyou
+      terms: [profile, about me, role, who i am]
+    - id: language
+      task: Change the dashboard language
+      why: deep
+      at: setting:display.language
+      terms: [language, locale, translate]
+    - id: agent-harness
+      task: Change the agent backend
+      why: name
+      at: settings.tab.agent
+      terms: [backend, harness, kas, kiro-cli, acp, claude, codex]
+    - id: connect-slack
+      task: Connect Slack, Teams or Telegram
+      why: name
+      at: settings.sub.channels.slack
+      terms: [slack, teams, telegram, discord, channel, messaging]
+      note: Teams, Telegram, Discord and the other channels sit beside Slack.
+    - id: denied-commands
+      task: Block a shell command
+      why: deep
+      at: settings.sub.security.rules
+      terms: [deny, block command, denied commands]
+      see: concepts/security
+    - id: yolo-timeout
+      task: Make YOLO turn itself off
+      why: deep
+      at: setting:security.how-long-auto-approve-stays-on
+      terms: [yolo, auto approve, timeout, expire]
+    - id: memory-details
+      task: See what the agent remembers
+      why: deep
+      at: overview.memory-details
+      terms: [memory, remember, facts, lessons]
+      see: recipes/make-it-remember
+    - id: export
+      task: Back up or move your setup
+      why: name
+      at: backup.export
+      terms: [backup, export, import, migrate, zip]
+    - id: developer-mode
+      task: Turn on developer mode
+      why: deep
+      at: setting:developer.developer-mode
+      terms: [developer, debug, advanced]
+    - id: webhooks
+      task: Let another system start a chat
+      why: preview
+      at: settings.tab.webhooks
+      terms: [webhook, http, trigger, integration]

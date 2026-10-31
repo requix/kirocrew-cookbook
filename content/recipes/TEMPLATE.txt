@@ -1,0 +1,43 @@
+---
+title: Your recipe title
+description: One sentence explaining what this recipe helps you do.
+category: Memory
+difficulty: beginner
+time: 15 min
+surfaces: [dashboard, cli]
+tags: [tag1, tag2]
+updated: 2026-01-01
+featured: false
+prerequisites:
+  - KiroCrew running (see Your first hour)
+---
+
+**Problem.** Describe the problem this recipe solves. What goes wrong without it? Keep it to one short paragraph.
+
+## Steps
+
+### 1. First step title
+
+Explain what to do. If the user needs to say something to KiroCrew, use a prompt block:
+
+```prompt
+Tell KiroCrew what you want it to do.
+```
+
+### 2. Second step title
+
+Continue with the next step. Use code blocks for commands:
+
+```bash
+kirocrew some-command
+```
+
+### 3. Verify it worked
+
+Always end with how to confirm the recipe worked.
+
+## What can go wrong
+
+**Problem:** Description of a common mistake.
+
+**Fix:** How to fix it.

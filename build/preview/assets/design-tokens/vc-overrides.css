@@ -1,0 +1,491 @@
+/* Violet Carbon Playbook — overrides
+ * Load AFTER Carbon (carbon.scss) and Fumadocs (global.css), and after vc-tokens.css.
+ *  1. Carbon theme variables  (--cds-*)
+ *  2. Fumadocs theme variables (--color-fd-*)
+ *  3. Base typography and page
+ *  4. Carbon component fixes (fonts, code colors; shape stays Carbon's)
+ *  5. Prose (Markdown content)
+ *  6. .vc-* utilities used by page patterns
+ * The look: Carbon's shape (square, flat layers, 1px lines, no glow) in Kiro's colors and fonts.
+ * Doubled selectors (.a.a) raise specificity just enough to beat Carbon's
+ * two-class rules without resorting to !important.
+ */
+
+/* 1. Carbon --------------------------------------------------------------- */
+:root,
+.cds--g100 {
+  --cds-background: var(--vc-bg);
+  --cds-background-hover: var(--vc-layer-2);
+  --cds-background-active: var(--vc-layer-3);
+  --cds-background-selected: var(--vc-accent-soft);
+  --cds-background-selected-hover: var(--vc-layer-3);
+  --cds-background-brand: var(--vc-accent);
+  /* Inverse = light surface, dark text (tooltips, selected switcher, tertiary hover) */
+  --cds-background-inverse: var(--vc-text);
+  --cds-background-inverse-hover: var(--vc-text-body);
+
+  --cds-layer-01: var(--vc-layer-1);
+  --cds-layer-02: var(--vc-layer-2);
+  --cds-layer-03: var(--vc-layer-3);
+  --cds-layer-hover-01: var(--vc-layer-2);
+  --cds-layer-hover-02: var(--vc-layer-3);
+  --cds-layer-hover-03: var(--vc-layer-3);
+  --cds-layer-active-01: var(--vc-layer-3);
+  --cds-layer-active-02: var(--vc-layer-3);
+  --cds-layer-active-03: var(--vc-layer-3);
+  --cds-layer-selected-01: var(--vc-layer-3);
+  --cds-layer-selected-02: var(--vc-layer-3);
+  --cds-layer-selected-03: var(--vc-layer-3);
+  --cds-layer-selected-hover-01: var(--vc-layer-3);
+  --cds-layer-selected-hover-02: var(--vc-layer-3);
+  --cds-layer-selected-hover-03: var(--vc-layer-3);
+  --cds-layer-selected-inverse: var(--vc-text);
+  --cds-layer-accent-01: var(--vc-layer-2);
+  --cds-layer-accent-02: var(--vc-layer-3);
+  --cds-layer-accent-03: var(--vc-layer-3);
+  --cds-layer-accent-hover-01: var(--vc-layer-3);
+  --cds-layer-accent-hover-02: var(--vc-layer-3);
+  --cds-layer-accent-hover-03: var(--vc-layer-3);
+
+  --cds-field-01: var(--vc-layer-1);
+  --cds-field-02: var(--vc-layer-2);
+  --cds-field-03: var(--vc-layer-3);
+  --cds-field-hover-01: var(--vc-layer-2);
+  --cds-field-hover-02: var(--vc-layer-3);
+  --cds-field-hover-03: var(--vc-layer-3);
+
+  --cds-border-subtle-00: var(--vc-border-subtle);
+  --cds-border-subtle-01: var(--vc-border-subtle);
+  --cds-border-subtle-02: var(--vc-border-subtle);
+  --cds-border-subtle-03: var(--vc-border-subtle);
+  --cds-border-subtle-selected-01: var(--vc-border);
+  --cds-border-subtle-selected-02: var(--vc-border);
+  --cds-border-subtle-selected-03: var(--vc-border);
+  --cds-border-strong-01: var(--vc-border-strong);
+  --cds-border-strong-02: var(--vc-border-strong);
+  --cds-border-strong-03: var(--vc-border-strong);
+  --cds-border-tile-01: var(--vc-border-subtle);
+  --cds-border-tile-02: var(--vc-border-subtle);
+  --cds-border-tile-03: var(--vc-border-subtle);
+  --cds-border-interactive: var(--vc-accent);
+  --cds-border-inverse: var(--vc-text);
+
+  --cds-text-primary: var(--vc-text);
+  --cds-text-secondary: var(--vc-text-body);
+  --cds-text-helper: var(--vc-text-muted);
+  --cds-text-placeholder: var(--vc-text-muted);
+  --cds-text-on-color: var(--vc-text-on-accent);
+  --cds-text-disabled: var(--vc-text-disabled);
+  --cds-text-inverse: var(--vc-bg);
+  --cds-text-error: var(--vc-error);
+
+  --cds-link-primary: var(--vc-link);
+  --cds-link-primary-hover: var(--vc-link-hover);
+  --cds-link-secondary: var(--vc-accent-text);
+  --cds-link-visited: var(--vc-accent-text);
+  --cds-link-inverse: var(--vc-accent-active);
+
+  --cds-icon-primary: var(--vc-text);
+  --cds-icon-secondary: var(--vc-text-muted);
+  --cds-icon-on-color: var(--vc-text-on-accent);
+  --cds-icon-inverse: var(--vc-bg);
+  --cds-icon-interactive: var(--vc-accent-text);
+
+  --cds-interactive: var(--vc-accent);
+  --cds-focus: var(--vc-focus);
+  --cds-focus-inset: var(--vc-bg);
+  --cds-focus-inverse: var(--vc-accent-active);
+  --cds-highlight: var(--vc-accent-soft);
+  --cds-overlay: var(--vc-overlay);
+  --cds-toggle-off: var(--vc-border-strong);
+
+  --cds-support-error: var(--vc-error);
+  --cds-support-success: var(--vc-success);
+  --cds-support-info: var(--vc-info);
+  --cds-support-warning: var(--vc-warning);
+
+  /* Component tokens */
+  --cds-button-primary: var(--vc-accent);
+  --cds-button-primary-hover: var(--vc-accent-hover);
+  --cds-button-primary-active: var(--vc-accent-active);
+  --cds-button-tertiary: var(--vc-link);
+  --cds-button-tertiary-hover: var(--vc-link-hover);   /* fills light violet, label turns black */
+  --cds-button-tertiary-active: var(--vc-link);
+  --cds-button-separator: var(--vc-border-subtle);
+  --cds-button-disabled: var(--vc-layer-3);
+  --cds-notification-background-info: var(--vc-layer-2);
+  --cds-notification-background-success: var(--vc-layer-2);
+  --cds-notification-background-warning: var(--vc-layer-2);
+  --cds-notification-background-error: var(--vc-layer-2);
+  --cds-tag-background-gray: var(--vc-layer-3);
+  --cds-tag-color-gray: var(--vc-text-body);
+  --cds-tag-hover-gray: var(--vc-border-subtle);
+}
+
+/* 2. Fumadocs ------------------------------------------------------------- */
+:root,
+.dark {
+  --color-fd-background: var(--vc-bg);
+  --color-fd-foreground: var(--vc-text);
+  --color-fd-muted: var(--vc-layer-2);
+  --color-fd-muted-foreground: var(--vc-text-muted);
+  --color-fd-card: var(--vc-layer-1);
+  --color-fd-card-foreground: var(--vc-text);
+  --color-fd-popover: var(--vc-layer-2);
+  --color-fd-popover-foreground: var(--vc-text);
+  --color-fd-primary: var(--vc-accent);
+  --color-fd-primary-foreground: var(--vc-text-on-accent);
+  --color-fd-secondary: var(--vc-layer-2);
+  --color-fd-secondary-foreground: var(--vc-text);
+  --color-fd-accent: var(--vc-layer-2);
+  --color-fd-accent-foreground: var(--vc-text);
+  --color-fd-border: var(--vc-border-subtle);
+  --color-fd-ring: var(--vc-focus);
+}
+
+/* 3. Base ----------------------------------------------------------------- */
+html,
+body {
+  background: var(--vc-bg);
+  color: var(--vc-text-body);
+  font-family: var(--vc-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4,
+.vc-head {
+  font-family: var(--vc-font-head);
+  font-variation-settings: var(--vc-font-head-axes);
+  font-weight: var(--vc-head-weight);
+  letter-spacing: var(--vc-head-tracking);
+  color: var(--vc-text);
+}
+h1,
+.vc-display {
+  font-weight: var(--vc-display-weight);
+}
+
+code, kbd, pre, samp {
+  font-family: var(--vc-font-code);
+}
+
+::selection {
+  background: rgba(144, 70, 255, 0.45);
+  color: #ffffff;
+}
+
+:where(a, button, [tabindex], input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--vc-focus);
+  outline-offset: 2px;
+}
+
+/* 4. Carbon components ---------------------------------------------------- */
+/* Shape is Carbon's own: square buttons, flat tiles, square fields and menus.
+ * Do not add border-radius to any Carbon component. */
+
+/* Fonts: replace IBM Plex everywhere Carbon sets it, then restore mono where needed */
+[class*="cds--"][class*="cds--"] {
+  font-family: var(--vc-font-body);
+}
+.cds--snippet.cds--snippet,
+.cds--snippet.cds--snippet *,
+.cds--code-snippet.cds--code-snippet *,
+[class*="cds--"] code,
+[class*="cds--"] pre {
+  font-family: var(--vc-font-code);
+}
+
+/* Buttons: Carbon anatomy (label left, icon right, 48px / 32px sm). Colors come from the tokens above. */
+.cds--btn.cds--btn {
+  border-radius: 0;
+}
+
+/* Tiles: Carbon's flat layer-1 tile; hover goes one layer up. No outline, no shadow. */
+.cds--tile.cds--tile {
+  border-radius: 0;
+  border: 0;
+}
+
+/* Notifications (callouts): Carbon's square box with a 3px status bar on the left */
+.cds--inline-notification.cds--inline-notification,
+.cds--actionable-notification.cds--actionable-notification {
+  border-radius: 0;
+  max-width: none;
+}
+
+/* Code snippets: Kiro code background, 1px line */
+.cds--snippet.cds--snippet {
+  border-radius: 0;
+  background: var(--vc-code-bg);
+  border: 1px solid var(--vc-border-subtle);
+}
+
+/* Tags are pills already; recolor neutrals */
+.cds--tag.cds--tag--gray {
+  background: var(--vc-layer-3);
+  color: var(--vc-text-body);
+}
+
+/* Floating surfaces: square, the only place a shadow is allowed */
+.cds--modal-container.cds--modal-container,
+.cds--popover-content.cds--popover-content,
+.cds--list-box__menu.cds--list-box__menu,
+.cds--overflow-menu-options.cds--overflow-menu-options {
+  border-radius: 0;
+  box-shadow: var(--vc-shadow-pop);
+}
+
+/* 5. Prose ---------------------------------------------------------------- */
+.prose,
+.vc-prose {
+  color: var(--vc-text-body);
+}
+.vc-prose {
+  max-width: var(--vc-prose-max);
+}
+.prose a:not([class*="cds--"]):not([class*="vc-"]),
+.vc-prose a:not([class*="cds--"]):not([class*="vc-"]) {
+  color: var(--vc-link);
+  text-decoration-color: rgba(216, 180, 254, 0.4);
+  text-underline-offset: 3px;
+  transition: color var(--vc-dur-fast) var(--vc-ease-productive);
+}
+.prose a:not([class*="cds--"]):not([class*="vc-"]):hover,
+.vc-prose a:not([class*="cds--"]):not([class*="vc-"]):hover {
+  color: var(--vc-link-hover);
+  text-decoration-color: currentColor;
+}
+.prose :not(pre) > code,
+.vc-prose :not(pre) > code {
+  background: var(--vc-code-inline-bg);
+  border: 1px solid var(--vc-code-inline-border);
+  border-radius: var(--vc-radius-inline);
+  padding: 0.1em 0.35em;
+  font-size: 0.8125em;
+  color: var(--vc-text);
+}
+.prose pre,
+.vc-prose pre,
+figure:has(> pre) {
+  border-radius: 0;
+  background: var(--vc-code-bg);
+  border: 1px solid var(--vc-border-subtle);
+}
+.prose kbd,
+.vc-kbd {
+  font-family: var(--vc-font-code);
+  font-size: 0.75em;
+  background: var(--vc-layer-3);
+  border: 1px solid var(--vc-border);
+  border-bottom-width: 2px;
+  border-radius: var(--vc-radius-inline);
+  padding: 0.1em 0.4em;
+  color: var(--vc-text);
+}
+.prose img,
+.vc-prose img {
+  border-radius: 0;
+  border: 1px solid var(--vc-border-subtle);
+}
+/* Carbon data table: header one layer up, rows on layer-1, no zebra */
+.prose th,
+.vc-prose th {
+  background: var(--vc-layer-2);
+  color: var(--vc-text);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: left;
+}
+.prose td,
+.vc-prose td {
+  background: var(--vc-layer-1);
+  border-top: 1px solid var(--vc-border-subtle);
+}
+
+/* 6. Utilities ------------------------------------------------------------ */
+
+/* Tile for non-Carbon markup (Carbon tiles are handled above) */
+.vc-card {
+  background: var(--vc-layer-1);
+  border: 0;
+  border-radius: 0;
+  padding: 16px;
+  transition: background-color var(--vc-dur-fast) var(--vc-ease-productive);
+}
+a.vc-card:hover,
+.vc-card--interactive:hover {
+  background: var(--vc-layer-2);
+}
+
+/* Featured or "next step" tile: 3px violet bar on top, instead of a glow */
+.vc-featured,
+.cds--tile.vc-featured {
+  box-shadow: var(--vc-accent-bar);
+}
+
+/* Condensed tile grid: 1px gutters, the black canvas shows through */
+.vc-grid {
+  display: grid;
+  gap: var(--vc-tile-gap);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 672px) {
+  .vc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1056px) {
+  .vc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Hero backdrop: the 2x grid's columns as faint 1px lines that fade downward.
+ * Put it as an empty, aria-hidden first child of a position:relative hero; the page sets its inset. */
+.vc-grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-right: 1px solid var(--vc-border-subtle);
+  background-image: linear-gradient(to right, var(--vc-border-subtle) 1px, transparent 1px);
+  background-size: calc(100% / 4) 100%;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
+}
+@media (min-width: 672px) {
+  .vc-grid-lines { background-size: calc(100% / 8) 100%; }
+}
+@media (min-width: 1056px) {
+  .vc-grid-lines { background-size: calc(100% / 16) 100%; }
+}
+
+/* Carbon label-01: small label above titles, sections and groups. Normal case, never uppercase. */
+.vc-overline,
+.vc-label {
+  font-family: var(--vc-font-body);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: var(--vc-label-tracking);
+  color: var(--vc-text-muted);
+}
+
+/* Recipe meta row: difficulty · time · surfaces · updated */
+.vc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: 0.875rem;
+  letter-spacing: var(--vc-body-tracking);
+  color: var(--vc-text-muted);
+}
+.vc-meta > * + *::before {
+  content: "·";
+  margin-right: 12px;
+  color: var(--vc-border-strong);
+}
+
+/* Difficulty: colored dot, neutral label */
+.vc-dot {
+  color: var(--vc-text-body);
+}
+.vc-dot::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: currentColor;
+}
+.vc-dot--beginner::before { background: var(--vc-success); }
+.vc-dot--intermediate::before { background: var(--vc-info); }
+.vc-dot--advanced::before { background: var(--vc-accent-text); }
+
+/* Numbered steps: <ol class="vc-steps">. Mono "01" in its own column, 1px rule above each step. */
+.vc-steps {
+  list-style: none;
+  counter-reset: vc-step;
+  padding-left: 0;
+  margin: 8px 0 24px;
+}
+.vc-steps > li {
+  counter-increment: vc-step;
+  position: relative;
+  padding: 16px 0 8px 48px;
+  border-top: 1px solid var(--vc-border-subtle);
+}
+.vc-steps > li::before {
+  content: counter(vc-step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  color: var(--vc-accent-text);
+  font: 400 0.875rem/1.75rem var(--vc-font-code);
+  letter-spacing: var(--vc-label-tracking);
+}
+@media (max-width: 671px) {
+  .vc-steps > li { padding-left: 40px; }
+}
+
+/* Prompt block: label above, layer-1 box with a 3px violet bar on the left */
+.vc-prompt {
+  margin: 0 0 24px;
+}
+.vc-prompt__label {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: var(--vc-label-tracking);
+  color: var(--vc-text-muted);
+}
+.vc-prompt pre,
+.vc-prompt .cds--snippet.cds--snippet {
+  margin: 0;
+  background: var(--vc-layer-1);
+  border: 0;
+  border-left: 3px solid var(--vc-accent);
+  border-radius: 0;
+  color: var(--vc-text);
+  font: 400 0.875rem/1.25rem var(--vc-font-code);
+  letter-spacing: var(--vc-label-tracking);
+}
+
+/* Breadcrumb for non-Carbon markup: Carbon style, "/" separators, links violet */
+.vc-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  letter-spacing: var(--vc-body-tracking);
+}
+.vc-breadcrumb li {
+  display: flex;
+  align-items: center;
+  color: var(--vc-text-body);
+}
+.vc-breadcrumb li + li::before {
+  content: "/";
+  margin: 0 8px;
+  color: var(--vc-text-muted);
+}
+.vc-breadcrumb a {
+  color: var(--vc-link);
+  text-decoration: none;
+}
+.vc-breadcrumb a:hover {
+  color: var(--vc-link-hover);
+  text-decoration: underline;
+}
+.vc-breadcrumb [aria-current="page"] {
+  color: var(--vc-text);
+}
+
+/* Active side-nav row (apply to Fumadocs' active link): one layer up, 3px violet bar, semibold */
+.vc-nav-active {
+  color: var(--vc-text);
+  background: var(--vc-layer-3);
+  box-shadow: inset 3px 0 0 var(--vc-accent);
+  font-weight: 600;
+}

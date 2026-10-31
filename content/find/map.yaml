@@ -1,0 +1,179 @@
+# Zones of the drawn dashboard on the "Dashboard map" page. Edit freely, then rebuild.
+#
+# Each zone names one part of the drawing with `at`: a UI-index id
+# (cookbook-site/data/ui-index.json) or one of the drawing's own x.* ids for a
+# part the index does not list. The build fails on an unknown id, an unknown
+# Where-is task, or an unknown cookbook page.
+#
+# The drawing itself takes no clicks: a reader picks a part from the list, and
+# the drawing highlights it.
+#
+#   name   what the part is called, as on screen where it has a name
+#   text   what it is for, in one or two short sentences
+#   task   a "Where is…?" task id: adds a "Show me how" link
+#   see    a cookbook page, optionally with #section: adds a "Read" link
+#   state  what must be open for the part to show, e.g. {panel: true}
+#
+# A group with `auto: customize` or `auto: settings` lists every tab of that
+# page, with the description the dashboard itself shows (cookbook-site/data/ui-text.json).
+
+tour: [shell.search, page.chat, x.session-row, sessions.create-menu, x.message-box, composer.approval-mode,
+       x.project-pill, x.agent-selector, x.side-panel, page.capabilities, page.settings, shell.notifications]
+
+groups:
+  - group: Top bar
+    zones:
+      - at: x.history-nav
+        name: Back and forward
+        text: Moves between the pages you opened, like a browser's arrows.
+      - at: shell.search
+        name: Search bar
+        text: Searches sessions, files and commands.
+        see: find/where-is#faster-ways-to-get-there
+      - at: x.status
+        name: Status
+        text: The green dot means the dashboard is connected to the gateway. It warns you when the machine runs low on memory. Click it to see more readouts.
+      - at: x.feedback
+        name: Request a Feature
+        text: Opens a new chat in which the agent drafts your feature request and files it for the KiroCrew team. That chat uses model credits like any other.
+      - at: shell.notifications
+        name: Notifications
+        text: The bell. Finished jobs, alerts and messages from agents land here. It also opens the full inbox.
+
+  - group: Left sidebar
+    zones:
+      - at: page.chat
+        name: Sessions
+        text: Your chats. Each one is a session with its own agent, project folder and history.
+      - at: page.schedule
+        name: Schedule
+        text: Jobs that run on a timer, such as reminders, reports and checks. Each run can post its result to your notifications.
+        see: recipes/schedule-real-work
+      - at: page.artifacts
+        name: Artifacts
+        text: Pages, widgets and reports the agent made and saved, with their versions.
+      - at: x.apps-group
+        name: Apps
+        text: Pages that apps add. Discover is the store, Library lists what you have, and each enabled app with a page shows below them.
+        see: apps/what-apps-are
+      - at: page.apps
+        name: Discover
+        text: The app store. It lists built-in apps and apps from registries.
+        see: apps/built-in-apps
+      - at: page.apps-library
+        name: Library
+        text: The apps you have. Turn each one on or off here.
+        task: app-on-off
+      - at: page.projects
+        name: Task Runner
+        text: An app that is on by default. Hand it a multi-step job, and it runs to the end on its own.
+        task: task-runner
+      - at: shell.terminal
+        name: Terminal
+        text: A shell on the machine that runs KiroCrew, in a panel at the bottom. It shows once the terminal is on in Settings.
+      - at: page.capabilities
+        name: Customize
+        text: Everything that shapes what the agent knows and can do. Mates, custom agents, skills, MCP connections, knowledge, prompts, steering, hooks and workflows all live here.
+      - at: page.settings
+        name: Settings
+        text: How the dashboard and the gateway behave. Some pages, like Mates, only appear after you turn on their switch here.
+        task: mates-page
+
+  - group: Session list
+    zones:
+      - at: chat.new-session
+        name: New
+        text: Starts a new chat.
+      - at: sessions.create-menu
+        name: More create options
+        text: The arrow next to New. It holds an incognito chat, a temporary chat and a new folder.
+        task: chat-no-memory
+      - at: sessions.list-menu
+        name: More options
+        text: "The ⋮ above the list: board view, tags, moving every chat to one model, and cleaning up old chats."
+        task: board-view
+      - at: sessions.list
+        name: Search sessions
+        text: Finds a chat in the list by its title.
+      - at: x.session-row
+        name: A chat in the list
+        text: The small line on top is the agent the chat runs on. Point at a chat to see its buttons; ⋮ holds pin and rename.
+        task: pin-chat
+      - at: sessions.row-duplicate
+        name: Fork chat
+        text: Copies the chat, so you can try another idea without losing this one.
+        task: fork-chat
+      - at: chat.older-sessions
+        name: Older Sessions
+        text: Chats you closed. Open one to bring it back.
+
+  - group: The chat
+    zones:
+      - at: chat.session-title
+        name: Chat title
+        text: Click it to rename the chat.
+      - at: x.transcript
+        name: Conversation
+        text: Your messages and the agent's replies, including each tool call the agent made.
+      - at: chat.side-panel-open
+        name: Open the side panel
+        text: Opens the panel beside the chat.
+        task: browser-panel
+      - at: x.side-panel
+        name: Side panel
+        text: Tabs beside the chat, such as the summary, git and artifacts. The + adds more, like the browser.
+        state: { panel: true }
+        task: browser-panel
+
+  - group: Message box
+    zones:
+      - at: x.message-box
+        name: Message box
+        text: "Type here. / runs a command, @ adds a file, $ uses a skill, and ! runs a shell command."
+      - at: composer.add-menu
+        name: Add files & options
+        text: "The +: add a file, an upload, a screenshot, a sketch, a skill or a command."
+        task: attach-file
+      - at: composer.automation
+        name: Set a goal
+        text: Gives the chat a goal, and it keeps working on its own until the goal is met. You pause or stop it here too.
+        task: set-goal
+      - at: composer.approval-mode
+        name: Approval mode
+        text: "Normal asks before each tool call. Reads runs reads without asking. Trust trusts this chat. YOLO approves everything, so use it with care."
+        task: approval-mode
+        see: concepts/security
+      - at: composer.voice
+        name: Microphone
+        text: Dictate instead of typing.
+      - at: x.optimize
+        name: Optimize prompt
+        text: Rewrites what you typed into a clearer prompt before you send it.
+      - at: composer.send
+        name: Send
+        text: Sends the message. While the agent works, a stop button lets you end its turn.
+
+  - group: Under the message box
+    zones:
+      - at: x.agent-selector
+        name: Agent
+        text: The agent this chat runs on. Click it to switch.
+        task: switch-agent
+      - at: x.project-pill
+        name: Project
+        text: This chat's working directory. The agent works in it, and project steering comes from its .kiro/steering folder.
+        task: working-directory
+      - at: composer.context-usage
+        name: Context
+        text: How full this chat's context is. It shows after the first answer.
+        task: context-usage
+      - at: chat.model-picker
+        name: Model
+        text: The model this chat uses. auto means the default.
+        task: change-model
+
+  - group: Customize
+    auto: customize
+
+  - group: Settings
+    auto: settings

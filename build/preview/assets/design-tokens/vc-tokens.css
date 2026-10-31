@@ -1,0 +1,108 @@
+/* Violet Carbon Playbook — design tokens
+ * Single source of truth. Components and overrides reference these variables;
+ * never hard-code colors elsewhere. See references/tokens.md for roles.
+ * Colors and fonts are Kiro's. Shape, type scale, depth and layout are Carbon's.
+ * After changing a color, run: python3 scripts/check_contrast.py assets/vc-tokens.css
+ */
+
+:root {
+  /* Surfaces */
+  --vc-bg: #000000;
+  --vc-layer-1: #19161d;
+  --vc-layer-2: #241f2b;
+  --vc-layer-3: #2e2836;
+  --vc-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Text */
+  --vc-text: #fafafa;
+  --vc-text-body: #c1bec6;
+  --vc-text-muted: #938f9b;
+  --vc-text-subtle: #a8a2b0;
+  --vc-text-on-accent: #ffffff;
+  --vc-text-disabled: #5e5966;
+
+  /* Accent */
+  --vc-accent: #9046ff;
+  --vc-accent-hover: #7d32ef;
+  --vc-accent-active: #6a22d9;
+  --vc-accent-text: #b48aff;
+  --vc-accent-soft: rgba(144, 70, 255, 0.16);
+  --vc-link: #d8b4fe;
+  --vc-link-hover: #e9d5ff;
+
+  /* Borders */
+  --vc-border-subtle: #352f3d;
+  --vc-border: #4a464f;
+  --vc-border-strong: #6f6a78;
+  --vc-focus: #d8b4fe;
+
+  /* Status */
+  --vc-error: #ff7a88;
+  --vc-success: #33d480;
+  --vc-info: #69a0f6;
+  --vc-warning: #fff2b3;
+
+  /* Code */
+  --vc-code-bg: #020617;
+  --vc-code-inline-bg: #352f3d;
+  --vc-code-inline-border: #4a464f;
+  --vc-code-text: rgba(255, 255, 255, 0.8);
+  --vc-code-comment: rgba(255, 255, 255, 0.6);
+  --vc-code-keyword: #c2a0fd;
+  --vc-code-string: #80ffb5;
+  --vc-code-function: #8dc8fb;
+  --vc-code-variable: #80f4ff;
+  --vc-code-number: #ffafd1;
+  --vc-code-entity: #ff80b5;
+  --vc-code-regex: #fff2b3;
+
+  /* Typography: Kiro fonts, Carbon weights and tracking */
+  --vc-font-head: var(--font-recursive, "Recursive"), var(--font-geist, "Geist"), ui-sans-serif, system-ui, sans-serif;
+  --vc-font-head-axes: "MONO" 0.5, "CASL" 0.4;
+  --vc-font-body: var(--font-geist, "Geist"), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --vc-font-code: var(--font-fragment, "Fragment Mono"), ui-monospace, monospace;
+  --vc-display-weight: 300;   /* h1: hero, page titles. Carbon headings are light or regular, never bold */
+  --vc-head-weight: 400;      /* h2–h4 */
+  --vc-head-tracking: 0;
+  --vc-label-tracking: 0.32px; /* Carbon label-01 / code tracking */
+  --vc-body-tracking: 0.16px;  /* Carbon body-compact / UI text */
+
+  /* Shape: Carbon is square */
+  --vc-radius: 0;
+  --vc-radius-inline: 4px;    /* inline code, kbd */
+  --vc-radius-pill: 999px;    /* tags, badges (Carbon tags are pills) */
+
+  /* Depth: layers and 1px lines, no glow */
+  --vc-shadow-pop: 0 8px 24px rgba(0, 0, 0, 0.5);  /* menus, popovers, modals only */
+  --vc-accent-bar: inset 0 3px 0 0 var(--vc-accent); /* featured / next-step tile */
+  --vc-tile-gap: 1px;         /* condensed grid: canvas shows between tiles */
+
+  /* Layout */
+  --vc-gutter: 16px;
+  --vc-prose-max: 72ch;
+  --vc-nav-height: 48px;      /* Carbon UI shell header */
+  --vc-sidenav-width: 256px;
+
+  /* Motion (Carbon) */
+  --vc-ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --vc-ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --vc-dur-fast: 110ms;
+  --vc-dur-moderate: 240ms;
+  --vc-dur-slow: 400ms;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 672px) {
+  :root {
+    --vc-gutter: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vc-dur-fast: 0.01ms;
+    --vc-dur-moderate: 0.01ms;
+    --vc-dur-slow: 0.01ms;
+  }
+}
