@@ -33,6 +33,29 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 # Open http://localhost:8000
 ```
 
+## Local preview
+
+After building, start a local server:
+
+```bash
+cd build/preview/dist
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000 in your browser.
+
+**Custom port or network access:**
+
+```bash
+# Different port
+python3 -m http.server 3000
+
+# Accessible from other devices on your network
+python3 -m http.server 8000 --bind 0.0.0.0
+```
+
+The server runs until you press Ctrl+C.
+
 ## Project structure
 
 ```
