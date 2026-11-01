@@ -1,5 +1,5 @@
 name: Recipe Request
-description: Suggest a new recipe topic
+description: Suggest a new recipe or topic for the cookbook
 title: "[Recipe]: "
 labels: ["recipe-request"]
 body:
@@ -7,13 +7,18 @@ body:
     attributes:
       value: |
         Have a recipe idea? Tell us what task you'd like documented.
+        
+        Good recipes solve real problems. The best suggestions come from tasks you've actually done (or tried to do) with KiroCrew.
 
   - type: textarea
     id: task
     attributes:
       label: What task should this recipe cover?
-      description: Describe what someone would be trying to do
-      placeholder: "I want to set up KiroCrew to automatically review PRs and..."
+      description: Describe what someone would be trying to accomplish
+      placeholder: |
+        I want to set up KiroCrew to automatically review PRs and...
+        
+        Or: How do I make KiroCrew remember my project's coding style?
     validations:
       required: true
 
@@ -21,7 +26,24 @@ body:
     id: context
     attributes:
       label: Why is this useful?
-      description: Who would use this and when?
+      description: Who would use this and when? What problem does it solve?
+      placeholder: |
+        This would help teams who want to automate their code review process...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category fits best?
+      options:
+        - Memory — Making KiroCrew remember things
+        - Automation — Scheduled tasks and triggers
+        - Agents — Working with subagents and crews
+        - Integration — Connecting to external tools
+        - Debugging — Fixing problems
+        - Other / Not sure
     validations:
       required: false
 
@@ -29,5 +51,6 @@ body:
     id: contribution
     attributes:
       label: Would you like to write this recipe?
+      description: We welcome contributions! See CONTRIBUTING.md for the guide.
       options:
         - label: I'd like to contribute this recipe myself

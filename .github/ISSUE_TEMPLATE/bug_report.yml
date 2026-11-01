@@ -1,19 +1,34 @@
-name: Bug Report
-description: Report an error or problem with a recipe
+name: Bug Report / Typo
+description: Report an error, typo, or problem with a recipe
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting an issue! Please fill out the details below.
+        Thanks for helping improve the cookbook! Please fill out the details below.
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue type
+      description: What kind of problem did you find?
+      options:
+        - Typo or grammar error
+        - Incorrect information
+        - Broken link
+        - Code example doesn't work
+        - Missing information
+        - Other
+    validations:
+      required: true
 
   - type: input
-    id: recipe
+    id: page-url
     attributes:
-      label: Recipe
-      description: Which recipe has the problem?
-      placeholder: "e.g., recipes/make-it-remember"
+      label: Page URL or path
+      description: Which page has the problem?
+      placeholder: "e.g., https://requix.github.io/kirocrew-cookbook/recipes/make-it-remember.html or recipes/make-it-remember"
     validations:
       required: true
 
@@ -21,24 +36,34 @@ body:
     id: description
     attributes:
       label: What's wrong?
-      description: Describe the error or problem
-      placeholder: "The command in step 3 returns an error..."
+      description: Describe the error or problem. For typos, quote the incorrect text.
+      placeholder: |
+        The command in step 3 returns an error...
+        
+        Or for typos: "configuratoin" should be "configuration" in the second paragraph.
     validations:
       required: true
 
   - type: textarea
     id: expected
     attributes:
-      label: What should happen?
-      description: What did you expect instead?
+      label: What should it say?
+      description: If you know the correct information, please share it.
     validations:
       required: false
 
   - type: input
     id: kirocrew-version
     attributes:
-      label: KiroCrew version
+      label: KiroCrew version (if applicable)
       description: Run `kirocrew --version` to find this
       placeholder: "e.g., 1.2.3"
     validations:
       required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Would you like to fix this yourself?
+      options:
+        - label: I'd like to submit a PR to fix this issue

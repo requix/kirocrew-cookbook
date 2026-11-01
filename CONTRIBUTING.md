@@ -2,6 +2,15 @@
 
 Thank you for contributing! This guide covers how to add or update recipes.
 
+## Ways to contribute
+
+| What | How |
+|------|-----|
+| Found a typo? | [Open a bug report](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) or submit a PR |
+| Recipe doesn't work? | [Open a bug report](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) with KiroCrew version |
+| Have a recipe idea? | [Suggest a recipe](https://github.com/requix/kirocrew-cookbook/issues/new?template=new_recipe.yml) |
+| Want to write a recipe? | Fork, write, and open a PR (see below) |
+
 ## Before you start
 
 - **Test your recipe.** Every step should work on a fresh KiroCrew install.
@@ -10,7 +19,15 @@ Thank you for contributing! This guide covers how to add or update recipes.
 
 ## Adding a recipe
 
-### 1. Create the file
+### 1. Fork and clone
+
+```bash
+# Fork via GitHub, then:
+git clone https://github.com/YOUR_USERNAME/kirocrew-cookbook.git
+cd kirocrew-cookbook
+```
+
+### 2. Create the file
 
 Copy the template:
 
@@ -20,7 +37,7 @@ cp content/recipes/TEMPLATE.txt content/recipes/your-recipe-name.md
 
 Use lowercase, hyphens, no spaces.
 
-### 2. Fill in the frontmatter
+### 3. Fill in the frontmatter
 
 Every recipe needs this exact frontmatter:
 
@@ -40,7 +57,7 @@ prerequisites:                     # Optional, list of things needed first
 ---
 ```
 
-### 3. Write the content
+### 4. Write the content
 
 Structure:
 
@@ -70,7 +87,7 @@ Continue with numbered steps.
 Common mistakes and how to fix them.
 ```
 
-### 4. Register the recipe
+### 5. Register the recipe
 
 Add your filename (without `.md`) to `content/recipes/meta.json`:
 
@@ -81,7 +98,7 @@ Add your filename (without `.md`) to `content/recipes/meta.json`:
 }
 ```
 
-### 5. Build and test
+### 6. Build and test
 
 ```bash
 cd build/preview
@@ -97,11 +114,31 @@ The build validates:
 
 Fix any errors before committing.
 
-### 6. Open a PR
+### 7. Open a PR
 
+```bash
+git checkout -b recipe/your-recipe-name
+git add .
+git commit -m "docs: add recipe for your-topic"
+git push origin recipe/your-recipe-name
+```
+
+Then open a PR on GitHub.
+
+**PR guidelines:**
 - One recipe per PR
 - PR title: `docs: add recipe for <topic>`
 - Include a screenshot if the recipe has visual output
+
+## Fixing typos and errors
+
+For small fixes:
+
+1. Fork the repo
+2. Edit the file directly on GitHub or locally
+3. Open a PR with title: `fix: typo in <page-name>` or `fix: correct <what>`
+
+No need to run the build for typo fixes — CI will validate.
 
 ## Style guide
 
@@ -126,6 +163,11 @@ Fix any errors before committing.
 
 Same process, but note what changed in the PR description. Update the `updated` date in frontmatter.
 
+## Code of Conduct
+
+Be kind. Be helpful. Assume good intent.
+
 ## Questions?
 
-Open an issue or ask in the KiroCrew community.
+- [Open an issue](https://github.com/requix/kirocrew-cookbook/issues)
+- Ask in the [KiroCrew community](https://crew.kiro.dev/community)
