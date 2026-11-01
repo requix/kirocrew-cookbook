@@ -61,6 +61,7 @@ I_COPY = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="
           '<path d="M3.5 10.5h-2v-9h9v2"/></svg>')
 I_SEARCH = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.75"/>'
             '<path d="m10.5 10.5 3.5 3.5"/></svg>')
+I_GITHUB = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>')
 I_DOC = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5h5l3.5 3.5v9.5H4z"/>'
          '<path d="M9 1.5V5h3.5M6.5 8.5h3.5M6.5 11h3.5"/></svg>')
 I_ARROW = '<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>'
@@ -383,6 +384,7 @@ def nav(depth: int, current: str = "") -> str:
 </ul></nav>
 <div class="vc-nav__end">
 <a class="vc-nav__action" href="{r}recipes/index.html#search" data-search-href="{r}recipes/index.html#search" aria-label="Search recipes" title="Search recipes (⌘K)">{I_SEARCH}</a>
+<a class="vc-nav__action" href="https://github.com/requix/kirocrew-cookbook" aria-label="GitHub repository" title="View on GitHub">{I_GITHUB}</a>
 <a class="vc-btn vc-btn--primary vc-nav__cta" href="{r}index.html#paths">Start {I_ARROW}</a>
 </div></div></header>
 """
@@ -397,6 +399,9 @@ def footer(site: dict, depth: int) -> str:
 {cols}
 <div><p class="vc-label">For agents</p><ul><li><a href="{rel(depth)}llms.txt">llms.txt</a></li>
 <li><a href="{rel(depth)}start/first-hour.md">Markdown per page</a></li></ul></div>
+<div><p class="vc-label">Contribute</p><ul><li><a href="https://github.com/requix/kirocrew-cookbook">GitHub</a></li>
+<li><a href="https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml">Report an issue</a></li>
+<li><a href="https://github.com/requix/kirocrew-cookbook/issues/new?template=new_recipe.yml">Suggest a recipe</a></li></ul></div>
 </div></footer>
 <script src="{rel(depth)}assets/site.js"></script>
 </body>

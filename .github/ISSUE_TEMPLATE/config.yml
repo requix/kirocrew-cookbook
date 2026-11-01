@@ -3,3 +3,6 @@ contact_links:
   - name: KiroCrew Community
     url: https://crew.kiro.dev/community
     about: Ask questions and get help from the community
+  - name: KiroCrew Documentation
+    url: https://crew.kiro.dev/docs
+    about: Official KiroCrew documentation
