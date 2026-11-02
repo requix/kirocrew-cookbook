@@ -9,12 +9,12 @@ tags: [cron, schedules, notifications]
 updated: 2026-10-29
 featured: false
 prerequisites:
-  - KiroCrew running (see Your first hour)
+  - Kiro Crew running (see Your first hour)
 ---
 
 **Problem.** Some work should happen without you. A morning check. A nightly scan. A weekly report. You do not want to remember to run it, and you do not want to sit and watch it.
 
-That is a **cron job**: a task KiroCrew runs on a schedule, on its own.
+That is a **cron job**: a task Kiro Crew runs on a schedule, on its own.
 
 ## Steps
 
@@ -26,7 +26,7 @@ You do not write cron syntax. You say when and what:
 Every weekday at 8am, check my main repo for open PRs that have no review yet, and send me a summary.
 ```
 
-KiroCrew creates the job. It picks the schedule from your words ("every weekday at 8am").
+Kiro Crew creates the job. It picks the schedule from your words ("every weekday at 8am").
 
 ### 2. Say where the result goes
 
@@ -98,4 +98,4 @@ Notice the pattern: **report only when there is something to report.** A job tha
 
 ## What you learned
 
-Describe the schedule in words; KiroCrew builds the job. Send the result where you want it. Pick lightweight for pure checkers. Trigger once to prove it. And make it report only when it matters.
+Describe the schedule in words; Kiro Crew builds the job. Send the result where you want it. Pick lightweight for pure checkers. Trigger once to prove it. And make it report only when it matters.

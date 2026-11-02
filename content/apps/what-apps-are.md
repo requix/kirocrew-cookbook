@@ -1,6 +1,6 @@
 ---
-title: What KiroCrew apps are
-description: What a KiroCrew app is, what it can add, how it installs and gets trusted, and how agents use it.
+title: What Kiro Crew apps are
+description: What a Kiro Crew app is, what it can add, how it installs and gets trusted, and how agents use it.
 category: Apps
 difficulty: intermediate
 time: 14 min
@@ -9,15 +9,15 @@ tags: [apps, app-store, permissions, trust, manifest]
 updated: 2026-10-30
 featured: false
 prerequisites:
-  - KiroCrew running (see Your first hour)
+  - Kiro Crew running (see Your first hour)
   - Comfortable with the dashboard sidebar and the kirocrew CLI
 ---
 
-Your KiroCrew surface is not fixed. The pages in the sidebar, the agents in the picker, the skills on disk, the MCP tools an agent can call, the jobs on the schedule — a chunk of all that comes from apps, and it changes when you enable or disable one. If a tool you expected is missing, or a page appeared you did not add, an app is usually the reason. This page explains what an app is, what it can bring, how it installs and gets trusted, and how an agent reaches into one.
+Your Kiro Crew surface is not fixed. The pages in the sidebar, the agents in the picker, the skills on disk, the MCP tools an agent can call, the jobs on the schedule — a chunk of all that comes from apps, and it changes when you enable or disable one. If a tool you expected is missing, or a page appeared you did not add, an app is usually the reason. This page explains what an app is, what it can bring, how it installs and gets trusted, and how an agent reaches into one.
 
 ## What an app is
 
-An app is a folder with an `app.json` manifest at its root. The manifest declares the app's identity (`name`, `version`, `displayName`, `description`) and then, optionally, every resource and capability the app contributes. KiroCrew reads the manifest to decide what the app adds and what it is allowed to do. Nothing about an app is magic: it is data in a JSON file plus the files that data points at.
+An app is a folder with an `app.json` manifest at its root. The manifest declares the app's identity (`name`, `version`, `displayName`, `description`) and then, optionally, every resource and capability the app contributes. Kiro Crew reads the manifest to decide what the app adds and what it is allowed to do. Nothing about an app is magic: it is data in a JSON file plus the files that data points at.
 
 The `name` is a kebab-case identifier and becomes a directory name, so it is checked hard at install — it cannot be `system`, `library`, `registry` and a few other reserved segments, and it cannot be a Windows device stem like `con` or `nul`.
 
@@ -47,7 +47,7 @@ What an app contributes is not fixed at build time either. A contributed command
 
 ## Where apps come from
 
-- **Built in.** 24 apps ship inside the KiroCrew package. Almost all are off until you turn them on; **Command Bar** and **Task Runner** are the two on from a fresh install.
+- **Built in.** 24 apps ship inside the Kiro Crew package. Almost all are off until you turn them on; **Command Bar** and **Task Runner** are the two on from a fresh install.
 - **The official store.** The **Discover** page (`/apps`) reads the published catalog at `apps.crew.kiro.dev`, cached for an hour. When the fetch fails it falls back to a small seed list bundled in your build.
 - **An external registry.** Open **Manage app sources** on **Discover** to add an organization's own registry.
 - **A local path.** `kirocrew app install /path/to/my-app` installs a directory you built. Local-path installs skip the `onInstall` build hook, so build first.
@@ -76,7 +76,7 @@ The states run install → trust → enable → update → disable → uninstall
 
 Enabling an app runs its code in the gateway's own process. App Python is imported into the gateway; there is no process-level sandbox around app code, and the manifest's `permissions` block gates the SDK tool surface handed to the app, not its imports, filesystem or network use. So the honest rule is the plain one: only enable apps you trust.
 
-KiroCrew makes the boundary explicit instead of hiding it. The decision lives in one place — `apps/execution.py` — and it defaults to deny.
+Kiro Crew makes the boundary explicit instead of hiding it. The decision lives in one place — `apps/execution.py` — and it defaults to deny.
 
 - **Builtin apps are trusted like core.** Anything loaded from outside the package is third-party.
 - **Third-party execution is deny-by-default.** `agent.apps_allow_third_party` defaults to `false`, so enabling a third-party app is refused, and so are its hooks, backend, install scripts and `openCommand`, until you grant trust. In the dashboard the refusal becomes a consent dialog that names what the app receives; confirming it trusts that app alone (`agent.apps_trusted`) and retries.
@@ -107,7 +107,7 @@ An enabled app reaches your agents in three ways.
 
 - **Its agents.** Each one is written to `~/.kiro/agents/<app>--<agent>.json`, but you call it by the `name` inside the file. It shows up in the chat's agent selector, and `/agent <name>` or `kirocrew chat --agent <name>` switches to it.
 - **Its skills.** Each skill is linked to `~/.kiro/crew/skills/<app>/<skill>/`. The default agent sees the whole skill catalog. A custom agent, including an app's own agent, sees only the skills mapped to it with a `skill://` entry in its `resources`.
-- **Its MCP tools.** The servers in the app's `mcpServers` are merged into the app's own agents, and a non-empty `mcpTools` limits which of KiroCrew's managed tools those agents get.
+- **Its MCP tools.** The servers in the app's `mcpServers` are merged into the app's own agents, and a non-empty `mcpTools` limits which of Kiro Crew's managed tools those agents get.
 
 An app backend sits behind the gateway at `/apps/<name>/api/`. The app routes need dashboard or app login, so a bare `curl` to them is refused. When an agent says an app's tool is missing, the usual cause is that the app is not installed or not enabled. Check `kirocrew app list` before you debug anything else.
 
@@ -126,7 +126,7 @@ An app can bundle a skill, an agent and an MCP server, so the question is rarely
 
 ## Where apps live on disk
 
-An installed app's files are copied to `~/.kiro/crew/apps/<app-name>/`, and its data lives in `data/` inside that folder, with key-value storage under `data/kv/`. KiroCrew runs that copy, not the folder you installed from. Built-in apps run from inside the KiroCrew package. The trust settings live in `config.json` under `agent.apps_trusted` and `agent.apps_allow_third_party`.
+An installed app's files are copied to `~/.kiro/crew/apps/<app-name>/`, and its data lives in `data/` inside that folder, with key-value storage under `data/kv/`. Kiro Crew runs that copy, not the folder you installed from. Built-in apps run from inside the Kiro Crew package. The trust settings live in `config.json` under `agent.apps_trusted` and `agent.apps_allow_third_party`.
 
 ## What an app cannot do
 

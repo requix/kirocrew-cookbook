@@ -1,5 +1,5 @@
 ---
-title: How KiroCrew keeps you safe
+title: How Kiro Crew keeps you safe
 description: The layers a tool call passes through before it runs, and what each one actually stops.
 category: Concepts
 difficulty: intermediate
@@ -12,7 +12,7 @@ featured: false
 
 You are about to let an agent run shell commands, edit files, and act on a schedule with nobody watching. The useful question is what stands between the model and damage when it is wrong, confused, or talked into something by a web page it read.
 
-KiroCrew's answer is a stack of checks that every tool call passes through before it runs. Most of them live in the gateway, not in the agent, which is the point: the agent cannot turn off a check it does not control. This page walks the stack in the order a tool call meets it, says what each layer stops, and — at the end — says plainly what it does not.
+Kiro Crew's answer is a stack of checks that every tool call passes through before it runs. Most of them live in the gateway, not in the agent, which is the point: the agent cannot turn off a check it does not control. This page walks the stack in the order a tool call meets it, says what each layer stops, and — at the end — says plainly what it does not.
 
 ## What is protected, and from what
 
@@ -75,7 +75,7 @@ The gate (`HookManager.on_tool_call`) returns one of three verdicts: deny (block
 
 **Reads** leans on a read-only bash classifier (`readonly_bash.py`): it is **deny-by-default** and prefix-matched, so it rejects redirections, command substitutions, and newline-separator bypasses rather than trying to guess intent from a complex line. `cat ~/.aws/credentials` does not auto-approve under **Reads**, and the classifier is not the reason. The sensitive-path keystone, the first check in the gate, denies it outright, ahead of any mode.
 
-**YOLO** is never permanent. It turns itself off after a set time (`agent.yolo_duration`, default 6 hours) and then asks again, or, if you choose that option, when KiroCrew restarts. Every grant and expiry is written to the audit log. An enterprise policy can disable any of these modes; the picker then shows it as disabled by your organization's security policy.
+**YOLO** is never permanent. It turns itself off after a set time (`agent.yolo_duration`, default 6 hours) and then asks again, or, if you choose that option, when Kiro Crew restarts. Every grant and expiry is written to the audit log. An enterprise policy can disable any of these modes; the picker then shows it as disabled by your organization's security policy.
 
 A crewmate's own chat has its own mode too.
 
@@ -206,10 +206,10 @@ kirocrew security verify
 
 - **Denied commands are not a boundary.** They read the command line, not what it runs. A wrapped or indirected command is logged as its wrapper and is not matched. The OS sandbox is the real fence; the deny list raises the cost of the obvious spelling.
 - **Standard sandbox leaves `~/.aws`/`~/.ssh`/`~/.kube` OS-visible.** The file-tool gate still refuses them, but a plain shell `cat` is not sealed at the default tier. Use `strict` if a raw read must be impossible.
-- **The vault's boundary is KiroCrew, not the OS.** Another program running as you can still open `.vault`. It protects against the agent, not against a process with your uid.
-- **Governance governs KiroCrew's own gate, not the harness's blanket allow-list.** An agent that writes a tool into kiro-cli's `allowedTools` makes the harness stop sending permission requests, short-circuiting Plane A for that tool. KiroCrew re-filters those lists when the ceiling tightens, but a session already negotiated keeps its grants until it restarts.
+- **The vault's boundary is Kiro Crew, not the OS.** Another program running as you can still open `.vault`. It protects against the agent, not against a process with your uid.
+- **Governance governs Kiro Crew's own gate, not the harness's blanket allow-list.** An agent that writes a tool into kiro-cli's `allowedTools` makes the harness stop sending permission requests, short-circuiting Plane A for that tool. Kiro Crew re-filters those lists when the ceiling tightens, but a session already negotiated keeps its grants until it restarts.
 - **The web terminal PTY is ungoverned by design.** It is an operator-only surface; a command typed into it passes neither the `commands` scope nor the sandbox classifier.
 - **Secrets can still leave if you hand them out.** Nothing stops *you* pasting a token into a prompt, or an MCP server you installed from doing what it was built to do. These layers constrain the agent and the host; they do not vet third-party code you chose to trust.
 - **On a non-enterprise host, the ceiling is yours to lower.** Everything here is "secure by default, not by mandate" — the one invariant is that the *agent* cannot edit the policy/profile files. A human at the keyboard can.
 
-The short version: the gate decides, the sandbox enforces, the trust-root files are the one thing the agent cannot touch, and the SEL records all of it. For the mental model behind the gateway-versus-agent split, see [what KiroCrew is](what-kirocrew-is.md); for where memory lives under all this, see [make it remember](../recipes/make-it-remember.md).
+The short version: the gate decides, the sandbox enforces, the trust-root files are the one thing the agent cannot touch, and the SEL records all of it. For the mental model behind the gateway-versus-agent split, see [what Kiro Crew is](what-kirocrew-is.md); for where memory lives under all this, see [make it remember](../recipes/make-it-remember.md).

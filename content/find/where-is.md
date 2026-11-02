@@ -1,6 +1,6 @@
 ---
 title: "Where is it? The hard-to-find controls"
-description: Pick a task, and a pointer walks the clicks to a hidden control in a drawn KiroCrew dashboard. Experimental.
+description: Pick a task, and a pointer walks the clicks to a hidden control in a drawn Kiro Crew dashboard. Experimental.
 category: Find your way
 difficulty: beginner
 time: 5 min
@@ -11,7 +11,7 @@ featured: true
 layout: wide
 ---
 
-A few KiroCrew controls are hard to find, and this page covers only those. Pick a task, and a pointer clicks through a drawing of the dashboard. The numbered steps above the drawing say the same in words.
+A few Kiro Crew controls are hard to find, and this page covers only those. Pick a task, and a pointer clicks through a drawing of the dashboard. The numbered steps above the drawing say the same in words.
 
 ```find-your-way
 ```
@@ -21,9 +21,9 @@ A few KiroCrew controls are hard to find, and this page covers only those. Pick 
 
 ## Same thing, different name
 
-Some KiroCrew names differ from the words people search for. The search box above knows both, and this table lists the common ones.
+Some Kiro Crew names differ from the words people search for. The search box above knows both, and this table lists the common ones.
 
-| You may call it | KiroCrew calls it | Where |
+| You may call it | Kiro Crew calls it | Where |
 |---|---|---|
 | Working directory, cwd | Project | The folder name under the message box |
 | Crewmate, crew member | Mate | **Customize → Mates** |
@@ -63,6 +63,6 @@ The same answers without the animation. Each task name links to its animation ab
 
 ## Where the labels and drawing come from
 
-This page and [the dashboard map](dashboard-map.md) use the same sources. The labels and click paths come from KiroCrew's own UI index. It is the file the agent reads to find controls, and it ships inside each KiroCrew release. Both pages use the copy from KiroCrew 0.11.0. A release can move or rename things, so the cookbook build checks every task and every map part against that copy and stops if a control is gone.
+This page and [the dashboard map](dashboard-map.md) use the same sources. The labels and click paths come from Kiro Crew's own UI index. It is the file the agent reads to find controls, and it ships inside each Kiro Crew release. Both pages use the copy from Kiro Crew 0.11.0. A release can move or rename things, so the cookbook build checks every task and every map part against that copy and stops if a control is gone.
 
-Two controls are not in the index yet: the project folder and the agent picker under the message box. Their paths come from the KiroCrew docs instead. The drawing follows real KiroCrew screenshots but leaves things out, so your screen shows more than it does.
+Two controls are not in the index yet: the project folder and the agent picker under the message box. Their paths come from the Kiro Crew docs instead. The drawing follows real Kiro Crew screenshots but leaves things out, so your screen shows more than it does.

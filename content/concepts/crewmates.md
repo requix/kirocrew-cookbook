@@ -9,7 +9,7 @@ tags: [crewmates, memory, routing, agents]
 updated: 2026-10-30
 featured: false
 prerequisites:
-  - KiroCrew running (see Your first hour)
+  - Kiro Crew running (see Your first hour)
   - You have used the default agent for real work
 ---
 
@@ -114,7 +114,7 @@ Enter a name - `build-watcher`. Press **Edit avatar** if you want a distinct fac
 
 ### 3. Pick its workspace and set triggers
 
-Under Advanced, set **Built from** to a template (leave it as `kirocrew` unless you have a reason). The **workspace** is a named KiroCrew workspace: the folder that holds its notes and files. It is not your repo. Keep the default unless you run a separate workspace for this kind of work; you point it at the repo in its chat in step 5. Then give it **triggers** that route build work to it:
+Under Advanced, set **Built from** to a template (leave it as `kirocrew` unless you have a reason). The **workspace** is a named Kiro Crew workspace: the folder that holds its notes and files. It is not your repo. Keep the default unless you run a separate workspace for this kind of work; you point it at the repo in its chat in step 5. Then give it **triggers** that route build work to it:
 
 ```text
 ci, build, pipeline, failing test, broken build

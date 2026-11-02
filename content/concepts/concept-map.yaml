@@ -11,7 +11,7 @@ canvas: [760, 560]
 
 container:
   id: gateway
-  name: KiroCrew gateway
+  name: Kiro Crew gateway
   sub: one process on your machine
   box: [172, 30, 576, 522]
 

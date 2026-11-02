@@ -11,7 +11,7 @@ featured: true
 layout: wide
 ---
 
-KiroCrew has about a dozen words that matter, and the dashboard spreads them over many pages. This page puts them on one diagram, which adds each piece as you read the numbered steps.
+Kiro Crew has about a dozen words that matter, and the dashboard spreads them over many pages. This page puts them on one diagram, which adds each piece as you read the numbered steps.
 
 ```find-your-way
 ```
@@ -21,7 +21,7 @@ KiroCrew has about a dozen words that matter, and the dashboard spreads them ove
 
 ### 1. You talk to one gateway
 
-KiroCrew is one process on your machine: the gateway. The dashboard, the `kirocrew` CLI and chat apps such as Slack or Teams are different doors into the same gateway, and everything else on this diagram lives inside it.
+Kiro Crew is one process on your machine: the gateway. The dashboard, the `kirocrew` CLI and chat apps such as Slack or Teams are different doors into the same gateway, and everything else on this diagram lives inside it.
 
 In the dashboard: the green dot in the top bar means you are connected. See [the dashboard map](../find/dashboard-map.md#zone=x.status).
 
@@ -51,9 +51,9 @@ In the dashboard: **Customize → Steering** and **Customize → Skills**. Read 
 
 ### 6. Tools do the work, through one gate
 
-The agent acts through tools: the shell, files, search, and the tools of any MCP server you connect. Every tool call passes KiroCrew's gate first. Depending on the approval mode and your rules, the gate lets it run, asks you, or blocks it, and the agent cannot switch the gate off.
+The agent acts through tools: the shell, files, search, and the tools of any MCP server you connect. Every tool call passes Kiro Crew's gate first. Depending on the approval mode and your rules, the gate lets it run, asks you, or blocks it, and the agent cannot switch the gate off.
 
-In the dashboard: the **Normal** button in the message box sets the approval mode, and **Customize → Connections** holds MCP servers. Read [How KiroCrew keeps you safe](security.md).
+In the dashboard: the **Normal** button in the message box sets the approval mode, and **Customize → Connections** holds MCP servers. Read [How Kiro Crew keeps you safe](security.md).
 
 ### 7. Memory carries over; the library is looked up
 
@@ -71,7 +71,7 @@ In the dashboard: **Customize → Mates** lists your mates and makes new ones. T
 
 A schedule starts a session on a timer, with an agent and a message, so work runs while you are away. An app adds pieces of every kind at once: agents, skills, MCP tools, schedules and dashboard pages, all behind one switch.
 
-In the dashboard: **Schedule** in the sidebar, and **Discover** and **Library** under **Apps**. Read [Schedule real work](../recipes/schedule-real-work.md) and [What KiroCrew apps are](../apps/what-apps-are.md).
+In the dashboard: **Schedule** in the sidebar, and **Discover** and **Library** under **Apps**. Read [Schedule real work](../recipes/schedule-real-work.md) and [What Kiro Crew apps are](../apps/what-apps-are.md).
 
 ## The whole picture in one sentence
 
@@ -79,4 +79,4 @@ A session runs an agent in a project folder, shaped by steering and skills, acti
 
 ## Where to go next
 
-The layer under all of this, the gateway, the harness and the model, is explained in [What KiroCrew actually is](what-kirocrew-is.md).
+The layer under all of this, the gateway, the harness and the model, is explained in [What Kiro Crew actually is](what-kirocrew-is.md).
