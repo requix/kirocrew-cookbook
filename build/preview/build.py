@@ -403,7 +403,7 @@ def footer(site: dict, depth: int) -> str:
 <li><a href="{rel(depth)}start/first-hour.md">Markdown per page</a></li></ul></div>
 <div><p class="vc-label">Contribute</p><ul><li><a href="https://github.com/requix/kirocrew-cookbook">GitHub</a></li>
 <li><a href="https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml">Report an issue</a></li>
-<li><a href="https://github.com/requix/kirocrew-cookbook/issues/new?template=new_recipe.yml">Suggest a recipe</a></li></ul></div>
+<li><a href="https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml">Suggest content</a></li></ul></div>
 </div></footer>
 <script src="{rel(depth)}assets/site.js"></script>
 </body>

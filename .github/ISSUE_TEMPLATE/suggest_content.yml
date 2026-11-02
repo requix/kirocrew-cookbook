@@ -1,0 +1,55 @@
+name: Suggest Content
+description: Suggest a new recipe, concept article, or other topic for the cookbook
+title: "[Content]: "
+labels: ["content-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for the cookbook? Tell us what you'd like documented.
+
+        The best suggestions come from real tasks you've done (or tried to do) with KiroCrew, or from gaps you hit while reading the docs. Don't worry about where it fits — we'll decide the category and type when it's written.
+
+  - type: textarea
+    id: topic
+    attributes:
+      label: What should this cover?
+      description: Describe the task, concept, or question you'd like documented.
+      placeholder: |
+        I want to set up KiroCrew to automatically review PRs and...
+
+        Or: What's the difference between a custom agent and a Mate, and when do I use each?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Why is this useful?
+      description: Who would use this and when? What problem does it solve?
+      placeholder: |
+        This would help teams who want to automate their code review process...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: Content type (optional)
+      description: If you have a sense of what kind of content this is, let us know. Leave blank if unsure — we'll classify it.
+      options:
+        - Not sure / let the maintainers decide
+        - Recipe — step-by-step how-to for a specific task
+        - Concept — explains how something works or when to use it
+        - Getting started — first-run / onboarding material
+        - App — using a specific KiroCrew app or integration
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Would you like to write this yourself?
+      description: We welcome contributions! See CONTRIBUTING.md for the guide.
+      options:
+        - label: I'd like to contribute this content myself
