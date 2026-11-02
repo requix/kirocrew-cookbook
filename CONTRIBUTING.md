@@ -184,4 +184,3 @@ Be kind. Be helpful. Assume good intent.
 ## Questions?
 
 - [Open an issue](https://github.com/requix/kirocrew-cookbook/issues)
-- Ask in the [Kiro Crew community](https://crew.kiro.dev/community)
