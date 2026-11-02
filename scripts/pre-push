@@ -1,0 +1,14 @@
+#!/bin/sh
+# Pre-push hook: run tests and build before pushing.
+# Install: git config core.hooksPath scripts
+set -e
+
+cd "$(git rev-parse --show-toplevel)"
+
+echo "Running tests..."
+python3 -m pytest tests/ -q --tb=short
+
+echo "Running build..."
+python3 build/preview/build.py
+
+echo "All checks passed."

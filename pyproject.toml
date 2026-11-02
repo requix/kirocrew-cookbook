@@ -1,0 +1,21 @@
+[project]
+name = "kirocrew-cookbook"
+version = "0.1.0"
+description = "KiroCrew Cookbook - recipes and guides"
+requires-python = ">=3.11"
+dependencies = [
+    "markdown-it-py",
+    "pygments",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "pytest-cov",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["build/preview"]
+addopts = "-q --tb=short"
