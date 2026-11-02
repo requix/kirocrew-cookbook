@@ -1,17 +1,17 @@
-# KiroCrew Cookbook
+# Kiro Crew Cookbook
 
 [![Build and Deploy](https://github.com/requix/kirocrew-cookbook/actions/workflows/deploy.yml/badge.svg)](https://github.com/requix/kirocrew-cookbook/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Recipes from real work with KiroCrew. Checked against the KiroCrew source, not written from memory.
+Recipes from real work with Kiro Crew. Checked against the Kiro Crew source, not written from memory.
 
 🌐 **Live site:** [requix.github.io/kirocrew-cookbook](https://requix.github.io/kirocrew-cookbook)
 
 ## What's inside
 
 - **Getting started guides** — Install, first hour, dashboard basics
-- **Core concepts** — How KiroCrew works under the hood
-- **Apps documentation** — Building and using KiroCrew apps
+- **Core concepts** — How Kiro Crew works under the hood
+- **Apps documentation** — Building and using Kiro Crew apps
 - **Recipes** — Step-by-step solutions to real problems
 
 ## Quick start
@@ -110,6 +110,6 @@ MIT License. See [LICENSE](LICENSE).
 ## Links
 
 - [Live Cookbook](https://requix.github.io/kirocrew-cookbook)
-- [KiroCrew](https://crew.kiro.dev)
+- [Kiro Crew](https://crew.kiro.dev)
 - [Report an Issue](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml)
 - [Suggest Content](https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml)
