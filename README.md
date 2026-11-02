@@ -84,9 +84,9 @@ We welcome contributions! Here's how you can help:
 
 [Open an issue](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) describing what's wrong and where you found it.
 
-### Have a recipe idea?
+### Have a content idea?
 
-[Suggest a new recipe](https://github.com/requix/kirocrew-cookbook/issues/new?template=new_recipe.yml) — tell us what task you'd like documented.
+[Suggest content](https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml) — tell us what recipe, concept, or topic you'd like documented.
 
 ### Want to contribute a recipe?
 
@@ -112,4 +112,4 @@ MIT License. See [LICENSE](LICENSE).
 - [Live Cookbook](https://requix.github.io/kirocrew-cookbook)
 - [KiroCrew](https://crew.kiro.dev)
 - [Report an Issue](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml)
-- [Suggest a Recipe](https://github.com/requix/kirocrew-cookbook/issues/new?template=new_recipe.yml)
+- [Suggest Content](https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml)

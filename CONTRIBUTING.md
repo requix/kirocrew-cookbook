@@ -8,7 +8,7 @@ Thank you for contributing! This guide covers how to add or update recipes.
 |------|-----|
 | Found a typo? | [Open a bug report](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) or submit a PR |
 | Recipe doesn't work? | [Open a bug report](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) with KiroCrew version |
-| Have a recipe idea? | [Suggest a recipe](https://github.com/requix/kirocrew-cookbook/issues/new?template=new_recipe.yml) |
+| Have a content idea? | [Suggest content](https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml) |
 | Want to write a recipe? | Fork, write, and open a PR (see below) |
 
 ## Before you start
