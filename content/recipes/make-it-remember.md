@@ -9,10 +9,10 @@ tags: [memory, lessons]
 updated: 2026-10-29
 featured: false
 prerequisites:
-  - KiroCrew running (see Your first hour)
+  - Kiro Crew running (see Your first hour)
 ---
 
-**Problem.** You told the agent something yesterday. Today it forgot. Or worse: it remembered the wrong thing and now repeats a stale fact. Memory is KiroCrew's headline feature, and it is the one people set up wrong.
+**Problem.** You told the agent something yesterday. Today it forgot. Or worse: it remembered the wrong thing and now repeats a stale fact. Memory is Kiro Crew's headline feature, and it is the one people set up wrong.
 
 This recipe shows what to teach it, how, and what to keep out.
 
@@ -27,7 +27,7 @@ Everything else — a ticket number, today's bug, a one-off path — does **not*
 
 ## Two memory tiers
 
-KiroCrew has two memory stores. Know which one you are in.
+Kiro Crew has two memory stores. Know which one you are in.
 
 | Tier | Who has it | Shared across sessions? |
 |---|---|---|

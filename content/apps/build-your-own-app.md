@@ -1,5 +1,5 @@
 ---
-title: Build your own KiroCrew app
+title: Build your own Kiro Crew app
 description: Build a standup app in three levels (agent and skill, dashboard page, weekday cron) and check each one works.
 category: Apps
 difficulty: advanced
@@ -9,12 +9,12 @@ tags: [apps, app-kit, scaffold, agent, cron, vite]
 updated: 2026-10-30
 featured: true
 prerequisites:
-  - KiroCrew running, gateway up
+  - Kiro Crew running, gateway up
   - git, and a repository with a few recent commits
   - Node.js 22.12 or newer, for Level 2 only
 ---
 
-You can already give KiroCrew an agent, a skill and a schedule by hand: drop a JSON file in `~/.kiro/agents`, write a `SKILL.md`, add a cron. An app puts all of that in one folder with an `app.json` manifest, so it installs, gets trusted, turns on and turns off as one unit. You can also share that folder. The concept is in [what apps are](./what-apps-are.md). This page builds one.
+You can already give Kiro Crew an agent, a skill and a schedule by hand: drop a JSON file in `~/.kiro/agents`, write a `SKILL.md`, add a cron. An app puts all of that in one folder with an `app.json` manifest, so it installs, gets trusted, turns on and turns off as one unit. You can also share that folder. The concept is in [what apps are](./what-apps-are.md). This page builds one.
 
 The example is `standup-notes`. It writes your daily standup from a project's git history. You build it in three levels, and each level works on its own:
 
@@ -24,7 +24,7 @@ The example is `standup-notes`. It writes your daily standup from a project's gi
 | 2 | A dashboard page with one button | Yes, 22.12+ |
 | 3 | A cron that runs on weekday mornings | No |
 
-The files below start from what `kirocrew app init` writes in KiroCrew 0.11.0, edited for the task. The manifest checks were run against that release's own validator.
+The files below start from what `kirocrew app init` writes in Kiro Crew 0.11.0, edited for the task. The manifest checks were run against that release's own validator.
 
 ## Level 1: agent and skill
 
@@ -98,9 +98,9 @@ Replace `agents/standup-writer.json`:
 
 Three fields do the real work.
 
-- `name` is how you call the agent. KiroCrew writes the file as `~/.kiro/agents/standup-notes--standup-writer.json`, but agents are found by the `name` inside the file. So the agent is `standup-writer`, not `standup-notes--standup-writer`.
-- `tools` is what the agent can use. `git log` needs the shell, which is `execute_bash`. The scaffold ships `"tools": []`, and with that the agent cannot run anything. `@kirocrew-core/skill_search` mounts one tool from KiroCrew's own server; KiroCrew fills in that server's spec when it registers the agent. Nothing here is auto-approved, so each git call asks you first, as in any chat.
-- `resources` maps the skill to the agent. A custom agent sees no skills unless they are mapped with a `skill://` entry. On enable, KiroCrew links each app skill to `~/.kiro/crew/skills/<app>/<skill>/`, and that path is the one to name here. It also makes a short link at `~/.kiro/crew/skills/<skill>/`, but that one can belong to whichever app registered last.
+- `name` is how you call the agent. Kiro Crew writes the file as `~/.kiro/agents/standup-notes--standup-writer.json`, but agents are found by the `name` inside the file. So the agent is `standup-writer`, not `standup-notes--standup-writer`.
+- `tools` is what the agent can use. `git log` needs the shell, which is `execute_bash`. The scaffold ships `"tools": []`, and with that the agent cannot run anything. `@kirocrew-core/skill_search` mounts one tool from Kiro Crew's own server; Kiro Crew fills in that server's spec when it registers the agent. Nothing here is auto-approved, so each git call asks you first, as in any chat.
+- `resources` maps the skill to the agent. A custom agent sees no skills unless they are mapped with a `skill://` entry. On enable, Kiro Crew links each app skill to `~/.kiro/crew/skills/<app>/<skill>/`, and that path is the one to name here. It also makes a short link at `~/.kiro/crew/skills/<skill>/`, but that one can belong to whichever app registered last.
 
 ### 5. Write the skill
 
@@ -136,13 +136,13 @@ The format lives in the skill so you can change it without touching the agent.
 kirocrew app install ~/apps/standup-notes
 ```
 
-Install copies the folder to `~/.kiro/crew/apps/standup-notes/`. From now on KiroCrew reads that copy, not `~/apps`. Do not replace these commands with `curl`: the app routes need dashboard or app login, and a bare request is refused.
+Install copies the folder to `~/.kiro/crew/apps/standup-notes/`. From now on Kiro Crew reads that copy, not `~/apps`. Do not replace these commands with `curl`: the app routes need dashboard or app login, and a bare request is refused.
 
 Check: `kirocrew app list` shows `standup-notes` with status `disabled`.
 
 ### 7. Trust it and turn it on
 
-KiroCrew will not enable an app that is not built in until you trust it. That holds even for this one, which ships no code at all. Try the CLI first, so you see the gate:
+Kiro Crew will not enable an app that is not built in until you trust it. That holds even for this one, which ships no code at all. Try the CLI first, so you see the gate:
 
 ```bash
 kirocrew app enable standup-notes
@@ -307,7 +307,7 @@ Check: `ls ~/apps/standup-notes/ui/dist/index.mjs` finds the bundle.
 
 ### 6. Install the new version
 
-KiroCrew runs the installed copy, so it does not see your edits yet. `kirocrew app install` refuses an app that is already installed, so uninstall and install again:
+Kiro Crew runs the installed copy, so it does not see your edits yet. `kirocrew app install` refuses an app that is already installed, so uninstall and install again:
 
 ```bash
 kirocrew app uninstall standup-notes
@@ -434,7 +434,7 @@ It fails closed: no secret, a missing or malformed header, a timestamp more than
 
 ## Iterate
 
-Changes to `app.json`, the agent or the skill reach KiroCrew through a new install, as in Level 2 step 6.
+Changes to `app.json`, the agent or the skill reach Kiro Crew through a new install, as in Level 2 step 6.
 
 For UI work, dev mode saves the reinstall. It serves the page with caching off, watches the installed `ui/` folder, and reloads the page when a file changes. Point the installed `ui/` at your source folder with one link for the whole folder. A link to a single file answers `404`.
 
@@ -448,7 +448,7 @@ The flag is needed because the folder now lives outside the install. It records 
 
 ## Publish it
 
-So far the app installs from a path on your machine. Publishing puts it in a registry, so other people install it from **Discover**. The store card, icon and screenshots are read from your repository at a pinned commit, so `iconPath` must point at a real file in the repo. Commit the built `ui/dist/` folder: installs skip `node_modules`, `.git` and `.venv`. The full steps, store metadata and review rules are in the KiroCrew repository under `docs/app-kit/publishing-guide.md`.
+So far the app installs from a path on your machine. Publishing puts it in a registry, so other people install it from **Discover**. The store card, icon and screenshots are read from your repository at a pinned commit, so `iconPath` must point at a real file in the repo. Commit the built `ui/dist/` folder: installs skip `node_modules`, `.git` and `.venv`. The full steps, store metadata and review rules are in the Kiro Crew repository under `docs/app-kit/publishing-guide.md`.
 
 ## Verify
 
@@ -499,7 +499,7 @@ kirocrew app uninstall standup-notes --purge-data
 ## Related
 
 - [What apps are](./what-apps-are.md): the parts, the trust gate and the permission model.
-- [Built-in apps](./built-in-apps.md): the 24 apps KiroCrew ships, to read as examples.
+- [Built-in apps](./built-in-apps.md): the 24 apps Kiro Crew ships, to read as examples.
 - [Teach it a skill](../recipes/teach-it-a-skill.md): skills without an app.
 - [Schedule real work](../recipes/schedule-real-work.md): crons without an app.
-- [How KiroCrew keeps you safe](../concepts/security.md): where the trust gate sits.
+- [How Kiro Crew keeps you safe](../concepts/security.md): where the trust gate sits.

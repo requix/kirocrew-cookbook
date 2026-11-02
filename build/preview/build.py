@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a static preview of the KiroCrew Cookbook.
+"""Build a static preview of the Kiro Crew Cookbook.
 
 Look: the violet-carbon-playbook skill. Carbon shape (square corners, flat tiles, 48px shell
 header, no glow) in Kiro colors and fonts. The skill's tokens and overrides carry the whole look.
@@ -43,7 +43,7 @@ CONTENT = PROJECT / "content"
 DESIGN_TOKENS = HERE / "assets" / "design-tokens"
 DIST = HERE / "dist"
 
-SITE = "KiroCrew Cookbook"
+SITE = "Kiro Crew Cookbook"
 DIFFICULTIES = ("beginner", "intermediate", "advanced")
 SURFACES = {"dashboard": "Dashboard", "cli": "CLI", "channels": "Channels"}
 REQUIRED = ("title", "description", "category", "difficulty", "time", "surfaces", "tags", "updated")
@@ -56,7 +56,7 @@ esc = html.escape
 # Icons: stroke-only line icons, colored by currentColor. Product mark: a plain geometric glyph.
 MARK = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path class="vc-mark-outer" d="M12 1.5 22.5 12 12 22.5 1.5 12z"/>'
         '<path class="vc-mark-inner" d="M12 8.25 15.75 12 12 15.75 8.25 12z"/></svg>')
-BRAND = f"{MARK}<span><b>KiroCrew</b> Cookbook</span>"
+BRAND = f"{MARK}<span><b>Kiro Crew</b> Cookbook</span>"
 I_COPY = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8.5" height="8.5"/>'
           '<path d="M3.5 10.5h-2v-9h9v2"/></svg>')
 I_SEARCH = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.75"/>'
@@ -103,6 +103,48 @@ def validate(page: dict) -> list[str]:
     bad = [s for s in m.get("surfaces") or [] if s not in SURFACES]
     if bad:
         errs.append(f"{where}: unknown surfaces {bad}")
+    errs += _brand_name_errors(page)
+    return errs
+
+
+# Brand-name rules
+# ----------------
+# The product is "Kiro Crew" (two words). The CLI command and package are
+# lowercase "kirocrew". Class names and artifact filenames (KiroCrewConfig,
+# KiroCrew.app) are code identifiers and live in code fences or backtick spans.
+# Any occurrence of the CamelCase form in prose is a mistake.
+_WRONG_BRAND = re.compile(r"\bKiroCrew\b")
+_CODE_FENCE = re.compile(r"```[\s\S]*?```")
+_INLINE_CODE = re.compile(r"`[^`\n]+`")
+
+
+def _brand_name_errors(page: dict) -> list[str]:
+    """Flag 'KiroCrew' (no space) in frontmatter or prose body.
+
+    Code fences and inline-code spans are exempt because they contain
+    real identifiers (CLI commands, class names, artifact filenames).
+    URLs containing 'KiroCrew' (e.g. GitHub repo paths) are also exempt.
+    """
+    where = page["src"].relative_to(PROJECT)
+    errs = []
+    # Check frontmatter string values (titles, descriptions, prerequisites…)
+    meta = page["meta"] or {}
+    for key, val in meta.items():
+        items = [val] if isinstance(val, str) else (val if isinstance(val, list) else [])
+        for item in items:
+            if isinstance(item, str) and _WRONG_BRAND.search(item):
+                errs.append(
+                    f"{where}: frontmatter '{key}': write 'Kiro Crew' (two words), not 'KiroCrew'"
+                )
+    # Check prose body: strip code fences, inline code, and markdown URLs
+    prose = _CODE_FENCE.sub("", page["body"])
+    prose = _INLINE_CODE.sub("", prose)
+    # Remove markdown link URLs: [text](url) — keep the text, drop the URL
+    prose = re.sub(r"\]\([^)]+\)", "]()", prose)
+    if _WRONG_BRAND.search(prose):
+        errs.append(
+            f"{where}: prose contains 'KiroCrew'; write 'Kiro Crew' (two words)"
+        )
     return errs
 
 
@@ -397,7 +439,7 @@ def footer(site: dict, depth: int) -> str:
     cols = "".join(f'<div><p class="vc-label">{esc(s["title"])}</p><ul>{links(s["pages"])}</ul></div>' for s in site["sections"])
     return f"""<footer class="vc-footer"><div class="vc-wrap vc-footer__grid">
 <div class="vc-footer__brand"><a class="vc-brand" href="{rel(depth)}index.html">{BRAND}</a>
-<p>Recipes from real work with KiroCrew. Checked against the KiroCrew source, not written from memory.</p></div>
+<p>Recipes from real work with Kiro Crew. Checked against the Kiro Crew source, not written from memory.</p></div>
 {cols}
 <div><p class="vc-label">For agents</p><ul><li><a href="{rel(depth)}llms.txt">llms.txt</a></li>
 <li><a href="{rel(depth)}start/first-hour.md">Markdown per page</a></li></ul></div>
@@ -496,8 +538,8 @@ def landing(site: dict) -> str:
 <div class="vc-hero__lines vc-grid-lines" aria-hidden="true"></div>
 <div class="vc-hero__grid">
 <div>
-<p class="vc-label">KiroCrew Cookbook / First edition</p>
-<h1>{esc(m["hero"])}</h1>
+<p class="vc-label">Kiro Crew Cookbook / First edition</p>
+<h1>{esc(m["hero"]).replace("running Kiro Crew", "running<br>Kiro&nbsp;Crew")}</h1>
 <p class="vc-hero__lead">{esc(m["description"])} Pick the path that matches where you are starting from.</p>
 <div class="vc-btn-set">
 <a class="vc-btn vc-btn--primary" href="#paths">Pick your path {I_ARROW}</a>
@@ -527,7 +569,7 @@ def landing(site: dict) -> str:
 </div></section>
 
 <section class="vc-section"><div class="vc-wrap">
-<div class="vc-section__head"><div><p class="vc-label">Who this is for</p><h2>New to KiroCrew, with or without Kiro</h2></div></div>
+<div class="vc-section__head"><div><p class="vc-label">Who this is for</p><h2>New to Kiro Crew, with or without Kiro</h2></div></div>
 <div class="vc-audience">{audience}</div>
 </div></section>
 
@@ -547,7 +589,7 @@ def recipe_index(site: dict) -> str:
              "category": p["meta"]["category"], "tags": p["meta"]["tags"], "surfaces": p["meta"]["surfaces"]}
             for p in recipes]
     data_json = json.dumps(data).replace("</", "<\\/")
-    return (head(f"Recipes · {SITE}", "Every recipe in the KiroCrew Cookbook.", 1) + nav(1, "recipes") + f"""<main id="main" class="vc-wrap">
+    return (head(f"Recipes · {SITE}", "Every recipe in the Kiro Crew Cookbook.", 1) + nav(1, "recipes") + f"""<main id="main" class="vc-wrap">
 <div class="vc-index-head"><h1>Recipes</h1><p id="recipe-count" aria-live="polite">{len(recipes)} recipes</p></div>
 <div class="vc-filters" role="search">
 <label class="vc-search"><span class="vc-sr">Search recipes</span>{I_SEARCH}<input id="recipe-search" type="search" placeholder="Search recipes" autocomplete="off"></label>

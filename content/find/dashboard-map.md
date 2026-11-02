@@ -1,6 +1,6 @@
 ---
 title: "The dashboard map: what every part is for"
-description: Pick any part of the KiroCrew dashboard from the list to see where it is and what it does, or take the one-minute tour. Experimental.
+description: Pick any part of the Kiro Crew dashboard from the list to see where it is and what it does, or take the one-minute tour. Experimental.
 category: Find your way
 difficulty: beginner
 time: 5 min
@@ -11,7 +11,7 @@ featured: true
 layout: wide
 ---
 
-The KiroCrew dashboard opens with five columns of controls and explains none of them. The drawing below is only a picture, so nothing in it is clickable.
+The Kiro Crew dashboard opens with five columns of controls and explains none of them. The drawing below is only a picture, so nothing in it is clickable.
 
 ```find-your-way
 ```
@@ -41,4 +41,4 @@ The same descriptions without the drawing. Each name links to that part on the m
 
 ## Where the words come from
 
-The one-line descriptions of the Customize and Settings tabs are the dashboard's own words, copied from its source. The other descriptions are written for this cookbook and checked against the KiroCrew source. The names, the drawing and the version they match are explained on Where is it?, under [where the labels and drawing come from](where-is.md#where-the-labels-and-drawing-come-from).
+The one-line descriptions of the Customize and Settings tabs are the dashboard's own words, copied from its source. The other descriptions are written for this cookbook and checked against the Kiro Crew source. The names, the drawing and the version they match are explained on Where is it?, under [where the labels and drawing come from](where-is.md#where-the-labels-and-drawing-come-from).

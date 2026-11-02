@@ -5,14 +5,14 @@
 #   menu     behind a menu, a hover, or a collapsed panel
 #   state    shows only in a certain state (an empty chat, an open job)
 #   preview  needs a switch turned on first
-#   name     KiroCrew calls it something you would not search for
+#   name     Kiro Crew calls it something you would not search for
 #   deep     three or more clicks into Settings or Customize
 # A button on the first screen (New, Settings, the search bar) does not belong.
 #
-# Each task points at one control in KiroCrew's own UI index
+# Each task points at one control in Kiro Crew's own UI index
 # (cookbook-site/data/ui-index.json) with `at:`. The build turns that into the
 # click path, the "needs first" notes and the animation, and FAILS if the id no
-# longer exists, so a KiroCrew update cannot quietly break an answer.
+# longer exists, so a Kiro Crew update cannot quietly break an answer.
 # A control the index does not list yet uses `manual:` instead: the steps by
 # hand, each one a drawn element (`draw:`), plus `source:` saying where the
 # path is documented.
@@ -35,7 +35,7 @@
           - { draw: page.chat, label: Sessions }
           - { draw: x.project-pill, label: Project, under the message box }
           - { draw: x.project-picker, label: Pick a folder }
-        source: "KiroCrew docs, configuration.md: click the project folder in the project pill"
+        source: "Kiro Crew docs, configuration.md: click the project folder in the project pill"
       note: Each chat has its own project folder. It sets the agent's working directory, file search and project steering.
       see: concepts/what-kirocrew-is
     - id: switch-agent
@@ -48,7 +48,7 @@
           - { draw: page.chat, label: Sessions }
           - { draw: x.agent-selector, label: Agent, under the message box }
           - { draw: x.agent-list, label: Pick the agent }
-        source: "KiroCrew docs, agents.md: the agent selector, or /agent <name> in the chat"
+        source: "Kiro Crew docs, agents.md: the agent selector, or /agent <name> in the chat"
       note: "Or type /agent <name> in the chat."
     - id: change-model
       task: Change the model for this chat

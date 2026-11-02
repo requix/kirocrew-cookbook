@@ -124,3 +124,67 @@ class TestSlugify:
         assert "test" in seen
         assert "test-2" in seen
         assert "test-3" in seen
+
+
+class TestBrandName:
+    """The product is 'Kiro Crew' (two words). 'KiroCrew' in prose is a build error."""
+
+    BASE_META = {
+        "title": "Test page",
+        "description": "Short",
+        "category": "test",
+        "difficulty": "beginner",
+        "time": "5 min",
+        "surfaces": ["dashboard"],
+        "tags": ["test"],
+        "updated": "2026-01-01",
+    }
+
+    def test_wrong_brand_in_frontmatter_title(self):
+        meta = {**self.BASE_META, "title": "Build your own KiroCrew app"}
+        page = make_page(meta)
+        errs = build.validate(page)
+        assert any("KiroCrew" in e and "Kiro Crew" in e for e in errs)
+
+    def test_wrong_brand_in_frontmatter_prerequisites(self):
+        meta = {**self.BASE_META, "prerequisites": ["KiroCrew running"]}
+        page = make_page(meta)
+        errs = build.validate(page)
+        assert any("KiroCrew" in e for e in errs)
+
+    def test_wrong_brand_in_prose(self):
+        page = make_page(self.BASE_META)
+        page["body"] = "KiroCrew is a great tool."
+        errs = build.validate(page)
+        assert any("KiroCrew" in e for e in errs)
+
+    def test_brand_in_code_fence_is_exempt(self):
+        """Identifiers inside code blocks must not be flagged."""
+        page = make_page(self.BASE_META)
+        page["body"] = "Run this:\n\n```python\nclass KiroCrewConfig:\n    pass\n```\n"
+        errs = build.validate(page)
+        brand_errs = [e for e in errs if "Kiro Crew" in e or "KiroCrew" in e]
+        assert brand_errs == []
+
+    def test_brand_in_inline_code_is_exempt(self):
+        """Identifiers in backtick spans must not be flagged."""
+        page = make_page(self.BASE_META)
+        page["body"] = "Use `KiroCrew.app` to launch."
+        errs = build.validate(page)
+        brand_errs = [e for e in errs if "Kiro Crew" in e or "KiroCrew" in e]
+        assert brand_errs == []
+
+    def test_brand_in_url_is_exempt(self):
+        """GitHub repo URL contains KiroCrew but must not be flagged."""
+        page = make_page(self.BASE_META)
+        page["body"] = "See the [guide](https://github.com/kirodotdev/KiroCrew/blob/main/docs/guide.md)."
+        errs = build.validate(page)
+        brand_errs = [e for e in errs if "Kiro Crew" in e or "KiroCrew" in e]
+        assert brand_errs == []
+
+    def test_correct_brand_passes(self):
+        page = make_page(self.BASE_META)
+        page["body"] = "Kiro Crew is a great tool."
+        errs = build.validate(page)
+        brand_errs = [e for e in errs if "Kiro Crew" in e or "KiroCrew" in e]
+        assert brand_errs == []

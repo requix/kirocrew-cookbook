@@ -35,7 +35,7 @@ A good agent switches tracks after two failures on its own. When it does not, th
 
 **Looks like:** "this command is blocked by policy" or an approval prompt you did not expect.
 
-**Know this first:** a block is a **decision**, not a bug. KiroCrew checks every tool call at a safety gate. Some blocks are built in (deleting things, force-pushing to main). Some are your own rules. Some are just missing credentials.
+**Know this first:** a block is a **decision**, not a bug. Kiro Crew checks every tool call at a safety gate. Some blocks are built in (deleting things, force-pushing to main). Some are your own rules. Some are just missing credentials.
 
 **Do this:**
 

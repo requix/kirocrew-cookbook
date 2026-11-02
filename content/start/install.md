@@ -1,5 +1,5 @@
 ---
-title: Install KiroCrew step by step
+title: Install Kiro Crew step by step
 description: Prerequisites, the one-line installer, the gateway, and how to keep it running on Linux, macOS and Windows.
 category: Getting started
 difficulty: beginner
@@ -9,17 +9,17 @@ tags: [install, gateway, service, doctor, windows]
 updated: 2026-10-30
 featured: true
 prerequisites:
-  - A terminal and a browser on the machine that will run KiroCrew
+  - A terminal and a browser on the machine that will run Kiro Crew
   - Permission to install software for your own user (no admin needed on the common paths)
 ---
 
-KiroCrew runs on your own machine. It is a gateway process that drives `kiro-cli` and adds memory, schedules, subagents and a safety gate on top. This page is the full install: every prerequisite, what the installer actually does, where it writes, and how to keep the gateway alive after you close the terminal.
+Kiro Crew runs on your own machine. It is a gateway process that drives `kiro-cli` and adds memory, schedules, subagents and a safety gate on top. This page is the full install: every prerequisite, what the installer actually does, where it writes, and how to keep the gateway alive after you close the terminal.
 
 If you only want to get to a first working task fast, [Your first hour](first-hour.md) is the short version. This page is the one to keep open when something does not install cleanly, or when you are setting up a server you will not be sitting in front of.
 
 ## Supported systems
 
-KiroCrew runs on macOS, Linux and Windows. The install paths differ by platform.
+Kiro Crew runs on macOS, Linux and Windows. The install paths differ by platform.
 
 | Platform | Install paths | Notes |
 |---|---|---|
@@ -55,7 +55,7 @@ Embeddings need no setup step. On first gateway start, the embedding model (abou
 
 ### Install and log in to kiro-cli
 
-`kiro-cli` is the one hard prerequisite. KiroCrew drives it over the Agent Client Protocol; without it, chat sessions cannot run. The repo does not ship a `kiro-cli` installer of its own — install it from the official page and then log in:
+`kiro-cli` is the one hard prerequisite. Kiro Crew drives it over the Agent Client Protocol; without it, chat sessions cannot run. The repo does not ship a `kiro-cli` installer of its own — install it from the official page and then log in:
 
 Install `kiro-cli` from [kiro.dev/cli](https://kiro.dev/cli/), put its binary on your `PATH`, then:
 
@@ -63,7 +63,7 @@ Install `kiro-cli` from [kiro.dev/cli](https://kiro.dev/cli/), put its binary on
 kiro-cli login
 ```
 
-Installing and logging in are two separate states. `kirocrew doctor` reports the binary and the login on separate lines, so check both. On the first dashboard launch, if `kiro-cli` is missing or signed out, the **Set up Kiro** page detects it, shows copyable install commands for your platform and the login command to run yourself, and offers a **Use other coding agents** picker. KiroCrew does not run the install or the login for you.
+Installing and logging in are two separate states. `kirocrew doctor` reports the binary and the login on separate lines, so check both. On the first dashboard launch, if `kiro-cli` is missing or signed out, the **Set up Kiro** page detects it, shows copyable install commands for your platform and the login command to run yourself, and offers a **Use other coding agents** picker. Kiro Crew does not run the install or the login for you.
 
 ## Steps
 

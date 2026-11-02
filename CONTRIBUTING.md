@@ -1,4 +1,4 @@
-# Contributing to KiroCrew Cookbook
+# Contributing to Kiro Crew Cookbook
 
 Thank you for contributing! This guide covers how to add or update recipes.
 
@@ -7,14 +7,14 @@ Thank you for contributing! This guide covers how to add or update recipes.
 | What | How |
 |------|-----|
 | Found a typo? | [Open a bug report](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) or submit a PR |
-| Recipe doesn't work? | [Open a bug report](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) with KiroCrew version |
+| Recipe doesn't work? | [Open a bug report](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) with Kiro Crew version |
 | Have a content idea? | [Suggest content](https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml) |
 | Want to write a recipe? | Fork, write, and open a PR (see below) |
 
 ## Before you start
 
-- **Test your recipe.** Every step should work on a fresh KiroCrew install.
-- **Check the source.** If you mention a command, setting, or tool, verify it exists in the current KiroCrew version.
+- **Test your recipe.** Every step should work on a fresh Kiro Crew install.
+- **Check the source.** If you mention a command, setting, or tool, verify it exists in the current Kiro Crew version.
 - **Keep it practical.** Recipes solve real problems. Skip the theory; show the steps.
 
 ## Adding a recipe
@@ -53,7 +53,7 @@ tags: [memory, lessons]            # 2-5 searchable tags
 updated: 2026-10-29                # ISO date
 featured: false                    # Only maintainers set this
 prerequisites:                     # Optional, list of things needed first
-  - KiroCrew running (see Your first hour)
+  - Kiro Crew running (see Your first hour)
 ---
 ```
 
@@ -75,7 +75,7 @@ If there's one thing to understand, put it here.
 Explain what to do. Include a prompt example:
 
 ` ` `prompt
-Tell KiroCrew to do the thing.
+Tell Kiro Crew to do the thing.
 ` ` `
 
 ### 2. Second step
@@ -142,6 +142,20 @@ No need to run the build for typo fixes — CI will validate.
 
 ## Style guide
 
+### Brand name
+
+Always write **Kiro Crew** as two words. Never "KiroCrew" (no space).
+
+| Wrong | Right |
+|---|---|
+| KiroCrew is running | Kiro Crew is running |
+| Install KiroCrew | Install Kiro Crew |
+| Build your own KiroCrew app | Build your own Kiro Crew app |
+
+Exceptions that stay as-is: the CLI command (`kirocrew`), package name (`kirocrew`), and anything inside a code fence or backtick span — those are identifiers, not the product name. GitHub URLs that contain `KiroCrew` as the repo name also stay unchanged.
+
+The build enforces this: `cd build/preview && python3 build.py` fails with a clear error if your prose or frontmatter uses "KiroCrew".
+
 ### Voice
 
 - Second person ("you"), not first ("I") or third ("the user")
@@ -150,7 +164,7 @@ No need to run the build for typo fixes — CI will validate.
 
 ### Code blocks
 
-- `prompt` — for things to say to KiroCrew
+- `prompt` — for things to say to Kiro Crew
 - `bash` — for terminal commands
 - `python`, `json`, etc. — for code snippets
 
@@ -170,4 +184,4 @@ Be kind. Be helpful. Assume good intent.
 ## Questions?
 
 - [Open an issue](https://github.com/requix/kirocrew-cookbook/issues)
-- Ask in the [KiroCrew community](https://crew.kiro.dev/community)
+- Ask in the [Kiro Crew community](https://crew.kiro.dev/community)

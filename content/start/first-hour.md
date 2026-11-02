@@ -1,6 +1,6 @@
 ---
 title: Your first hour
-description: Install KiroCrew, open the dashboard and get one real task done.
+description: Install Kiro Crew, open the dashboard and get one real task done.
 category: Getting started
 difficulty: beginner
 time: 60 min
@@ -22,7 +22,7 @@ This gets you from zero to a first useful result.
 
 ### 1. Log in to kiro-cli
 
-KiroCrew drives `kiro-cli`. No `kiro-cli`, no agent. Make sure it is logged in:
+Kiro Crew drives `kiro-cli`. No `kiro-cli`, no agent. Make sure it is logged in:
 
 ```bash
 kiro-cli login
@@ -30,7 +30,7 @@ kiro-cli login
 
 You do not need to install Python. The installer in the next step brings its own Python 3.12.
 
-### 2. Install KiroCrew
+### 2. Install Kiro Crew
 
 One line. It fetches a signed, verified build. No clone, no npm.
 
@@ -44,7 +44,7 @@ This puts `kirocrew` on your `PATH`. Then run the first-time setup once. It inst
 kirocrew setup
 ```
 
-For every install option, Windows, and what the installer writes where, see [Install KiroCrew step by step](install.md).
+For every install option, Windows, and what the installer writes where, see [Install Kiro Crew step by step](install.md).
 
 ### 3. Start the gateway
 

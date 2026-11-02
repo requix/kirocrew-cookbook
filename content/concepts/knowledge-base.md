@@ -9,7 +9,7 @@ tags: [knowledge, search, retrieval, memory, embeddings]
 updated: 2026-10-30
 featured: false
 prerequisites:
-  - KiroCrew running (see Your first hour)
+  - Kiro Crew running (see Your first hour)
   - A folder of docs, runbooks, specs or notes you want the agent to use
 ---
 

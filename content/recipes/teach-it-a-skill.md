@@ -9,13 +9,13 @@ tags: [skills, steering]
 updated: 2026-10-29
 featured: false
 prerequisites:
-  - KiroCrew running (see Your first hour)
+  - Kiro Crew running (see Your first hour)
   - A project folder the session works in
 ---
 
 **Problem.** You keep explaining the same procedure every chat. "Review PRs this way." "Write in my voice, not AI voice." A lesson is one line; this is a whole method. That is what a **skill** is for.
 
-A skill is a markdown file with steps. KiroCrew reads it when the task matches. You write the method once; it follows it every time.
+A skill is a markdown file with steps. Kiro Crew reads it when the task matches. You write the method once; it follows it every time.
 
 ## Skill vs lesson vs steering
 
@@ -80,7 +80,7 @@ Text after the command is passed in as extra context.
 
 ### 4. Keep big docs separate
 
-Short skill in `SKILL.md`. Long reference material goes beside it in a `references/` folder — KiroCrew loads those only when the steps point to them. This keeps the skill fast to read.
+Short skill in `SKILL.md`. Long reference material goes beside it in a `references/` folder — Kiro Crew loads those only when the steps point to them. This keeps the skill fast to read.
 
 ```text
 pr-review/
@@ -109,4 +109,4 @@ This cookbook was written with a project-local skill called `authentic-voice`. I
 
 ## What you learned
 
-A skill is a markdown procedure KiroCrew follows when the task matches. Start project-local. Keep the body short, push long docs to `references/`. Match the folder name and write a trigger-shaped description.
+A skill is a markdown procedure Kiro Crew follows when the task matches. Start project-local. Keep the body short, push long docs to `references/`. Match the folder name and write a trigger-shaped description.

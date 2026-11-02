@@ -40,7 +40,7 @@ class TestFullBuild:
         llms = dist / "llms.txt"
         assert llms.exists(), "llms.txt not found"
         content = llms.read_text()
-        assert "KiroCrew" in content
+        assert "Kiro Crew" in content
 
 
 class TestBuildValidation:

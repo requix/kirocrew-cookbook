@@ -35,7 +35,7 @@ groups:
         text: The green dot means the dashboard is connected to the gateway. It warns you when the machine runs low on memory. Click it to see more readouts.
       - at: x.feedback
         name: Request a Feature
-        text: Opens a new chat in which the agent drafts your feature request and files it for the KiroCrew team. That chat uses model credits like any other.
+        text: Opens a new chat in which the agent drafts your feature request and files it for the Kiro Crew team. That chat uses model credits like any other.
       - at: shell.notifications
         name: Notifications
         text: The bell. Finished jobs, alerts and messages from agents land here. It also opens the full inbox.
@@ -70,7 +70,7 @@ groups:
         task: task-runner
       - at: shell.terminal
         name: Terminal
-        text: A shell on the machine that runs KiroCrew, in a panel at the bottom. It shows once the terminal is on in Settings.
+        text: A shell on the machine that runs Kiro Crew, in a panel at the bottom. It shows once the terminal is on in Settings.
       - at: page.capabilities
         name: Customize
         text: Everything that shapes what the agent knows and can do. Mates, custom agents, skills, MCP connections, knowledge, prompts, steering, hooks and workflows all live here.
