@@ -15,7 +15,7 @@ prerequisites:
 
 Every Kiro Crew session starts with the `kirocrew` agent: a managed prompt, every MCP tool, and the memory store you share across sessions. That is a sensible default until you want something more focused — a code reviewer that only reads files, a background worker with a stripped-down prompt, or a translator that always answers in one specific style. A custom agent is a JSON spec file you write; it sets the prompt, narrows the tools, and picks a default model. Kiro Crew's memory, learned corrections, and reply rules still ride every session on top of your spec unless you explicitly turn them off.
 
-If what you actually want is memory isolation — a separate store that stays out of your main chat — that is a [Mate](crewmates.md), not a custom agent. A Mate uses a spec too, but it gets its own memory and a standing thread. A custom agent shapes the session; a Mate shapes the identity.
+If what you actually want is memory isolation — a separate store that stays out of your main chat — that is a [bot](bots.md), not a custom agent. A bot uses a spec too, but it gets its own memory and a standing thread. A custom agent shapes the session; a bot shapes the identity.
 
 ## What a custom agent is made of
 
@@ -73,13 +73,13 @@ If you want a session with no Kiro Crew memory at all, that requires a Mate with
 | A different prompt for one kind of work | Custom agent |
 | A narrower or different MCP tool surface | Custom agent |
 | A specific default model for this kind of session | Custom agent |
-| Memory that stays separate from your main chat | [Mate](crewmates.md) |
-| A standing thread you return to over days | [Mate](crewmates.md) |
+| Memory that stays separate from your main chat | [Bot](bots.md) |
+| A standing thread you return to over days | [Bot](bots.md) |
 | A rule that applies to all agents automatically | [Steering file](../start/bring-your-kiro-setup.md#steering) |
 | A reusable procedure or checklist | Skill |
 | A one-off parallel task with no standing identity | Subagent |
 
-Custom agents and Mates compose. You can bind a Mate to a custom agent spec with `--kiro-agent <name>` so every session on that Mate boots from your prompt and tool set. The Mate still gets its own memory store.
+Custom agents and bots compose. You can bind a bot to a custom agent spec with `--kiro-agent <name>` so every session on that bot boots from your prompt and tool set. The bot still gets its own memory store.
 
 ## MCP tools on a custom agent
 
@@ -172,9 +172,9 @@ kirocrew config set agent.default_agent ""
 - **On kiro-cli, an unknown key silently drops the whole spec.** kiro-cli validates with `deny_unknown_fields` and falls back to the default agent with only a line in stderr. Remove any key kiro-cli does not recognize, or use the KAS harness.
 - **`includeMcpJson` is pinned `false` on every agent Kiro Crew manages.** Kiro Crew already merged your global `~/.kiro/settings/mcp.json` into the rendered agent file, so allowing the merge a second time would let a stale path shadow the live one. Add servers directly to your spec's own `mcpServers` instead.
 - **`tools: []` does not block the harness's native tools.** It covers the MCP array only. On the claude and codex harnesses, the harness's own tools (Bash, file access) are outside that array and can still run.
-- **Memory is the session's, not the spec's.** Switching to a custom agent does not reset or isolate memory. For a separate store, create a Mate built from your spec.
+- **Memory is the session's, not the spec's.** Switching to a custom agent does not reset or isolate memory. For a separate store, create a bot built from your spec.
 - **A Markdown agent will not run on the kiro-cli harness.** kiro-cli reads JSON only. A `.json` beside a `.md` of the same name shadows the Markdown; keep one file per name.
 - **`includeCrewContext: false` removes the reply-rules block, not all Kiro Crew context.** Memory, briefing, and learned corrections still arrive. Use this flag for background workers or when you need a clean prompt surface, not when you want a blank slate.
 - **`@server/tool` narrows to one tool on kiro-cli only.** On every other harness, it mounts the whole server. Use `disabledTools` when you need to block specific tools reliably across harnesses.
 
-For the memory model behind sessions, see [make-it-remember.md](../recipes/make-it-remember.md). When memory isolation is the goal, see [crewmates.md](crewmates.md). For how existing agent files carry over from kiro-cli, see [bring-your-kiro-setup.md](../start/bring-your-kiro-setup.md).
+For the memory model behind sessions, see [make-it-remember.md](../recipes/make-it-remember.md). When memory isolation is the goal, see [bots.md](bots.md). For how existing agent files carry over from kiro-cli, see [bring-your-kiro-setup.md](../start/bring-your-kiro-setup.md).

@@ -111,7 +111,7 @@ An enabled app reaches your agents in three ways.
 
 An app backend sits behind the gateway at `/apps/<name>/api/`. The app routes need dashboard or app login, so a bare `curl` to them is refused. When an agent says an app's tool is missing, the usual cause is that the app is not installed or not enabled. Check `kirocrew app list` before you debug anything else.
 
-## Apps vs skills vs crewmates vs MCP servers
+## Apps vs skills vs bots vs MCP servers
 
 These overlap, so here is when to reach for each.
 
@@ -119,7 +119,7 @@ These overlap, so here is when to reach for each.
 |---|---|---|
 | Add a page, a backend, agents, crons and skills as one installable unit | **App** | An app is the only thing that bundles all of these behind one manifest and one enable switch |
 | Teach the agent a repeatable procedure it reads and follows | **Skill** | A markdown file on disk; no process, no page, agent-creatable |
-| Give one job its own isolated memory and standing conversation | **Crewmate** | A named agent with its own memory store; set up in the dashboard, not by the agent |
+| Give one job its own isolated memory and standing conversation | **Bot** | A named agent with its own memory store; set up in the dashboard, not by the agent |
 | Expose an external system's tools to agents | **MCP server** | A tool surface; an app can bundle one, but a plain MCP server is just the tools |
 
 An app can bundle a skill, an agent and an MCP server, so the question is rarely "app or skill" — it is whether you need the whole bundle behind one install, or just the one piece.
@@ -134,7 +134,7 @@ An installed app's files are copied to `~/.kiro/crew/apps/<app-name>/`, and its 
 - It cannot claim a host overlay slot (like quick-search) unless it is a builtin.
 - A command it contributes cannot name a host agent — only one of the app's own agents — so app-authored prompt text cannot borrow a broader agent's tool reach.
 - It cannot use a reserved name, traverse outside its own root with resource paths, or forge builtin provenance through its installed metadata.
-- It cannot create a crewmate on its own; `proposeCrewmate` is a switched-off preview, and even when live each proposal is an owner change card the owner presses.
+- It cannot create a bot on its own; `proposeCrewmate` is a switched-off preview, and even when live each proposal is an owner change card the owner presses.
 
 ## Gotchas
 
@@ -144,4 +144,4 @@ An installed app's files are copied to `~/.kiro/crew/apps/<app-name>/`, and its 
 - **A cron shipped disabled resets to paused after a disable → re-enable cycle.** Disabling an app deletes its registered crons and re-enabling re-registers them from the manifest, so a job that shipped with `"enabled": false` and was later resumed goes back to paused and must be resumed again.
 - **The store shelf can be short.** When the catalog fetch fails, Discover falls back to a bundled seed list; your installed apps in Library are unaffected.
 
-For the catalog of what ships, see [built-in apps](./built-in-apps.md). To write your own, see [build your own app](./build-your-own-app.md). The trust boundary is part of the wider [security](../concepts/security.md) model; crewmates are covered in [crewmates](../concepts/crewmates.md); and teaching the agent a standalone procedure is [teach it a skill](../recipes/teach-it-a-skill.md).
+For the catalog of what ships, see [built-in apps](./built-in-apps.md). To write your own, see [build your own app](./build-your-own-app.md). The trust boundary is part of the wider [security](../concepts/security.md) model; bots are covered in [bots](../concepts/bots.md); and teaching the agent a standalone procedure is [teach it a skill](../recipes/teach-it-a-skill.md).

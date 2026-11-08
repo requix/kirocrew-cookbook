@@ -77,7 +77,7 @@ The gate (`HookManager.on_tool_call`) returns one of three verdicts: deny (block
 
 **YOLO** is never permanent. It turns itself off after a set time (`agent.yolo_duration`, default 6 hours) and then asks again, or, if you choose that option, when Kiro Crew restarts. Every grant and expiry is written to the audit log. An enterprise policy can disable any of these modes; the picker then shows it as disabled by your organization's security policy.
 
-A crewmate's own chat has its own mode too.
+A bot's own chat has its own mode too.
 
 ## Layer 2 — denied commands
 

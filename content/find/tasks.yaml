@@ -188,25 +188,24 @@
       at: tab.capabilities.hooks
       terms: [hook, pre tool use, automation, script]
 
-- group: Crewmates
+- group: Bots
   tasks:
-    - id: create-mate
-      task: Create a crewmate
+    - id: create-bot
+      task: Create a bot
       why: name
       at: agents.add
-      terms: [crewmate, mate, crew member, new agent, teammate]
-      see: concepts/crewmates
-    - id: mates-page
-      task: Show the Mates page in the sidebar
-      why: preview
+      terms: [bot, crewmate, mate, crew member, new agent, teammate]
+      see: concepts/bots
+    - id: bots-page
+      task: Open the Bots page
+      why: name
       at: setting:developer.mates
-      terms: [mates, crewmates, activate, preview, missing]
-      note: The Mates page is a preview, so it stays hidden until this switch is on.
-    - id: chat-with-mate
-      task: Chat with a crewmate
+      terms: [bots, mates, crewmates, roster]
+    - id: chat-with-bot
+      task: Chat with a bot
       why: preview
       at: members.roster-list
-      terms: [mate chat, crewmate chat, talk to mate]
+      terms: [bot chat, mate chat, crewmate chat, talk to bot]
 
 - group: Automate
   tasks:

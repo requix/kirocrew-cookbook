@@ -26,7 +26,7 @@ Some Kiro Crew names differ from the words people search for. The search box abo
 | You may call it | Kiro Crew calls it | Where |
 |---|---|---|
 | Working directory, cwd | Project | The folder name under the message box |
-| Crewmate, crew member | Mate | **Customize → Mates** |
+| Bot, crewmate, crew member | Bot | **Customize → Bots** |
 | MCP servers | Connections | **Customize → Connections** |
 | Agent config, agent JSON | Custom agents | **Customize → Custom agents** |
 | Rules, instructions | Steering | **Customize → Steering** |
@@ -42,7 +42,7 @@ Every task on this page is there for one of five reasons, shown as a tag on each
 |---|---|
 | Behind a menu | **Skill** and **Upload file** live in **Add files & options**, the **+** in the message box |
 | Shows only sometimes | The memory mode button is there only before the first message of a chat |
-| Needs a switch first | The **Mates** page appears only after **Settings → Developer → Mates** is on |
+| Needs a switch first | Some features need a switch turned on first (check **Settings → Developer**) |
 | Has another name | The working directory is called **Project** |
 | Deep in Settings or Customize | Reply length is **Settings → Chat → Transcript → Response Verbosity** |
 

@@ -76,8 +76,8 @@ groups:
         text: Everything that shapes what the agent knows and can do. Mates, custom agents, skills, MCP connections, knowledge, prompts, steering, hooks and workflows all live here.
       - at: page.settings
         name: Settings
-        text: How the dashboard and the gateway behave. Some pages, like Mates, only appear after you turn on their switch here.
-        task: mates-page
+        text: How the dashboard and the gateway behave.
+        task: developer-mode
 
   - group: Session list
     zones:
