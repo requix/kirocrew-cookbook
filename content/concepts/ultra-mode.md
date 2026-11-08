@@ -32,6 +32,9 @@ On an ongoing chat, the chip turns that chat into an Ultra Mode chat. This goes 
 
 The chat runs on a conductor, which is a specialised agent (`kirocrew-conductor`). It does not do the leaf work itself. It keeps a goal and a list of items, and for each item it opens a separate worker chat and hands the task over. The chat keeps its memory and history after the switch.
 
+```ultra-mode-diagram
+```
+
 Each worker is a normal agent with your default toolset plus the two tools it needs to report back. It has its own context, so one task's logs and file reads do not crowd out another's. When a worker reports that it is done, the conductor checks the claim against acceptance criteria instead of trusting the worker's own summary.
 
 The worker chats are kept out of your folders, so your session list does not fill up with them. History still lists them if you need to find one.

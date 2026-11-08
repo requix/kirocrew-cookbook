@@ -1,0 +1,67 @@
+# The conductor/worker diagram on the Ultra Mode page.
+# Shows the flow: You → Conductor → Workers → Results
+
+canvas: [760, 400]
+
+nodes:
+  - { id: you,        name: You,           sub: "type a request",           at: [12, 174], size: [100, 52] }
+  - { id: conductor,  name: Conductor,     sub: "plans and dispatches",     at: [180, 174], size: [140, 52], style: conductor }
+  - { id: board,      name: Board,         sub: "shows status",             at: [180, 280], size: [100, 40], style: panel }
+  - { id: worker1,    name: Worker 1,      sub: "task A",                   at: [400, 52], size: [120, 44], style: worker }
+  - { id: worker2,    name: Worker 2,      sub: "task B",                   at: [400, 134], size: [120, 44], style: worker }
+  - { id: worker3,    name: Worker 3,      sub: "task C",                   at: [400, 216], size: [120, 44], style: worker }
+  - { id: worker4,    name: Worker 4,      sub: "task D",                   at: [400, 298], size: [120, 44], style: worker }
+  - { id: status1,    name: "✓ Done",      sub: "",                         at: [540, 52], size: [80, 28], style: done }
+  - { id: status2,    name: "● Running",   sub: "",                         at: [540, 134], size: [80, 28], style: running }
+  - { id: status3,    name: "⚠ Needs you", sub: "",                         at: [540, 216], size: [80, 28], style: blocked }
+  - { id: status4,    name: "● Running",   sub: "",                         at: [540, 298], size: [80, 28], style: running }
+  - { id: result,     name: Results,       sub: "collected by conductor",   at: [620, 174], size: [120, 52] }
+
+links:
+  - [you, conductor, request]
+  - [conductor, worker1, dispatch]
+  - [conductor, worker2, dispatch]
+  - [conductor, worker3, dispatch]
+  - [conductor, worker4, dispatch]
+  - [worker1, status1, ""]
+  - [worker2, status2, ""]
+  - [worker3, status3, ""]
+  - [worker4, status4, ""]
+  - [worker1, result, report]
+  - [conductor, board, ""]
+  - [result, conductor, verify]
+
+# Animation sequence for the page
+steps:
+  - show: [you, conductor, you>conductor]
+    note: "You type a request into your Ultra Mode chat"
+  - show: [worker1, worker2, worker3, worker4, conductor>worker1, conductor>worker2, conductor>worker3, conductor>worker4]
+    note: "The conductor splits the work and dispatches workers"
+  - show: [status1, status2, status3, status4, worker1>status1, worker2>status2, worker3>status3, worker4>status4, board, conductor>board]
+    note: "Each worker runs independently; the Board shows their status"
+  - show: [result, worker1>result, result>conductor]
+    note: "Workers report back; the conductor verifies and collects results"
+
+styles:
+  conductor:
+    fill: "#7c3aed"
+    stroke: "#5b21b6"
+    text: "#ffffff"
+  worker:
+    fill: "#f3f4f6"
+    stroke: "#9ca3af"
+  panel:
+    fill: "#e0e7ff"
+    stroke: "#6366f1"
+  done:
+    fill: "#d1fae5"
+    stroke: "#10b981"
+    text: "#065f46"
+  running:
+    fill: "#dbeafe"
+    stroke: "#3b82f6"
+    text: "#1e40af"
+  blocked:
+    fill: "#fef3c7"
+    stroke: "#f59e0b"
+    text: "#92400e"
