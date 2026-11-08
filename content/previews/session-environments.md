@@ -1,7 +1,7 @@
 ---
 title: "Session Environments: run a session in a cloud workspace"
 description: Run a chat session in a Coder, Fly.io Sprites or boxd workspace, with a remote Files panel, Git panel and terminal.
-category: Concepts
+category: Previews
 difficulty: intermediate
 time: 10 min
 surfaces: [dashboard]
@@ -63,4 +63,4 @@ If your project is on the same machine as the gateway, you do not need it.
 - **It is a preview.** Behavior and settings can change between releases.
 - **Credentials belong to the provider.** Connect the workspace under Session Environments rather than pasting provider tokens into a chat.
 
-For how approvals work around commands run in a session, see [security](security.md). For how the pieces of Kiro Crew fit together, see [how-it-fits](how-it-fits.md).
+For how approvals work around commands run in a session, see [security](../concepts/security.md). For how the pieces of Kiro Crew fit together, see [how-it-fits](../concepts/how-it-fits.md).

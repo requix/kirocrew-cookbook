@@ -1,7 +1,7 @@
 ---
 title: "Ultra Mode: a chat that runs a crew"
 description: How the Ultra Mode preview hands tasks to worker chats, what the Board shows, and when a regular chat fits better.
-category: Concepts
+category: Previews
 difficulty: beginner
 time: 10 min
 surfaces: [dashboard]
@@ -81,4 +81,4 @@ If you are unsure, start regular. You can turn an ongoing chat into an Ultra Mod
 - **Needs you does not push itself at you.** A blocked worker waits quietly, so check the Board when you return.
 - **More workers cost more.** Each worker has its own context and its own model usage.
 
-For how the agents behind this fit together, see [how-it-fits](how-it-fits.md). For approvals that can put a worker into **Needs you**, see [security](security.md).
+For how the agents behind this fit together, see [how-it-fits](../concepts/how-it-fits.md). For approvals that can put a worker into **Needs you**, see [security](../concepts/security.md).
