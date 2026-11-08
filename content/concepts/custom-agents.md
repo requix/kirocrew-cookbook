@@ -6,7 +6,7 @@ difficulty: intermediate
 time: 15 min
 surfaces: [dashboard, cli]
 tags: [agents, custom-agents, prompt, model, spec]
-updated: 2026-11-01
+updated: 2026-11-08
 featured: false
 prerequisites:
   - Kiro Crew running (see Your first hour)
