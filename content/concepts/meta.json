@@ -6,6 +6,8 @@
     "security",
     "bots",
     "browser",
+    "ultra-mode",
+    "session-environments",
     "custom-agents",
     "knowledge-base"
   ]
