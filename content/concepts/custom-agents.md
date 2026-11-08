@@ -49,6 +49,28 @@ On the **KAS** harness (the default), both forms work. On the **kiro-cli harness
 
 When a `.json` and a `.md` of the same name exist side by side, the JSON wins and the Markdown is silently dropped — the gateway logs which file was shadowed. Keep one file per name.
 
+## Choosing a harness
+
+The harness is the engine that runs your agent's turns. You pick it under **Settings → Agent Harness**, and your spec's prompt arrives the same way on all of them. These are the options you will meet:
+
+| Harness | What you need | Notes |
+|---|---|---|
+| KAS | Nothing extra | The default. Uses your Kiro Crew sign-in, falls back to your `kiro-cli` login, and runs its own engine when `kiro-cli` is not installed |
+| kiro-cli | `kiro-cli` installed | Reads JSON specs only (see above) |
+| Claude Code, Codex | The matching CLI | Native tools sit outside the MCP array |
+| Strands | The Strands CLI installed | A setup card appears on first use and stores your model provider keys in **Settings → Secrets** |
+| GitHub Copilot CLI | The Copilot CLI installed | Sessions are refused on any release other than 1.0.100 |
+
+With Strands, the provider keys live in the secret store, so they stay out of your spec and out of the chat. With Copilot, check the installed version first, because a mismatch fails at session start rather than falling back to another harness.
+
+### One harness for a single Mate
+
+The harness setting is global, but a Mate can override it. Open the Mate's profile and set the **Agent harness** row. That lets one Mate run on Claude Code while every other session stays on KAS, which is handy when a single workflow depends on a tool that only one harness provides.
+
+### Model names follow the harness
+
+The model picker lists the names the active backend uses, not a shared Kiro Crew list. After you switch harness, or give a Mate a different one, reopen the picker and choose again. A `model` value in your spec should use a name the target harness knows.
+
 ## What Kiro Crew adds to every session
 
 Your spec's prompt arrives as the `[AGENT SYSTEM PROMPT]` block in every turn, on every harness. That is a separate injection from everything else Kiro Crew adds: the session's memory and learned corrections, and — for dashboard sessions — the reply rules that control formatting and tool reminders.
