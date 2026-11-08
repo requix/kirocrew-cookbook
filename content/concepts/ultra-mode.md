@@ -1,6 +1,6 @@
 ---
 title: "Ultra Mode: a chat that runs a crew"
-description: What the Ultra Mode preview does, how a conductor hands tasks to worker chats, what the Board tab shows, and when a regular chat is the better choice.
+description: How the Ultra Mode preview hands tasks to worker chats, what the Board shows, and when a regular chat fits better.
 category: Concepts
 difficulty: beginner
 time: 10 min
