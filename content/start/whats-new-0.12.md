@@ -5,7 +5,7 @@ category: Getting started
 difficulty: beginner
 time: 5 min
 surfaces: [dashboard, cli]
-tags: [release, upgrade, whats-new, 0.12]
+tags: [release, upgrade, whats-new]
 updated: 2026-11-08
 featured: false
 prerequisites:
