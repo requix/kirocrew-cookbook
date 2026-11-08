@@ -4,7 +4,7 @@
 Look: the violet-carbon-playbook skill. Carbon shape (square corners, flat tiles, 48px shell
 header, no glow) in Kiro colors and fonts. The skill's tokens and overrides carry the whole look.
 
-Source:  ../../content                               Markdown + frontmatter
+Source:  ../../cookbook                               Markdown + frontmatter
 Design:  ./assets/design-tokens                       tokens + overrides (Kiro Crew violet-carbon)
 Output:  ./dist                                       landing, recipe index, one page per doc
 
@@ -35,6 +35,7 @@ from pygments.util import ClassNotFound
 import concept_map
 import dash_map
 import diagrams
+import ultra_mode_diagram
 import where_is
 
 HERE = Path(__file__).resolve().parent
@@ -61,9 +62,6 @@ I_COPY = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="
           '<path d="M3.5 10.5h-2v-9h9v2"/></svg>')
 I_SEARCH = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.75"/>'
             '<path d="m10.5 10.5 3.5 3.5"/></svg>')
-I_GITHUB = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.25">'
-            '<path d="M6 15v-2.5c0-1 .5-1.5.5-1.5s-2.5-.5-2.5-3.5c0-1 .5-1.5.5-2 0-.5-.5-1.5 0-2.5 0 0 1 0 2 1 .5-.25 1.5-.5 2.5-.5s2 .25 2.5.5c1-1 2-1 2-1 .5 1 0 2 0 2.5 0 .5.5 1 .5 2 0 3-2.5 3.5-2.5 3.5s.5.5.5 1.5V15"/>'
-            '<path d="M4 12c-1 .5-2 0-2.5-1"/></svg>')
 I_DOC = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5h5l3.5 3.5v9.5H4z"/>'
          '<path d="M9 1.5V5h3.5M6.5 8.5h3.5M6.5 11h3.5"/></svg>')
 I_ARROW = '<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>'
@@ -171,7 +169,7 @@ def load_site() -> dict:
     for path in paths:
         missing = [s for s in path["pages"] if s not in by_slug]
         if missing:
-            errs.append(f"content/index.md: path '{path['id']}' names unknown pages {missing}")
+            errs.append(f"cookbook/index.md: path '{path['id']}' names unknown pages {missing}")
         path["docs"] = [by_slug[s] for s in path["pages"] if s in by_slug]
 
     # Every relative .md link must land on a page this build writes.
@@ -217,7 +215,7 @@ WAYFINDER_FENCE = re.compile(r"```find-your-way\n```\n?")
 
 
 def load_wayfinder(by_slug: dict, errs: list[str]) -> list[dict]:
-    """The "Which page do you need?" list (content/find/wayfinder.yaml). Every page in it must show it."""
+    """The "Which page do you need?" list (cookbook/find/wayfinder.yaml). Every page in it must show it."""
     src = CONTENT / "find" / "wayfinder.yaml"
     if not src.exists():
         return []
@@ -225,7 +223,7 @@ def load_wayfinder(by_slug: dict, errs: list[str]) -> list[dict]:
     for it in items:
         doc = by_slug.get(it.get("page"))
         if not doc or not it.get("name") or not it.get("job"):
-            errs.append(f"content/find/wayfinder.yaml: '{it.get('page')}' needs a known page, a name and a job")
+            errs.append(f"cookbook/find/wayfinder.yaml: '{it.get('page')}' needs a known page, a name and a job")
             continue
         it["doc"] = doc
         if not WAYFINDER_FENCE.search(doc["body"]):
@@ -308,7 +306,7 @@ def make_md() -> MarkdownIt:
         tok = tokens[idx]
         words = tok.info.strip().split()
         lang = words[0] if words else ""
-        if lang in ("where-is", "where-is-table", "dashboard-map", "dashboard-map-table", "concept-map", "find-your-way"):
+        if lang in ("where-is", "where-is-table", "dashboard-map", "dashboard-map-table", "concept-map", "ultra-mode-diagram", "find-your-way"):
             return f"<!--{lang}-->\n"
         if lang in ("flow", "tree"):
             try:
@@ -428,7 +426,6 @@ def nav(depth: int, current: str = "") -> str:
 </ul></nav>
 <div class="vc-nav__end">
 <a class="vc-nav__action" href="{r}recipes/index.html#search" data-search-href="{r}recipes/index.html#search" aria-label="Search recipes" title="Search recipes (⌘K)">{I_SEARCH}</a>
-<a class="vc-nav__action" href="https://github.com/requix/kirocrew-cookbook" aria-label="GitHub repository" title="View on GitHub">{I_GITHUB}</a>
 <a class="vc-btn vc-btn--primary vc-nav__cta" href="{r}index.html#paths">Start {I_ARROW}</a>
 </div></div></header>
 """
@@ -443,9 +440,6 @@ def footer(site: dict, depth: int) -> str:
 {cols}
 <div><p class="vc-label">For agents</p><ul><li><a href="{rel(depth)}llms.txt">llms.txt</a></li>
 <li><a href="{rel(depth)}start/first-hour.md">Markdown per page</a></li></ul></div>
-<div><p class="vc-label">Contribute</p><ul><li><a href="https://github.com/requix/kirocrew-cookbook">GitHub</a></li>
-<li><a href="https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml">Report an issue</a></li>
-<li><a href="https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml">Suggest content</a></li></ul></div>
 </div></footer>
 <script src="{rel(depth)}assets/site.js"></script>
 </body>
@@ -656,6 +650,11 @@ def doc_page(site: dict, page: dict) -> str:
             body = body.replace("<!--concept-map-->", concept_map.widget_html(concept_map.load(PROJECT, page["body"]), r))
         except concept_map.ConceptMapError as exc:
             fail([f"concept-map: {exc}"])
+    if "<!--ultra-mode-diagram-->" in body:
+        try:
+            body = body.replace("<!--ultra-mode-diagram-->", ultra_mode_diagram.widget_html(ultra_mode_diagram.load(PROJECT), r))
+        except ultra_mode_diagram.UltraModeError as exc:
+            fail([f"ultra-mode-diagram: {exc}"])
     if "<!--dashboard-map" in body:
         body = (body.replace("<!--dashboard-map-->", dash_map.widget_html(site["dmap"], r))
                     .replace("<!--dashboard-map-table-->", dash_map.fallback_table(site["dmap"])))
@@ -702,6 +701,7 @@ def page_markdown(page: dict, finder: dict | None = None, dmap: dict | None = No
         body = re.sub(r"```where-is\n```\n?", "", body)
         body = re.sub(r"```where-is-table\n```\n?", lambda _: where_is.markdown_table(finder), body)
     body = re.sub(r"```concept-map\n```\n?", "", body)
+    body = re.sub(r"```ultra-mode-diagram\n```\n?", "", body)
     body = re.sub(r"```flow\n(.*?)```\n?", lambda m: diagrams.flow_markdown(m.group(1)), body, flags=re.S)
     body = re.sub(r"```tree\n(.*?)```\n?", lambda m: diagrams.tree_markdown(m.group(1)), body, flags=re.S)
     if dmap:
@@ -730,7 +730,7 @@ def main() -> None:
         (DIST / s["id"]).mkdir(exist_ok=True)
     for name in ("vc-tokens.css", "vc-overrides.css"):
         shutil.copy(DESIGN_TOKENS / name, DIST / "assets" / name)
-    for name in ("site.css", "site.js", "where-is.css", "where-is.js", "kc-drawing.js", "dashboard-map.js", "concept-map.js", "concept-map.css"):
+    for name in ("site.css", "site.js", "where-is.css", "where-is.js", "kc-drawing.js", "dashboard-map.js", "concept-map.js", "concept-map.css", "ultra-mode-diagram.js", "ultra-mode-diagram.css"):
         shutil.copy(HERE / "assets" / name, DIST / "assets" / name)
 
     out = {"index.html": landing(site), "recipes/index.html": recipe_index(site), "llms.txt": llms_txt(site)}

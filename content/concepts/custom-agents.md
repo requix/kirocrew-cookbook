@@ -6,7 +6,7 @@ difficulty: intermediate
 time: 15 min
 surfaces: [dashboard, cli]
 tags: [agents, custom-agents, prompt, model, spec]
-updated: 2026-11-01
+updated: 2026-11-08
 featured: false
 prerequisites:
   - Kiro Crew running (see Your first hour)
@@ -48,6 +48,22 @@ An agent can be JSON (`<name>.json`) or a Markdown file (`<name>.md` with YAML f
 On the **KAS** harness (the default), both forms work. On the **kiro-cli harness** (`acp_backend="kiro"`), kiro-cli reads JSON only; a Markdown-only agent fails at session start with an error naming the file. If you share specs with others or run both harnesses, write JSON.
 
 When a `.json` and a `.md` of the same name exist side by side, the JSON wins and the Markdown is silently dropped — the gateway logs which file was shadowed. Keep one file per name.
+
+## Choosing a harness
+
+The harness is the engine that runs your agent's turns. You pick it under **Settings → Agent Harness**, and your spec's prompt arrives the same way on all of them. These are the options you will meet:
+
+| Harness | What you need | Notes |
+|---|---|---|
+| KAS | Nothing extra | The default. Uses your Kiro Crew sign-in, falls back to your `kiro-cli` login, and runs its own engine when `kiro-cli` is not installed |
+| kiro-cli | `kiro-cli` installed | Reads JSON specs only (see above) |
+| Claude Code, Codex | The matching CLI | Native tools sit outside the MCP array |
+| Strands | The Strands CLI installed | A setup card appears on first use and stores your model provider keys in **Settings → Secrets** |
+| GitHub Copilot CLI | The Copilot CLI installed | Sessions are refused on any release other than 1.0.100 |
+
+With Strands, the provider keys live in the secret store, so they stay out of your spec and out of the chat. With Copilot, check the installed version first, because a mismatch fails at session start rather than falling back to another harness.
+
+A bot can run on a different harness than the rest of your sessions. The bot's profile card has an **Agent harness** row (0.12.0+), so one bot can run on Claude Code while the others stay on KAS.
 
 ## What Kiro Crew adds to every session
 
