@@ -16,8 +16,8 @@ paths:
   - id: deeper
     label: Kiro Crew is running
     title: Go deeper
-    summary: It works. Now learn what keeps it safe, when to give a job its own crewmate, and how to feed it your docs.
-    pages: [concepts/security, concepts/crewmates, concepts/knowledge-base, recipes/make-it-remember]
+    summary: It works. Now learn what keeps it safe, when to give a job its own bot, and how to feed it your docs.
+    pages: [concepts/security, concepts/bots, concepts/knowledge-base, recipes/make-it-remember]
   - id: build
     label: I want to extend it
     title: Build on it
@@ -35,7 +35,7 @@ Each recipe is one shape: **problem → steps → verify → gotchas.** You can 
 
 - **New to Kiro:** [Install Kiro Crew step by step](./start/install.md), then [Your first hour](./start/first-hour.md).
 - **I use Kiro CLI or IDE:** [Bring your Kiro setup](./start/bring-your-kiro-setup.md).
-- **Kiro Crew is running:** [Security](./concepts/security.md), [Crewmates](./concepts/crewmates.md), [the knowledge library](./concepts/knowledge-base.md).
+- **Kiro Crew is running:** [Security](./concepts/security.md), [Bots](./concepts/bots.md), [the knowledge library](./concepts/knowledge-base.md).
 
 ## Get started
 
@@ -47,7 +47,7 @@ Each recipe is one shape: **problem → steps → verify → gotchas.** You can 
 
 - **[What Kiro Crew actually is](./concepts/what-kirocrew-is.md)** — the mental model. Gateway, session, agent, memory, in one picture.
 - **[How Kiro Crew keeps you safe](./concepts/security.md)** — the checks every tool call passes before it runs.
-- **[Crewmates](./concepts/crewmates.md)** — agents with their own memory, workspace and job.
+- **[Bots](./concepts/bots.md)** — agents with their own memory, workspace and job.
 - **[The knowledge library](./concepts/knowledge-base.md)** — let the agent search your docs and cite them.
 
 ## Recipes

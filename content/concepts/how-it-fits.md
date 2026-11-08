@@ -61,11 +61,11 @@ Memory is the small set of facts, preferences and lessons that comes back in lat
 
 In the dashboard: **Customize → Knowledge** for the library. Read [Make it remember](../recipes/make-it-remember.md) and [The knowledge library](knowledge-base.md).
 
-### 8. A mate is an agent with its own memory
+### 8. A bot is an agent with its own memory
 
-A mate, or crewmate, is a named assistant built from an agent config, with a memory store of its own. What it learns stays with it, so your on-call notes do not leak into a side project. Plain sessions share one global memory; each mate keeps its own.
+A bot is a named assistant built from an agent config, with a memory store of its own. (The codebase still calls it a "mate" or "crewmate" in places.) What it learns stays with it, so your on-call notes do not leak into a side project. Plain sessions share one global memory; each bot keeps its own.
 
-In the dashboard: **Customize → Mates** lists your mates and makes new ones. To chat with a mate, open the **Mates** page in the sidebar; it shows only after you turn on **Settings → Developer → Mates**. See [where it is](../find/where-is.md#task=mates-page), and read [Crewmates](crewmates.md).
+In the dashboard: **Customize → Bots** lists your bots and makes new ones. To chat with a bot, open the **Bots** page in the sidebar. See [where it is](../find/where-is.md#task=bots-page), and read [Bots](bots.md).
 
 ### 9. Schedules and apps start and extend it
 
@@ -75,7 +75,7 @@ In the dashboard: **Schedule** in the sidebar, and **Discover** and **Library** 
 
 ## The whole picture in one sentence
 
-A session runs an agent in a project folder, shaped by steering and skills, acting through tools behind one gate, with memory that carries over. Mates, schedules and apps are ways to split that work, start it on a timer, and extend it.
+A session runs an agent in a project folder, shaped by steering and skills, acting through tools behind one gate, with memory that carries over. Bots, schedules and apps are ways to split that work, start it on a timer, and extend it.
 
 ## Where to go next
 
