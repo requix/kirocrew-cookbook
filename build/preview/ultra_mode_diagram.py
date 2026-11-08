@@ -20,7 +20,7 @@ class UltraModeError(Exception):
 
 
 def load(project: Path) -> dict:
-    spec = yaml.safe_load((project / "content" / "concepts" / "ultra-mode-diagram.yaml").read_text(encoding="utf-8"))
+    spec = yaml.safe_load((project / "content" / "previews" / "ultra-mode-diagram.yaml").read_text(encoding="utf-8"))
     nodes = {n["id"]: n for n in spec["nodes"]}
     w, h = spec["canvas"]
 
