@@ -1,6 +1,6 @@
 ---
 title: "Session Environments: run a session in a cloud workspace"
-description: How the Session Environments preview points a chat session at a Coder, Fly.io Sprites or boxd workspace, and what the Files panel, Git panel and terminal show.
+description: Run a chat session in a Coder, Fly.io Sprites or boxd workspace, with a remote Files panel, Git panel and terminal.
 category: Concepts
 difficulty: intermediate
 time: 10 min
