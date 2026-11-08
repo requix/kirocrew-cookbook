@@ -6,6 +6,7 @@
     "security",
     "crewmates",
     "custom-agents",
-    "knowledge-base"
+    "knowledge-base",
+    "session-environments"
   ]
 }
