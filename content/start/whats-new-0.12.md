@@ -54,7 +54,7 @@ The dashboard and gateway are lighter and start faster.
 
 These are behind Feature Previews in Settings. Turn one on when you want to try it, and expect rough edges.
 
-- **Ultra Mode.** An opt-in mode for demanding tasks.
+- **Ultra Mode.** An opt-in mode for demanding tasks. It left preview in 0.13.0 as [conductor mode](../concepts/conductor-mode.md).
 - **Session Environments.** Give a session its own environment.
 - **Shared Crew.** Work on a crew together with other people.
 

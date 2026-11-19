@@ -1,15 +1,17 @@
 {
- "kirocrew_version": "0.11.0",
- "build_digest": "sha256:380172f6b61dbdcd6235a0cc02058ca796dfd7a9b7e6b18f0eba078db304d001",
+ "kirocrew_version": "0.13.0",
+ "build_digest": "sha256:e1ddcb61532a23ee6c77f6be9a3cca4a58b95697661c51d6ab80ee592b97ac39",
  "schema_version": 1,
  "conditions": {
   "has_open_sessions": "at least one open session is listed",
   "app_enabled": "the app that provides this page is installed and enabled",
+  "page_switched_on": "the setting that turns this page on is on (it is on unless someone turned it off in Settings)",
+  "page_turned_on": "the setting that turns this page on has been turned on (it is off until someone turns it on, for example with kirocrew app enable)",
   "full_dashboard": "the full dashboard is open, not an embedded chat or sessions view",
   "no_active_session": "no session is open in the chat pane",
   "no_schedules": "no scheduled job exists yet",
   "has_schedules": "at least one scheduled job exists",
-  "search_bar_unclaimed": "no enabled app has claimed the top-bar search (an app that does turns it into its own launcher)",
+  "search_bar_unclaimed": "the Command Bar is off (Settings → Display → View); while it is on, the top-bar search opens the Command Bar launcher instead",
   "session_open": "a session is open in the chat pane",
   "no_response_running": "the open session is not answering right now (the control is disabled while a response runs)",
   "empty_session": "the open session has no messages yet",
@@ -20,17 +22,17 @@
   "sessions_list_view": "the sessions list is in List view (the default)",
   "pointer_on_session_row": "the pointer or keyboard focus is on a session row of this machine that is not being renamed (the control is drawn on that row)",
   "terminal_enabled": "the terminal is turned on in Settings",
-  "developer_mode": "developer mode is on",
+  "topbar_search_shown": "the Show search in the top bar setting is on (Settings → Display → View)",
   "phone_connect_available": "pairing a phone is available on this machine",
   "kiro_account_entry": "the menu offers a Kiro account row (always when this installation runs on Kiro; with another backend, only once an account usage reading has arrived)",
   "has_notifications": "at least one notification is listed",
   "has_unread_notifications": "at least one notification is unread",
   "notification_selected": "a notification is open in the detail panel (select it in the list)",
   "notification_read": "the open notification is already read (opening one marks it read; an unread one shows Mark read here instead)",
-  "crewmate_selected": "a crewmate is selected in the list",
-  "no_crewmates": "no crewmate exists yet",
-  "has_crewmates": "at least one crewmate exists",
-  "crewmate_editor_open": "a crewmate's editor is open (choose Edit on that crewmate)",
+  "crewmate_selected": "a Bot is selected in the list",
+  "no_crewmates": "no Bot exists yet",
+  "has_crewmates": "at least one Bot exists",
+  "crewmate_editor_open": "a Bot's editor is open (choose Edit on that Bot)",
   "has_installed_apps": "at least one app is installed",
   "app_details_open": "an app's detail page is open (in Discover, click the app's card)",
   "app_tile_menu_open": "the app card's ⋯ (More actions) menu is open (in Library, point at the app's card to show ⋯, then click it; clicking the card itself opens the app instead)",
@@ -53,8 +55,8 @@
   "screen_capture_available": "taking a screenshot is supported here (the desktop app, or a Mac)",
   "context_usage_reported": "the open session has reported how full its context is (after its first answer)",
   "new_channel_prompt": "the first notification from a new channel is asking whether to keep or mute that channel",
-  "crewmate_danger_zone_open": "the crewmate editor shows its Danger zone section (choose Danger zone in the editor's section list)",
-  "crewmate_panel_not_docked": "the crewmate's details panel is not already docked open beside the chat",
+  "crewmate_danger_zone_open": "the Bot editor shows its Danger zone section (choose Danger zone in the editor's section list)",
+  "crewmate_panel_not_docked": "the Bot's details panel is not already docked open beside the chat",
   "open_app_not_installed": "the open app is not installed yet and can be installed from the dashboard",
   "open_app_enabled": "the open app is a regular installed app (not a built-in or independently managed one) and is turned on",
   "open_app_syncable": "the open app is a regular installed app with no newer version waiting; Sync reloads its installed files and does not install a new release",
@@ -66,8 +68,8 @@
   "voice_input_supported": "this browser can record from a microphone (the mic button is not drawn otherwise)",
   "job_enabled": "the open job is active (not paused)",
   "job_paused": "the open job is paused",
-  "crewmate_place_pane_open": "the crewmate editor shows its Memory section (choose it in the editor's section list)",
-  "crewmate_model_pane_open": "the crewmate editor shows its General section, which holds the model (choose it in the editor's section list)",
+  "crewmate_place_pane_open": "the Bot editor shows its Memory section (choose it in the editor's section list)",
+  "crewmate_model_pane_open": "the Bot editor shows its General section, which holds the model (choose it in the editor's section list)",
   "artifact_open": "an artifact's own page is open (click the artifact in the library)",
   "terminal_not_popped_out": "the terminal is docked in the dashboard, not popped out to its own window",
   "terminal_docked_bottom": "the terminal panel sits below the chat (the default)",
@@ -76,7 +78,6 @@
  "labels": {
   "app.collapse_sidebar": "Collapse sidebar",
   "app.connect_your_phone": "Connect your phone",
-  "app.developer": "Developer",
   "app.expand_sidebar": "Expand sidebar",
   "app.focus_mode": "Focus mode",
   "app.k_search_for_anything": "⌘K — Search for anything…",
@@ -103,7 +104,7 @@
   "components.bottomTerminalPanel.move_panel_to_right": "Move panel to right",
   "components.chatInput.add_files_options": "Add files & options",
   "components.chatInput.attach_files": "Attach files",
-  "components.chatInput.command": "Command",
+  "components.chatInput.command": "Slash command",
   "components.chatInput.context_usage": "Context usage",
   "components.chatInput.expand_composer": "Show the message input",
   "components.chatInput.file": "File",
@@ -116,7 +117,6 @@
   "components.chatInput.stop_generation": "Stop generation",
   "components.chatInput.upload_file": "Upload file",
   "components.chatInput.use_a_skill": "Use a skill",
-  "components.commandPalette.providers.pagesProvider.developer": "Developer",
   "components.commandPalette.providers.pagesProvider.kirocrew_agents": "Kiro Crew Agents",
   "components.commandPalette.providers.pagesProvider.logs": "Logs",
   "components.commandPalette.providers.pagesProvider.remote_crew": "Remote Crew",
@@ -150,9 +150,11 @@
   "literal:iMessage": "iMessage",
   "nav.agent_capabilities": "Customize",
   "nav.artifacts": "Artifacts",
-  "nav.crew_members": "Mates",
+  "nav.channels": "Channels",
+  "nav.crew_members": "Bots",
   "nav.discover": "Discover",
   "nav.library": "Library",
+  "nav.mcp_servers": "MCP Servers",
   "nav.notifications": "Notifications",
   "nav.schedule": "Schedule",
   "nav.sessions": "Sessions",
@@ -182,16 +184,16 @@
   "pages.artifactsPage.starred": "Starred",
   "pages.artifactsPage.start_a_new_blank_document_in_the_library": "Start a new blank document in the library",
   "pages.artifactsPage.your_artifacts": "Your Artifacts",
-  "pages.capabilitiesPage.connections_label": "Connections",
-  "pages.capabilitiesPage.crews_label": "Mates",
+  "pages.capabilitiesPage.crews_label": "Bots",
   "pages.capabilitiesPage.hooks_label": "Hooks",
   "pages.capabilitiesPage.knowledge_label": "Knowledge",
+  "pages.capabilitiesPage.powers_label": "Kiro Powers",
   "pages.capabilitiesPage.prompts_label": "Prompts",
   "pages.capabilitiesPage.skills_label": "Skills",
   "pages.capabilitiesPage.steering_label": "Steering",
   "pages.capabilitiesPage.templates_label": "Custom agents",
   "pages.capabilitiesPage.workflows_label": "Workflows",
-  "pages.chat.sidePanel.menu_browser": "Browser",
+  "pages.chat.sidePanel.menu_browser": "Preview",
   "pages.chat.sidePanel.open_side_panel_tab": "Open side panel tab",
   "pages.chatPage.open_activity_panel": "Open activity panel",
   "pages.chatPage.show_sessions": "Show sessions",
@@ -219,54 +221,70 @@
   "pages.chatSidebar.switch_all_to_model": "Switch all to model…",
   "pages.chatSidebar.switch_to_board_view": "Switch to board view",
   "pages.chatSidebar.switch_to_list_view": "Switch to list view",
-  "pages.connectionsPage.mcp_servers": "MCP Servers",
+  "pages.developer.agentBackendTab.orchestrator_memory_label": "Kiro Memory",
   "pages.developer.featurePreviewsTab.artifact_deploy": "Artifact Deploy",
+  "pages.developer.featurePreviewsTab.bridge_approvals": "Send pending approvals to chat apps",
   "pages.developer.featurePreviewsTab.chat_on_a_crew": "Chat on a crew",
-  "pages.developer.featurePreviewsTab.crew_members": "Mates",
-  "pages.developer.featurePreviewsTab.decisions": "Decisions (Jev)",
+  "pages.developer.featurePreviewsTab.chat_runtime_sharing": "ACP runtime sharing",
+  "pages.developer.featurePreviewsTab.crew_oauth": "MCP sign-in by Kiro Crew",
+  "pages.developer.featurePreviewsTab.dashboard_stale_fields": "Mark out-of-date Dashboard fields",
+  "pages.developer.featurePreviewsTab.dashboard_stale_wake": "Wake bots to update out-of-date fields",
+  "pages.developer.featurePreviewsTab.decisions": "Decisions",
   "pages.developer.featurePreviewsTab.decisions_api_key_label": "Jev API key",
-  "pages.developer.featurePreviewsTab.decisions_compaction": "Also send the conversation and tool-call inputs so Jev can score compaction",
+  "pages.developer.featurePreviewsTab.decisions_browser_images": "Also send screenshots of the agent's browser tab",
+  "pages.developer.featurePreviewsTab.decisions_compaction": "Also send the conversation and tool-call inputs so the decision model can score compaction",
   "pages.developer.featurePreviewsTab.decisions_history_label": "Earlier conversation one decision may carry, in characters",
   "pages.developer.featurePreviewsTab.decisions_judge_model": "Model for the small-model judge",
   "pages.developer.featurePreviewsTab.decisions_judge_provider": "Which judge answers",
-  "pages.developer.featurePreviewsTab.decisions_memory_text": "Also send snippets of recalled memories so Jev can drop the ones that do not help",
-  "pages.developer.featurePreviewsTab.decisions_tool_args": "Also send tool-call arguments so Jev can flag risky calls",
+  "pages.developer.featurePreviewsTab.decisions_memory_text": "Also send snippets of recalled memories so the decision model can drop the ones that do not help",
+  "pages.developer.featurePreviewsTab.decisions_tool_args": "Also send tool-call arguments so the decision model can flag risky calls",
+  "pages.developer.featurePreviewsTab.explore": "Explore",
   "pages.developer.featurePreviewsTab.folder_conductor": "Folder conductor",
   "pages.developer.featurePreviewsTab.layout_harness": "Composable layout",
+  "pages.developer.featurePreviewsTab.remote_dispatch": "Remote dispatch",
+  "pages.developer.featurePreviewsTab.secrets_vault": "Secrets vault redesign",
+  "pages.developer.featurePreviewsTab.session_harness": "Agent Harness for worker chats",
   "pages.developer.featurePreviewsTab.webhooks": "Webhooks",
+  "pages.developer.featurePreviewsTab.worker_grill": "Quick worker check before a hard choice",
   "pages.developer.kasBundleCard.toggle_label": "Run KAS on Kiro Crew's own engine",
+  "pages.developer.kiroSignInCard.search_label": "Sign out or switch Kiro account",
   "pages.developerPage.tabs.archive.label": "Archive",
   "pages.developerPage.tabs.config.label": "Config",
   "pages.developerPage.tabs.debugTools.label": "Debug tools",
   "pages.developerPage.tabs.logs.label": "Logs",
-  "pages.developerPage.tabs.mcpPool.label": "MCP Management",
   "pages.developerPage.tabs.memory.label": "Memory",
   "pages.developerPage.tabs.storage.label": "Storage",
   "pages.developerPage.tabs.system.label": "System",
   "pages.developerPage.tabs.telemetry.label": "Telemetry",
-  "pages.kiroCrewAgentsPage.add_crew_member": "New mate",
+  "pages.kiroCrewAgentsPage.add_crew_member": "New bot",
   "pages.kiroCrewAgentsPage.agents": "Agents",
-  "pages.kiroCrewAgentsPage.create_your_first_crew": "Create your first mate",
-  "pages.kiroCrewAgentsPage.delete_crew": "Delete mate",
-  "pages.kiroCrewAgentsPage.deleting_a_crew_unbinds_it_from_new_sessions_its": "Deleting a mate only unbinds it from new sessions. Its workspace, memory store and past transcripts are kept.",
+  "pages.kiroCrewAgentsPage.create_your_first_crew": "Create your first bot",
+  "pages.kiroCrewAgentsPage.delete_crew": "Delete bot",
+  "pages.kiroCrewAgentsPage.deleting_a_crew_unbinds_it_from_new_sessions_its": "Deleting a bot removes it, along with its picture and goal check-ins. Its workspace, memory and past chats are kept.",
   "pages.kiroCrewAgentsPage.edit_model": "Edit default model",
   "pages.kiroCrewAgentsPage.model": "Model",
+  "pages.knowledge.index.sources_tab": "Sources",
+  "pages.knowledge.sourcesList.add_source": "+ Add Source",
   "pages.libraryPage.installed_apps": "Installed apps",
   "pages.libraryPage.tile_details": "Details",
-  "pages.membersPage.add_member": "New mate",
+  "pages.mcpPage.view_servers": "Servers",
+  "pages.membersPage.add_member": "New bot",
   "pages.membersPage.add_menu": "Add…",
   "pages.membersPage.create_advanced": "Advanced",
+  "pages.membersPage.dashboard_tab": "Dashboard",
   "pages.membersPage.import_from_file": "Import from file",
   "pages.membersPage.panel_toggle": "Dashboard & files",
   "pages.membersPage.profile_card": "Profile",
+  "pages.membersPage.profile_goals_tab": "Goals",
   "pages.membersPage.profile_permissions": "Permissions",
   "pages.membersPage.profile_settings": "Settings",
   "pages.membersPage.profile_tab": "Profile",
   "pages.membersPage.roster_hide": "Hide the roster",
   "pages.membersPage.roster_show": "Show the full roster",
-  "pages.membersPage.switch_crewmate": "Switch mate",
-  "pages.membersPage.title": "Mates",
-  "pages.membersPage.toggle_roster": "Toggle mates",
+  "pages.membersPage.schedules_tab": "Schedules",
+  "pages.membersPage.switch_crewmate": "Switch bot",
+  "pages.membersPage.title": "Bots",
+  "pages.membersPage.toggle_roster": "Toggle bots",
   "pages.membersPage.unread_message": "Unread message",
   "pages.overview.mcpTab.add_custom": "Add Custom",
   "pages.overview.mcpTab.add_server": "Add Server",
@@ -279,6 +297,7 @@
   "pages.overviewPage.memory": "Memory",
   "pages.overviewPage.view_details": "View details",
   "pages.schedulePage.add_job": "Add Job",
+  "pages.schedulePage.batchActions.actions_for_selected": "Actions for the checked jobs",
   "pages.schedulePage.browse_all_templates": "Browse all templates",
   "pages.schedulePage.cancel_run": "Cancel Run",
   "pages.schedulePage.create_your_first_job": "Create your first job",
@@ -296,15 +315,21 @@
   "pages.settings.aboutPanel.automatic_updates": "Update the gateway automatically",
   "pages.settings.aboutPanel.install_app_updates_automatically": "Install app updates automatically",
   "pages.settings.aboutPanel.update_channel": "Update channel",
+  "pages.settings.aboutPanel.version_label": "Version",
   "pages.settings.botChannelPanel.allowed_user_ids": "Allowed user IDs",
   "pages.settings.botChannelPanel.file_sessions_in_folder": "File sessions in a folder",
   "pages.settings.botChannelPanel.session_folder_name": "Folder name",
   "pages.settings.botChannelPanel.soft_context_threshold": "Soft context threshold %",
-  "pages.settings.browserPanel.token_label": "Extension token (optional)",
-  "pages.settings.browserPanel.use_builtin_label": "Use the built-in browser",
+  "pages.settings.browserPanel.choice_label": "Which browser",
+  "pages.settings.browserPanel.headless_label": "Run with no window",
+  "pages.settings.browserPanel.live_enabled_label": "Show the live view in chat",
+  "pages.settings.browserPanel.max_fps_label": "Max frame rate",
+  "pages.settings.browserPanel.quality_label": "Quality",
   "pages.settings.channels.hard_threshold_label": "Hard context threshold %",
   "pages.settings.chatPanel.about_you": "About You",
   "pages.settings.chatPanel.advanced": "Advanced",
+  "pages.settings.chatPanel.arrow_key_prompt_history": "Recall Sent Messages with Arrow Keys",
+  "pages.settings.chatPanel.auto_compact_exact": "Exact Threshold (%)",
   "pages.settings.chatPanel.auto_compact_threshold": "Auto-Compact Threshold",
   "pages.settings.chatPanel.auto_open_git_panel": "Auto-Open Git in Side Panel",
   "pages.settings.chatPanel.background_effort": "Background Effort",
@@ -316,6 +341,7 @@
   "pages.settings.chatPanel.composer": "Composer",
   "pages.settings.chatPanel.confirm_before_closing_session": "Confirm Before Closing Session",
   "pages.settings.chatPanel.content_width": "Content Width",
+  "pages.settings.chatPanel.copy_on_select": "Copy on select",
   "pages.settings.chatPanel.default_model": "Default Model",
   "pages.settings.chatPanel.default_reasoning_effort": "Default Reasoning Effort",
   "pages.settings.chatPanel.default_session_folder": "Default Sidebar Folder for New Chats",
@@ -323,11 +349,14 @@
   "pages.settings.chatPanel.dim_inactive_panes": "Dim Inactive Panes",
   "pages.settings.chatPanel.discovery": "Discovery",
   "pages.settings.chatPanel.double_click_to_edit": "Double-click to edit your messages",
+  "pages.settings.chatPanel.double_escape_to_stop": "Require a second Escape to stop the turn",
   "pages.settings.chatPanel.fallback_model": "Fallback model",
   "pages.settings.chatPanel.feature_tips": "Feature Tips",
   "pages.settings.chatPanel.file_change_chips": "File Change Chips",
+  "pages.settings.chatPanel.folder_count_includes_subfolders": "Include Subfolder Contents in Folder Counts",
   "pages.settings.chatPanel.folder_suggestions": "Folder suggestions",
   "pages.settings.chatPanel.follow_up_bar_layout": "Follow-Up Bar Layout",
+  "pages.settings.chatPanel.followup_start_sends": "Send follow-ups with one click",
   "pages.settings.chatPanel.full_titles_on_scroll": "Show Full Titles While Scrolling",
   "pages.settings.chatPanel.history_expanded": "History Expanded",
   "pages.settings.chatPanel.inline_markdown_input": "Style Markdown While Typing",
@@ -338,20 +367,31 @@
   "pages.settings.chatPanel.message_font_size": "Message Font Size",
   "pages.settings.chatPanel.minimap_location": "Minimap location",
   "pages.settings.chatPanel.model": "Model",
+  "pages.settings.chatPanel.needs_me_hover_card": "Quick Reply Card on Hover",
+  "pages.settings.chatPanel.new_chat_crew_mode": "Start New Chats in conductor mode",
+  "pages.settings.chatPanel.optimize_before_sending": "Optimize Before Sending",
   "pages.settings.chatPanel.pin_last_prompt": "Pin the latest turn",
+  "pages.settings.chatPanel.preferred_language": "Preferred Reply Language",
   "pages.settings.chatPanel.prevent_sleep_while_running": "Prevent sleep while running",
+  "pages.settings.chatPanel.project_tags": "Project tags",
   "pages.settings.chatPanel.quick_send": "Quick Send",
+  "pages.settings.chatPanel.reasoning_starts_expanded": "Reasoning starts expanded",
   "pages.settings.chatPanel.refusal_fallback_model": "Content-filter fallback model",
   "pages.settings.chatPanel.response_verbosity": "Response Verbosity",
   "pages.settings.chatPanel.restore_sessions": "Restore Sessions",
   "pages.settings.chatPanel.restore_window": "Restore Window",
+  "pages.settings.chatPanel.scroll_on_send": "Jump to the bottom when you send",
   "pages.settings.chatPanel.selectable_models": "Selectable Models",
   "pages.settings.chatPanel.send_shortcut": "Send shortcut",
   "pages.settings.chatPanel.session_card_source_links": "PR and Issue Chips on Session Cards",
   "pages.settings.chatPanel.session_folder_root": "New Session Folders",
+  "pages.settings.chatPanel.session_preview_lines": "Preview Lines on Session Cards",
   "pages.settings.chatPanel.session_summaries": "Session summaries",
+  "pages.settings.chatPanel.session_title_lines": "Title Lines on Session Cards",
   "pages.settings.chatPanel.sessions": "Sessions",
+  "pages.settings.chatPanel.sessions_per_creator": "Sessions per creator",
   "pages.settings.chatPanel.show_context_percentage": "Show Context Percentage",
+  "pages.settings.chatPanel.show_optimize_prompt": "Show Optimize Prompt",
   "pages.settings.chatPanel.show_pasted_text_in_full": "Show Pasted Text in Full",
   "pages.settings.chatPanel.show_thinking_inline": "Show Thinking Inline",
   "pages.settings.chatPanel.show_timestamps": "Show Timestamps",
@@ -382,12 +422,13 @@
   "pages.settings.computerUsePanel.max_tree_nodes": "Max tree nodes",
   "pages.settings.computerUsePanel.screenshot_width": "Screenshot width",
   "pages.settings.computerUsePanel.show_cursor_motion": "Show cursor motion",
-  "pages.settings.connectionsPanel.client_id": "Client ID",
-  "pages.settings.connectionsPanel.client_secret": "Client secret",
   "pages.settings.connectionsPanel.oauth_app": "OAuth app",
-  "pages.settings.crewmatesSection.reply_threads": "Reply threads on mate chat messages",
-  "pages.settings.developerPanel.developer_mode": "Developer Mode",
+  "pages.settings.crewmatesSection.reply_threads": "Reply threads on bot chat messages",
+  "pages.settings.developerPanel.feature_previews": "Feature Previews",
   "pages.settings.developerPanel.run_a_local_gateway": "Run a local gateway",
+  "pages.settings.discordPanel.token_label": "Discord bot token",
+  "pages.settings.displayPanel.channels": "Show Channels",
+  "pages.settings.displayPanel.command_bar": "Use Command Bar",
   "pages.settings.displayPanel.custom_font_family": "Custom font",
   "pages.settings.displayPanel.custom_font_ligatures": "Enable ligatures",
   "pages.settings.displayPanel.default_for_new_sessions": "Default for New Sessions",
@@ -396,11 +437,21 @@
   "pages.settings.displayPanel.highlight_recent_sessions": "Highlight recent sessions",
   "pages.settings.displayPanel.intensity": "Intensity",
   "pages.settings.displayPanel.interface": "Interface",
+  "pages.settings.displayPanel.keep_running_when_window_closed": "Keep running in the background after closing the window",
+  "pages.settings.displayPanel.milestones": "Explore",
   "pages.settings.displayPanel.mode": "Mode",
   "pages.settings.displayPanel.palette": "Palette",
+  "pages.settings.displayPanel.remote_editor": "Remote editor",
+  "pages.settings.displayPanel.remote_editor_editor": "Editor",
+  "pages.settings.displayPanel.remote_editor_host": "SSH host",
+  "pages.settings.displayPanel.show_topbar_search": "Show search in the top bar",
+  "pages.settings.displayPanel.show_tray_icon": "Show tray icon",
+  "pages.settings.displayPanel.show_unread_dot": "Show unread dot on session cards",
   "pages.settings.displayPanel.sidebar_colors": "Sidebar Colors",
+  "pages.settings.displayPanel.task_runner": "Show Task Runner",
   "pages.settings.displayPanel.terminal": "Terminal",
   "pages.settings.displayPanel.terminal_completion": "Command completion",
+  "pages.settings.displayPanel.terminal_copy_on_select": "Copy on select",
   "pages.settings.displayPanel.terminal_cursor_style": "Cursor style",
   "pages.settings.displayPanel.terminal_external_app": "External terminal app",
   "pages.settings.displayPanel.terminal_font_family": "Font",
@@ -408,10 +459,15 @@
   "pages.settings.displayPanel.terminal_reuse_current": "Reuse the current terminal",
   "pages.settings.displayPanel.terminal_shell": "Default shell",
   "pages.settings.displayPanel.theme": "Theme",
+  "pages.settings.displayPanel.theme_experience_overlays": "Overlays",
+  "pages.settings.displayPanel.theme_experience_persona": "Persona",
+  "pages.settings.displayPanel.theme_experience_sounds": "Sounds",
   "pages.settings.displayPanel.translucent_panels": "Translucent panels",
   "pages.settings.displayPanel.view": "View",
   "pages.settings.displayPanel.zoom_font": "Zoom & Font",
   "pages.settings.displayPanel.zoom_level": "Zoom Level",
+  "pages.settings.feishuPanel.app_id_label": "Feishu app ID",
+  "pages.settings.feishuPanel.app_secret_label": "Feishu app secret",
   "pages.settings.iMessagePanel.allowed_handles": "Allowed handles",
   "pages.settings.iMessagePanel.db_path": "Messages database path",
   "pages.settings.iMessagePanel.enable": "Enable iMessage channel",
@@ -430,24 +486,32 @@
   "pages.settings.notificationsPanel.category_turn": "Conversation handoffs",
   "pages.settings.notificationsPanel.custom_sounds": "Custom sounds",
   "pages.settings.notificationsPanel.desktop_alerts": "Desktop alerts",
+  "pages.settings.notificationsPanel.mute_sounds": "Mute sounds",
+  "pages.settings.notificationsPanel.notify_min_turn": "Only notify for longer turns",
   "pages.settings.notificationsPanel.notify_when_a_background_chat_finishes": "Notify when a background chat finishes",
   "pages.settings.notificationsPanel.per_category_sounds": "Per-category sounds",
   "pages.settings.notificationsPanel.play_sound_on_new_notifications": "Play sound on new notifications",
-  "pages.settings.notificationsPanel.show_banner_for_new_notifications": "Show a banner for new notifications",
+  "pages.settings.notificationsPanel.push_toggle_label": "Notify me even when Kiro Crew is closed",
+  "pages.settings.notificationsPanel.show_banner_for_new_notifications": "Show a banner while this window is open",
   "pages.settings.notificationsPanel.sound": "Sound",
   "pages.settings.notificationsPanel.sources": "Sources",
   "pages.settings.notificationsPanel.unread_only_when_done_or_waiting": "Mark sessions unread only when they need you",
   "pages.settings.notificationsPanel.volume": "Volume",
   "pages.settings.privacyPanel.recordMetricsLabel": "Record metrics",
+  "pages.settings.releases.section_label": "Release notes",
   "pages.settings.remoteCrewPanel.auto_connect": "Auto-connect crews",
-  "pages.settings.securityPanel.credential_redaction_toggle": "Redact credentials in files the dashboard opens for you",
+  "pages.settings.securityPanel.bodyFields.section_title": "Message body fields",
+  "pages.settings.securityPanel.configPending.nav_dot": "Settings files changed outside Kiro Crew",
+  "pages.settings.securityPanel.credential_redaction_toggle": "Redact credentials",
   "pages.settings.securityPanel.defense_in_depth_architecture": "Defense-in-Depth Architecture",
   "pages.settings.securityPanel.denied_commands": "Denied Commands",
   "pages.settings.securityPanel.documentation": "Documentation",
-  "pages.settings.securityPanel.file_delivery_section": "Flagged-file delivery",
   "pages.settings.securityPanel.governance_policy": "Governance Policy",
   "pages.settings.securityPanel.live_security_posture": "Live Security Posture",
   "pages.settings.securityPanel.redaction_section": "Redaction",
+  "pages.settings.securityPanel.safetySwitches.ask_label": "Ask me before running tools an MCP server pre-approves",
+  "pages.settings.securityPanel.safetySwitches.protect_label": "Stop the agent from editing its own permission rules",
+  "pages.settings.securityPanel.safetySwitches.section_title": "Safety switches",
   "pages.settings.securityPanel.tailnet_section": "Tailnet origin",
   "pages.settings.securityPanel.tailnet_title": "Trust this machine's tailnet name",
   "pages.settings.securityPanel.third_party_apps_section": "Third-party apps",
@@ -466,6 +530,9 @@
   "pages.settings.slackPanel.owner_slack_member_id": "Owner Slack member ID",
   "pages.settings.slackPanel.phase_reactions": "Phase reactions",
   "pages.settings.slackPanel.show_thinking": "Show thinking",
+  "pages.settings.slackPanel.slackCode.agent_sessions": "Agent sessions",
+  "pages.settings.slackPanel.slackCode.code_channel_dispatch": "Let code channels start helper agents",
+  "pages.settings.slackPanel.slackCode.code_channels": "Code channels",
   "pages.settings.slackPanel.slack_app_token": "Slack app token",
   "pages.settings.slackPanel.slack_bot_token": "Slack bot token",
   "pages.settings.slackPanel.slash_command": "Slash command",
@@ -474,6 +541,7 @@
   "pages.settings.sttSettings.custom_model_path": "Custom model file",
   "pages.settings.sttSettings.custom_model_sha256": "File fingerprint (SHA-256)",
   "pages.settings.sttSettings.decode_threads": "Decode threads",
+  "pages.settings.sttSettings.dictation_note": "Tell the agent this was dictated",
   "pages.settings.sttSettings.dictation_panel": "Dictation panel",
   "pages.settings.sttSettings.enabled": "Enabled",
   "pages.settings.sttSettings.endpointing": "Auto-submit when I finish speaking",
@@ -486,6 +554,7 @@
   "pages.settings.sttSettings.ptt_hold_threshold": "Tap vs. hold cutoff",
   "pages.settings.sttSettings.ptt_key": "Shortcut key",
   "pages.settings.sttSettings.ptt_mode": "How the key works",
+  "pages.settings.sttSettings.slide_to_send": "Slide up and right to send",
   "pages.settings.sttSettings.streaming": "Streaming",
   "pages.settings.sttSettings.submit_on_release": "Send when I stop recording",
   "pages.settings.sttSettings.transcribe_languages": "Mixed languages",
@@ -495,6 +564,7 @@
   "pages.settings.teamsPanel.app_password_client_secret": "App password (client secret)",
   "pages.settings.teamsPanel.enable_teams_channel": "Enable Teams channel",
   "pages.settings.teamsPanel.tenant_id": "Tenant ID",
+  "pages.settings.telegramPanel.token_label": "Telegram bot token",
   "pages.settings.voicePanel.auto_speak_responses": "Auto-speak Responses",
   "pages.settings.voicePanel.aws_profile_polly": "AWS Profile (Amazon Polly)",
   "pages.settings.voicePanel.aws_region_polly": "AWS Region (Amazon Polly)",
@@ -503,6 +573,8 @@
   "pages.settings.voicePanel.provider": "Provider",
   "pages.settings.voicePanel.speed": "Speed",
   "pages.settings.voicePanel.voice": "Voice",
+  "pages.settings.weComPanel.bot_id_label": "WeCom bot ID",
+  "pages.settings.weComPanel.token_label": "WeCom bot secret",
   "pages.settings.webexPanel.allow_group_spaces": "Answer in group spaces",
   "pages.settings.webexPanel.allowed_emails": "Allowed emails",
   "pages.settings.webexPanel.allowed_room_ids": "Allowed space IDs",
@@ -513,7 +585,7 @@
   "pages.settings.webexPanel.webex_bot_token": "Webex bot token",
   "pages.settings.weixinPanel.allowed_user_ids": "Allowed user IDs",
   "pages.settings.weixinPanel.enable_the_wechat_channel": "Enable the WeChat channel",
-  "pages.settings.weixinPanel.who_can_message_the_bot": "Who can message the bot",
+  "pages.settings.weixinPanel.who_can_message_the_bot": "Who can message the agent",
   "pages.settings.whatsAppPanel.allowed_wa_ids": "Allowed numbers",
   "pages.settings.whatsAppPanel.enable_the_whatsapp_channel": "Enable the WhatsApp channel",
   "pages.settings.whatsAppPanel.how_the_agent_joins_in": "How the agent joins in",
@@ -522,6 +594,14 @@
   "pages.settings.whatsAppPanel.who_can_message_the_bot": "Who can message the agent",
   "privacyDisclosure.settingsLabel": "Privacy",
   "privacyDisclosure.toggleLabel": "Send anonymous usage heartbeat",
+  "sessionEnvironments.boxdSize": "Machine size",
+  "sessionEnvironments.defaultEnabled": "Start new chats on a profile",
+  "sessionEnvironments.defaultProfile": "Default for new chats",
+  "sessionEnvironments.stopOnShutdown": "Stop workspaces when Kiro Crew shuts down",
+  "sessionEnvironments.title": "Session Environments",
+  "sessionEnvironments.tokenSecret": "Secret name for the token (usually SPRITES_TOKEN)",
+  "sessionEnvironments.url": "Coder URL",
+  "settings.advanced.title": "All settings",
   "settings.chat.defaultMemoryMode.label": "Default Memory Mode",
   "settings.chat.diffLayout.label": "Split (side-by-side) diffs",
   "settings.chat.plainDiff.label": "Plain diffs",
@@ -529,29 +609,31 @@
   "settings.secrets.jira_api_token_label": "Jira API token",
   "settings.secrets.wakatime_api_key_label": "WakaTime API key",
   "settings.tabs.about.label": "About",
+  "settings.tabs.advanced.label": "Advanced",
   "settings.tabs.agent.label": "Agent Harness",
   "settings.tabs.browser.label": "Browser",
   "settings.tabs.channels.label": "Messaging Channels",
   "settings.tabs.chat.label": "Chat",
   "settings.tabs.computerUse.label": "Computer Use",
-  "settings.tabs.connections.label": "OAuth Apps",
+  "settings.tabs.connections.label": "Connections",
   "settings.tabs.developer.label": "Developer",
   "settings.tabs.display.label": "Display",
   "settings.tabs.imports.label": "Import / Export",
   "settings.tabs.instances.label": "Remote Crew",
   "settings.tabs.notifications.label": "Notifications",
   "settings.tabs.overview.label": "Overview",
-  "settings.tabs.releases.label": "Releases",
   "settings.tabs.secrets.label": "Secrets",
   "settings.tabs.security.label": "Security",
   "settings.tabs.shortcuts.label": "Shortcuts",
   "settings.tabs.skills.label": "Skills",
   "settings.tabs.voice.label": "Voice",
   "settings.tabs.webhooks.label": "Webhooks",
+  "sharedCrew.preview_title": "Shared Crew",
+  "sharedCrew.settings_tab_label": "People",
   "uiLocations.description.chat_memory_mode": "The memory mode button above the message box. It switches this chat to incognito or temporary memory, or back to persistent.",
   "uiLocations.description.chat_model_picker": "The model button in the message box. It shows this chat's model and opens the model picker.",
   "uiLocations.description.chat_session_title": "The session's title at the top of the chat. Its text is the session's name; click it to rename the session.",
-  "uiLocations.description.composer_approval_mode": "The approval-mode picker in the message box's control row. It sets whether tool calls ask first (Normal), run reads without asking (Reads), trust this session (Trust), or auto-approve everything (YOLO).",
+  "uiLocations.description.composer_approval_mode": "The approval-mode picker in the message box's control row. It sets whether only lookups run without asking (Normal), its own memory, chat, skill and knowledge searches run too (Reads), this session is trusted (Trust), or everything is auto-approved (YOLO).",
   "uiLocations.description.composer_voice_input": "The microphone button in the message box. Press it to dictate instead of typing; on a touchscreen it switches between the keyboard and hold-to-talk."
  },
  "locations": [
@@ -577,6 +659,11 @@
     "add a crewmate",
     "new agent",
     "add a new agent",
+    "create a Bot",
+    "make a Bot",
+    "add a Bot",
+    "new mate",
+    "create a new mate",
     "create an agent",
     "make an agent",
     "add an agent",
@@ -611,6 +698,11 @@
     "add a crewmate",
     "new agent",
     "add a new agent",
+    "create a Bot",
+    "make a Bot",
+    "add a Bot",
+    "new mate",
+    "create a new mate",
     "create an agent",
     "make an agent",
     "add an agent",
@@ -661,7 +753,11 @@
     "remove a crewmate",
     "delete an agent",
     "remove an agent",
-    "get rid of a crewmate"
+    "get rid of a crewmate",
+    "remove a Bot",
+    "get rid of a Bot",
+    "delete a mate",
+    "remove a mate"
    ]
   },
   {
@@ -691,7 +787,9 @@
     "change the avatar",
     "crewmate picture",
     "change the face",
-    "avatar"
+    "avatar",
+    "change my Bot's avatar",
+    "Bot picture"
    ]
   },
   {
@@ -720,7 +818,10 @@
     "change a crewmate's model",
     "crewmate's default model",
     "which model a crewmate uses",
-    "change an agent's model"
+    "change an agent's model",
+    "change a Bot's model",
+    "Bot's default model",
+    "which model a Bot uses"
    ]
   },
   {
@@ -1802,13 +1903,12 @@
     }
    ],
    "terms": [
-    "built-in browser",
-    "browser panel",
-    "browser view",
-    "open the browser",
-    "watch the agent browse",
-    "see the web page the agent opened",
-    "open a web page in the dashboard"
+    "preview tab",
+    "local preview",
+    "preview my dev server",
+    "open localhost in the dashboard",
+    "see my vite dev server",
+    "preview a local web server"
    ]
   },
   {
@@ -1881,7 +1981,7 @@
   {
    "id": "composer.add-menu.reference-file",
    "kind": "menu-item",
-   "label_key": "components.chatInput.file",
+   "label_key": "components.chatInput.reference_a_file",
    "placements": [
     {
      "surface_id": "chat",
@@ -2009,7 +2109,7 @@
   {
    "id": "composer.add-menu.skill",
    "kind": "menu-item",
-   "label_key": "components.chatInput.skill",
+   "label_key": "components.chatInput.use_a_skill",
    "placements": [
     {
      "surface_id": "chat",
@@ -2082,7 +2182,6 @@
     }
    ],
    "terms": [
-    "slash command",
     "chat commands",
     "quick commands",
     "commands menu"
@@ -2545,26 +2644,52 @@
    ]
   },
   {
-   "id": "connections.mcp-servers-tab",
-   "kind": "tab",
-   "label_key": "pages.connectionsPage.mcp_servers",
+   "id": "knowledge.add-source",
+   "kind": "button",
+   "label_key": "pages.knowledge.sourcesList.add_source",
    "placements": [
     {
      "surface_id": "capabilities",
-     "route": "/capabilities?tab=mcp",
+     "route": "/capabilities?tab=knowledge",
      "parent_ids": [
       "page.capabilities",
-      "tab.capabilities.mcp"
+      "tab.capabilities.knowledge",
+      "knowledge.sources-tab"
+     ],
+     "entry_kind": "toolbar",
+     "requires": []
+    }
+   ],
+   "terms": [
+    "add a folder to the knowledge base",
+    "add files to knowledge",
+    "upload a document to knowledge",
+    "index a folder",
+    "watch a folder",
+    "add knowledge"
+   ]
+  },
+  {
+   "id": "knowledge.sources-tab",
+   "kind": "tab",
+   "label_key": "pages.knowledge.index.sources_tab",
+   "placements": [
+    {
+     "surface_id": "capabilities",
+     "route": "/capabilities?tab=knowledge",
+     "parent_ids": [
+      "page.capabilities",
+      "tab.capabilities.knowledge"
      ],
      "entry_kind": "tab",
      "requires": []
     }
    ],
    "terms": [
-    "mcp",
-    "mcp list",
-    "tool servers",
-    "my mcp servers"
+    "knowledge sources",
+    "my knowledge folders",
+    "indexed folders",
+    "watched folders"
    ]
   },
   {
@@ -2574,11 +2699,11 @@
    "placements": [
     {
      "surface_id": "capabilities",
-     "route": "/capabilities?tab=mcp",
+     "route": "/capabilities?tab=mcp-servers",
      "parent_ids": [
       "page.capabilities",
-      "tab.capabilities.mcp",
-      "connections.mcp-servers-tab"
+      "tab.capabilities.mcp-servers",
+      "mcp.servers-view"
      ],
      "entry_kind": "toolbar",
      "requires": []
@@ -2608,11 +2733,11 @@
    "placements": [
     {
      "surface_id": "capabilities",
-     "route": "/capabilities?tab=mcp",
+     "route": "/capabilities?tab=mcp-servers",
      "parent_ids": [
       "page.capabilities",
-      "tab.capabilities.mcp",
-      "connections.mcp-servers-tab"
+      "tab.capabilities.mcp-servers",
+      "mcp.servers-view"
      ],
      "entry_kind": "toolbar",
      "requires": []
@@ -2638,11 +2763,11 @@
    "placements": [
     {
      "surface_id": "capabilities",
-     "route": "/capabilities?tab=mcp",
+     "route": "/capabilities?tab=mcp-servers",
      "parent_ids": [
       "page.capabilities",
-      "tab.capabilities.mcp",
-      "connections.mcp-servers-tab"
+      "tab.capabilities.mcp-servers",
+      "mcp.servers-view"
      ],
      "entry_kind": "toolbar",
      "requires": []
@@ -2654,6 +2779,29 @@
     "refresh mcp servers",
     "reconnect mcp servers",
     "are my mcp servers working"
+   ]
+  },
+  {
+   "id": "mcp.servers-view",
+   "kind": "tab",
+   "label_key": "pages.mcpPage.view_servers",
+   "placements": [
+    {
+     "surface_id": "capabilities",
+     "route": "/capabilities?tab=mcp-servers",
+     "parent_ids": [
+      "page.capabilities",
+      "tab.capabilities.mcp-servers"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "terms": [
+    "mcp",
+    "mcp list",
+    "tool servers",
+    "my mcp servers"
    ]
   },
   {
@@ -2669,11 +2817,6 @@
      ],
      "entry_kind": "toolbar",
      "requires": [
-      {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
       {
        "kind": "condition",
        "id": "has_crewmates"
@@ -2694,7 +2837,10 @@
    "terms": [
     "advanced crewmate setup",
     "full crewmate form",
-    "all crewmate options"
+    "all crewmate options",
+    "advanced Bot setup",
+    "full Bot form",
+    "all Bot options"
    ]
   },
   {
@@ -2711,11 +2857,6 @@
      ],
      "entry_kind": "menu",
      "requires": [
-      {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
       {
        "kind": "condition",
        "id": "has_crewmates"
@@ -2736,7 +2877,10 @@
    "terms": [
     "import a crewmate",
     "open a crewmate file",
-    "add a shared crewmate"
+    "add a shared crewmate",
+    "import a Bot",
+    "open a Bot file",
+    "add a shared Bot"
    ]
   },
   {
@@ -2753,11 +2897,6 @@
      ],
      "entry_kind": "menu",
      "requires": [
-      {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
       {
        "kind": "condition",
        "id": "has_crewmates"
@@ -2781,6 +2920,11 @@
     "add a crewmate",
     "new agent",
     "add a new agent",
+    "create a Bot",
+    "make a Bot",
+    "add a Bot",
+    "new mate",
+    "create a new mate",
     "create an agent",
     "make an agent",
     "add an agent",
@@ -2802,11 +2946,6 @@
      "entry_kind": "header",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "viewport",
        "value": "mobile"
       },
@@ -2820,7 +2959,40 @@
    "terms": [
     "back to the crewmate list",
     "all my crewmates",
-    "crewmate roster"
+    "crewmate roster",
+    "back to the Bot list",
+    "all my Bots",
+    "Bot roster"
+   ]
+  },
+  {
+   "id": "members.dashboard-tab",
+   "kind": "tab",
+   "label_key": "pages.membersPage.dashboard_tab",
+   "placements": [
+    {
+     "surface_id": "members",
+     "route": "/members",
+     "parent_ids": [
+      "page.members"
+     ],
+     "entry_kind": "content",
+     "requires": [
+      {
+       "kind": "condition",
+       "id": "crewmate_selected"
+      },
+      {
+       "kind": "shown_by",
+       "location": "members.details",
+       "when": "crewmate_panel_closed"
+      }
+     ]
+    }
+   ],
+   "terms": [
+    "my mate's dashboard",
+    "my Bot's dashboard"
    ]
   },
   {
@@ -2837,11 +3009,6 @@
      "entry_kind": "header",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "condition",
        "id": "crewmate_selected"
       },
@@ -2856,7 +3023,12 @@
     "crewmate details",
     "crewmate info",
     "side panel",
-    "show crewmate details"
+    "show crewmate details",
+    "my mate's files",
+    "Bot details",
+    "Bot info",
+    "show Bot details",
+    "my Bot's files"
    ]
   },
   {
@@ -2873,11 +3045,6 @@
      "entry_kind": "content",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "condition",
        "id": "crewmate_selected"
       }
@@ -2889,7 +3056,10 @@
     "change my crewmate",
     "crewmate settings",
     "edit an agent",
-    "change agent settings"
+    "change agent settings",
+    "edit my Bot",
+    "change my Bot",
+    "Bot settings"
    ]
   },
   {
@@ -2906,11 +3076,6 @@
      "entry_kind": "content",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "condition",
        "id": "no_crewmates"
       }
@@ -2920,7 +3085,45 @@
    "terms": [
     "import a crewmate",
     "open a crewmate file",
-    "add a shared crewmate"
+    "add a shared crewmate",
+    "import a Bot",
+    "open a Bot file",
+    "add a shared Bot"
+   ]
+  },
+  {
+   "id": "members.goals-tab",
+   "kind": "tab",
+   "label_key": "pages.membersPage.profile_goals_tab",
+   "placements": [
+    {
+     "surface_id": "members",
+     "route": "/members",
+     "parent_ids": [
+      "page.members"
+     ],
+     "entry_kind": "content",
+     "requires": [
+      {
+       "kind": "condition",
+       "id": "crewmate_selected"
+      },
+      {
+       "kind": "shown_by",
+       "location": "members.edit",
+       "when": "crewmate_profile_closed"
+      }
+     ]
+    }
+   ],
+   "terms": [
+    "my mate's goal",
+    "my mate's milestones",
+    "goals and milestones",
+    "what my mate is working toward",
+    "my Bot's goal",
+    "my Bot's milestones",
+    "what my Bot is working toward"
    ]
   },
   {
@@ -2937,11 +3140,6 @@
      "entry_kind": "content",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "condition",
        "id": "no_crewmates"
       }
@@ -2954,6 +3152,11 @@
     "add a crewmate",
     "new agent",
     "add a new agent",
+    "create a Bot",
+    "make a Bot",
+    "add a Bot",
+    "new mate",
+    "create a new mate",
     "create an agent",
     "make an agent",
     "add an agent",
@@ -2975,11 +3178,6 @@
      "entry_kind": "content",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "condition",
        "id": "no_crewmates"
       }
@@ -2989,7 +3187,10 @@
    "terms": [
     "advanced crewmate setup",
     "full crewmate form",
-    "all crewmate options"
+    "all crewmate options",
+    "advanced Bot setup",
+    "full Bot form",
+    "all Bot options"
    ]
   },
   {
@@ -3005,11 +3206,6 @@
      ],
      "entry_kind": "content",
      "requires": [
-      {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
       {
        "kind": "condition",
        "id": "crewmate_selected"
@@ -3034,7 +3230,9 @@
    ],
    "terms": [
     "crewmate permissions",
-    "what a crewmate may do"
+    "what a crewmate may do",
+    "Bot permissions",
+    "what a Bot may do"
    ]
   },
   {
@@ -3051,11 +3249,6 @@
      "entry_kind": "content",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "condition",
        "id": "crewmate_selected"
       },
@@ -3070,7 +3263,10 @@
    "terms": [
     "my crewmate's profile",
     "what my crewmate is about",
-    "the crewmate's memory and workspace"
+    "the crewmate's memory and workspace",
+    "my Bot's profile",
+    "what my Bot is about",
+    "the Bot's memory and workspace"
    ]
   },
   {
@@ -3085,14 +3281,43 @@
       "page.members"
      ],
      "entry_kind": "content",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "members.schedule-tab",
+   "kind": "tab",
+   "label_key": "pages.membersPage.schedules_tab",
+   "placements": [
+    {
+     "surface_id": "members",
+     "route": "/members",
+     "parent_ids": [
+      "page.members"
+     ],
+     "entry_kind": "content",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
+       "kind": "condition",
+       "id": "crewmate_selected"
+      },
+      {
+       "kind": "shown_by",
+       "location": "members.edit",
+       "when": "crewmate_profile_closed"
       }
      ]
     }
+   ],
+   "terms": [
+    "my mate's schedules",
+    "what wakes my mate",
+    "turn on heartbeat",
+    "my mate's check-ins",
+    "my Bot's schedules",
+    "what wakes my Bot",
+    "my Bot's check-ins"
    ]
   },
   {
@@ -3108,11 +3333,6 @@
      ],
      "entry_kind": "content",
      "requires": [
-      {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
       {
        "kind": "condition",
        "id": "crewmate_selected"
@@ -3134,7 +3354,10 @@
     "crewmate settings",
     "my crewmate's model",
     "change the crewmate's model",
-    "lock the dashboard layout"
+    "lock the dashboard layout",
+    "Bot settings",
+    "my Bot's model",
+    "change the Bot's model"
    ]
   },
   {
@@ -3151,11 +3374,6 @@
      "entry_kind": "header",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "viewport",
        "value": "desktop"
       },
@@ -3171,7 +3389,13 @@
     "show all crewmates",
     "crewmate list",
     "find a crewmate by name",
-    "search crewmates"
+    "search crewmates",
+    "other Bots",
+    "show all Bots",
+    "Bot list",
+    "find a mate by name",
+    "find a Bot by name",
+    "search Bots"
    ]
   },
   {
@@ -3189,11 +3413,6 @@
      "entry_kind": "menu",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "viewport",
        "value": "desktop"
       },
@@ -3207,7 +3426,10 @@
    "terms": [
     "import a crewmate",
     "open a crewmate file",
-    "add a shared crewmate"
+    "add a shared crewmate",
+    "import a Bot",
+    "open a Bot file",
+    "add a shared Bot"
    ]
   },
   {
@@ -3225,11 +3447,6 @@
      "entry_kind": "menu",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "viewport",
        "value": "desktop"
       },
@@ -3246,6 +3463,11 @@
     "add a crewmate",
     "new agent",
     "add a new agent",
+    "create a Bot",
+    "make a Bot",
+    "add a Bot",
+    "new mate",
+    "create a new mate",
     "create an agent",
     "make an agent",
     "add an agent",
@@ -3268,11 +3490,6 @@
      "entry_kind": "menu",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "viewport",
        "value": "desktop"
       },
@@ -3286,7 +3503,8 @@
    "terms": [
     "show the roster",
     "show the crewmate list",
-    "roster column"
+    "roster column",
+    "show the Bot list"
    ]
   },
   {
@@ -3303,11 +3521,6 @@
      "entry_kind": "header",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "viewport",
        "value": "desktop"
       },
@@ -3322,7 +3535,9 @@
     "unread crewmate",
     "who has unread messages",
     "crewmate with a new message",
-    "unread pill"
+    "unread pill",
+    "unread Bot",
+    "Bot with a new message"
    ]
   },
   {
@@ -3339,11 +3554,6 @@
      "entry_kind": "header",
      "requires": [
       {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      },
-      {
        "kind": "viewport",
        "value": "desktop"
       },
@@ -3356,7 +3566,9 @@
    ],
    "terms": [
     "more unread crewmates",
-    "other unread crewmates"
+    "other unread crewmates",
+    "more unread Bots",
+    "other unread Bots"
    ]
   },
   {
@@ -3647,6 +3859,25 @@
    ]
   },
   {
+   "id": "page.channels",
+   "kind": "page",
+   "label_key": "nav.channels",
+   "placements": [
+    {
+     "surface_id": "channels",
+     "route": "/channels",
+     "parent_ids": [],
+     "entry_kind": "rail",
+     "requires": [
+      {
+       "kind": "condition",
+       "id": "page_turned_on"
+      }
+     ]
+    }
+   ]
+  },
+  {
    "id": "page.chat",
    "kind": "page",
    "label_key": "nav.sessions",
@@ -3663,20 +3894,6 @@
     "chats",
     "conversations",
     "chat sessions"
-   ]
-  },
-  {
-   "id": "page.developer",
-   "kind": "page",
-   "label_key": "components.commandPalette.providers.pagesProvider.developer",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer",
-     "parent_ids": [],
-     "entry_kind": "rail",
-     "requires": []
-    }
    ]
   },
   {
@@ -3703,13 +3920,7 @@
      "route": "/members",
      "parent_ids": [],
      "entry_kind": "rail",
-     "requires": [
-      {
-       "kind": "preview_flag",
-       "flag": "mc-preview-crew",
-       "location": "setting:developer.mates"
-      }
-     ]
+     "requires": []
     }
    ]
   },
@@ -3740,7 +3951,7 @@
      "requires": [
       {
        "kind": "condition",
-       "id": "app_enabled"
+       "id": "page_switched_on"
       }
      ]
     }
@@ -3837,6 +4048,31 @@
     "set a reminder",
     "new reminder",
     "recurring task"
+   ]
+  },
+  {
+   "id": "schedule.batch-actions",
+   "kind": "button",
+   "label_key": "pages.schedulePage.batchActions.actions_for_selected",
+   "placements": [
+    {
+     "surface_id": "schedule",
+     "route": "/schedule",
+     "parent_ids": [
+      "page.schedule"
+     ],
+     "entry_kind": "toolbar",
+     "requires": [
+      {
+       "kind": "condition",
+       "id": "schedule_list_view"
+      },
+      {
+       "kind": "condition",
+       "id": "one_job_checked"
+      }
+     ]
+    }
    ]
   },
   {
@@ -3992,16 +4228,17 @@
   },
   {
    "id": "schedule.move-to-folder",
-   "kind": "button",
+   "kind": "menu-item",
    "label_key": "pages.schedulePage.cronFolders.move_to_folder",
    "placements": [
     {
      "surface_id": "schedule",
      "route": "/schedule",
      "parent_ids": [
-      "page.schedule"
+      "page.schedule",
+      "schedule.batch-actions"
      ],
-     "entry_kind": "toolbar",
+     "entry_kind": "menu",
      "requires": [
       {
        "kind": "condition",
@@ -5220,6 +5457,24 @@
    "setting_id": "about.install-app-updates-automatically"
   },
   {
+   "id": "setting:about.release-notes",
+   "kind": "setting",
+   "label_key": "pages.settings.releases.section_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/about?release=notes&highlight=about.release-notes",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.about"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "about.release-notes"
+  },
+  {
    "id": "setting:about.update-channel",
    "kind": "setting",
    "label_key": "pages.settings.aboutPanel.update_channel",
@@ -5256,31 +5511,85 @@
    "setting_id": "about.update-the-gateway-automatically"
   },
   {
-   "id": "setting:browser.attach-token",
+   "id": "setting:about.version",
    "kind": "setting",
-   "label_key": "pages.settings.browserPanel.token_label",
+   "label_key": "pages.settings.aboutPanel.version_label",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/browser?highlight=browser.attach-token",
+     "route": "/settings/about?highlight=about.version",
      "parent_ids": [
       "page.settings",
-      "settings.tab.browser"
+      "settings.tab.about"
      ],
      "entry_kind": "tab",
      "requires": []
     }
    ],
-   "setting_id": "browser.attach-token"
+   "setting_id": "about.version"
   },
   {
-   "id": "setting:browser.use-the-built-in-browser",
+   "id": "setting:advanced.all-settings",
    "kind": "setting",
-   "label_key": "pages.settings.browserPanel.use_builtin_label",
+   "label_key": "settings.advanced.title",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/browser?highlight=key%3Adashboard.use_builtin_browser",
+     "route": "/settings/advanced?highlight=advanced.all-settings",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.advanced"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "advanced.all-settings"
+  },
+  {
+   "id": "setting:agent.kiro-memory",
+   "kind": "setting",
+   "label_key": "pages.developer.agentBackendTab.orchestrator_memory_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/agent?highlight=key%3Aagent.orchestrator_memory",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.agent"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "agent.kiro-memory"
+  },
+  {
+   "id": "setting:agent.kiro-sign-in",
+   "kind": "setting",
+   "label_key": "pages.developer.kiroSignInCard.search_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/agent?highlight=agent.kiro-sign-in",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.agent"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "agent.kiro-sign-in"
+  },
+  {
+   "id": "setting:browser.max-frame-rate",
+   "kind": "setting",
+   "label_key": "pages.settings.browserPanel.max_fps_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/browser?highlight=key%3Abrowser.live.max_fps",
      "parent_ids": [
       "page.settings",
       "settings.tab.browser"
@@ -5289,7 +5598,98 @@
      "requires": []
     }
    ],
-   "setting_id": "browser.use-the-built-in-browser"
+   "setting_id": "browser.max-frame-rate"
+  },
+  {
+   "id": "setting:browser.quality",
+   "kind": "setting",
+   "label_key": "pages.settings.browserPanel.quality_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/browser?highlight=key%3Abrowser.live.quality",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.browser"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "browser.quality"
+  },
+  {
+   "id": "setting:browser.run-with-no-window",
+   "kind": "setting",
+   "label_key": "pages.settings.browserPanel.headless_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/browser?highlight=browser.run-with-no-window",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.browser"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "browser.run-with-no-window"
+  },
+  {
+   "id": "setting:browser.show-the-live-view-in-chat",
+   "kind": "setting",
+   "label_key": "pages.settings.browserPanel.live_enabled_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/browser?highlight=key%3Abrowser.live.enabled",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.browser"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "browser.show-the-live-view-in-chat"
+  },
+  {
+   "id": "setting:browser.which-browser",
+   "kind": "setting",
+   "label_key": "pages.settings.browserPanel.choice_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/browser?highlight=key%3Abrowser.choice",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.browser"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "browser.which-browser"
+  },
+  {
+   "id": "setting:channels.agent-sessions-slack",
+   "kind": "setting",
+   "label_key": "pages.settings.slackPanel.slackCode.agent_sessions",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/slack?highlight=key%3Aslack.agent_sessions",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.slack"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.agent-sessions-slack"
   },
   {
    "id": "setting:channels.allowed-emails-webex",
@@ -5404,6 +5804,25 @@
     }
    ],
    "setting_id": "channels.allowed-user-ids-discord"
+  },
+  {
+   "id": "setting:channels.allowed-user-ids-feishu",
+   "kind": "setting",
+   "label_key": "pages.settings.botChannelPanel.allowed_user_ids",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/feishu?highlight=channels.allowed-user-ids-feishu",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.feishu"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.allowed-user-ids-feishu"
   },
   {
    "id": "setting:channels.allowed-user-ids-telegram",
@@ -5539,6 +5958,25 @@
    "setting_id": "channels.app-password-client-secret-teams"
   },
   {
+   "id": "setting:channels.code-channels-slack",
+   "kind": "setting",
+   "label_key": "pages.settings.slackPanel.slackCode.code_channels",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/slack?highlight=key%3Aslack.code_channels",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.slack"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.code-channels-slack"
+  },
+  {
    "id": "setting:channels.connect-new-sessions-to-slack-automatically-slack",
    "kind": "setting",
    "label_key": "pages.settings.slackPanel.auto_link_sessions",
@@ -5556,6 +5994,25 @@
     }
    ],
    "setting_id": "channels.connect-new-sessions-to-slack-automatically-slack"
+  },
+  {
+   "id": "setting:channels.discord-bot-token",
+   "kind": "setting",
+   "label_key": "pages.settings.discordPanel.token_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/discord?highlight=channels.discord-bot-token",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.discord"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.discord-bot-token"
   },
   {
    "id": "setting:channels.enable-imessage-channel-imessage",
@@ -5653,6 +6110,44 @@
    "setting_id": "channels.enable-webex-channel-webex"
   },
   {
+   "id": "setting:channels.feishu-app-id",
+   "kind": "setting",
+   "label_key": "pages.settings.feishuPanel.app_id_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/feishu?highlight=channels.feishu-app-id",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.feishu"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.feishu-app-id"
+  },
+  {
+   "id": "setting:channels.feishu-app-secret",
+   "kind": "setting",
+   "label_key": "pages.settings.feishuPanel.app_secret_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/feishu?highlight=channels.feishu-app-secret",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.feishu"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.feishu-app-secret"
+  },
+  {
    "id": "setting:channels.file-sessions-in-a-folder-discord",
    "kind": "setting",
    "label_key": "pages.settings.botChannelPanel.file_sessions_in_folder",
@@ -5670,6 +6165,25 @@
     }
    ],
    "setting_id": "channels.file-sessions-in-a-folder-discord"
+  },
+  {
+   "id": "setting:channels.file-sessions-in-a-folder-feishu",
+   "kind": "setting",
+   "label_key": "pages.settings.botChannelPanel.file_sessions_in_folder",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/feishu?highlight=channels.file-sessions-in-a-folder-feishu",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.feishu"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.file-sessions-in-a-folder-feishu"
   },
   {
    "id": "setting:channels.file-sessions-in-a-folder-imessage",
@@ -5841,6 +6355,25 @@
     }
    ],
    "setting_id": "channels.folder-name-discord"
+  },
+  {
+   "id": "setting:channels.folder-name-feishu",
+   "kind": "setting",
+   "label_key": "pages.settings.botChannelPanel.session_folder_name",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/feishu?highlight=channels.folder-name-feishu",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.feishu"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.folder-name-feishu"
   },
   {
    "id": "setting:channels.folder-name-imessage",
@@ -6052,6 +6585,25 @@
    "setting_id": "channels.how-the-agent-joins-in-whatsapp"
   },
   {
+   "id": "setting:channels.let-code-channels-start-helper-agents-slack",
+   "kind": "setting",
+   "label_key": "pages.settings.slackPanel.slackCode.code_channel_dispatch",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/slack?highlight=key%3Aslack.code_channel_dispatch",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.slack"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.let-code-channels-start-helper-agents-slack"
+  },
+  {
    "id": "setting:channels.messages-database-path-imessage",
    "kind": "setting",
    "label_key": "pages.settings.iMessagePanel.db_path",
@@ -6261,6 +6813,25 @@
    "setting_id": "channels.soft-context-threshold-discord"
   },
   {
+   "id": "setting:channels.soft-context-threshold-feishu",
+   "kind": "setting",
+   "label_key": "pages.settings.botChannelPanel.soft_context_threshold",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/feishu?highlight=channels.soft-context-threshold-feishu",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.feishu"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.soft-context-threshold-feishu"
+  },
+  {
    "id": "setting:channels.soft-context-threshold-teams",
    "kind": "setting",
    "label_key": "pages.settings.botChannelPanel.soft_context_threshold",
@@ -6337,6 +6908,25 @@
    "setting_id": "channels.soft-context-threshold-wecom"
   },
   {
+   "id": "setting:channels.telegram-bot-token",
+   "kind": "setting",
+   "label_key": "pages.settings.telegramPanel.token_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/telegram?highlight=channels.telegram-bot-token",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.telegram"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.telegram-bot-token"
+  },
+  {
    "id": "setting:channels.tenant-id-teams",
    "kind": "setting",
    "label_key": "pages.settings.teamsPanel.tenant_id",
@@ -6375,6 +6965,44 @@
    "setting_id": "channels.webex-bot-token-webex"
   },
   {
+   "id": "setting:channels.wecom-bot-id",
+   "kind": "setting",
+   "label_key": "pages.settings.weComPanel.bot_id_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/wecom?highlight=channels.wecom-bot-id",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.wecom"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.wecom-bot-id"
+  },
+  {
+   "id": "setting:channels.wecom-bot-secret",
+   "kind": "setting",
+   "label_key": "pages.settings.weComPanel.token_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/wecom?highlight=channels.wecom-bot-secret",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.wecom"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.wecom-bot-secret"
+  },
+  {
    "id": "setting:channels.when-the-agent-may-speak-whatsapp",
    "kind": "setting",
    "label_key": "pages.settings.whatsAppPanel.when_the_agent_may_speak",
@@ -6394,6 +7022,25 @@
    "setting_id": "channels.when-the-agent-may-speak-whatsapp"
   },
   {
+   "id": "setting:channels.who-can-message-the-agent-wechat",
+   "kind": "setting",
+   "label_key": "pages.settings.weixinPanel.who_can_message_the_bot",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/channels/weixin?highlight=channels.who-can-message-the-agent-wechat",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.channels",
+      "settings.sub.channels.weixin"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "channels.who-can-message-the-agent-wechat"
+  },
+  {
    "id": "setting:channels.who-can-message-the-agent-whatsapp",
    "kind": "setting",
    "label_key": "pages.settings.whatsAppPanel.who_can_message_the_bot",
@@ -6411,25 +7058,6 @@
     }
    ],
    "setting_id": "channels.who-can-message-the-agent-whatsapp"
-  },
-  {
-   "id": "setting:channels.who-can-message-the-bot-wechat",
-   "kind": "setting",
-   "label_key": "pages.settings.weixinPanel.who_can_message_the_bot",
-   "placements": [
-    {
-     "surface_id": "settings",
-     "route": "/settings/channels/weixin?highlight=channels.who-can-message-the-bot-wechat",
-     "parent_ids": [
-      "page.settings",
-      "settings.tab.channels",
-      "settings.sub.channels.weixin"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ],
-   "setting_id": "channels.who-can-message-the-bot-wechat"
   },
   {
    "id": "setting:chat.auto-compact-threshold",
@@ -6660,6 +7288,25 @@
    "setting_id": "chat.content-width"
   },
   {
+   "id": "setting:chat.copy-on-select",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.copy_on_select",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/transcript?highlight=chat.copy-on-select",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.transcript"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.copy-on-select"
+  },
+  {
    "id": "setting:chat.default-memory-mode",
    "kind": "setting",
    "label_key": "settings.chat.defaultMemoryMode.label",
@@ -6793,6 +7440,25 @@
    "setting_id": "chat.double-click-to-edit-your-messages"
   },
   {
+   "id": "setting:chat.exact-threshold",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.auto_compact_exact",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/advanced?highlight=chat.exact-threshold",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.advanced"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.exact-threshold"
+  },
+  {
    "id": "setting:chat.fallback-model",
    "kind": "setting",
    "label_key": "pages.settings.chatPanel.fallback_model",
@@ -6905,6 +7571,44 @@
     }
    ],
    "setting_id": "chat.history-expanded"
+  },
+  {
+   "id": "setting:chat.include-subfolder-contents-in-folder-counts",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.folder_count_includes_subfolders",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/sessions?highlight=chat.include-subfolder-contents-in-folder-counts",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.sessions"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.include-subfolder-contents-in-folder-counts"
+  },
+  {
+   "id": "setting:chat.jump-to-the-bottom-when-you-send",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.scroll_on_send",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/transcript?highlight=chat.jump-to-the-bottom-when-you-send",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.transcript"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.jump-to-the-bottom-when-you-send"
   },
   {
    "id": "setting:chat.keep-side-panel-open",
@@ -7059,6 +7763,25 @@
    "setting_id": "chat.open-sidebar-sessions-in-a-session-tab"
   },
   {
+   "id": "setting:chat.optimize-before-sending",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.optimize_before_sending",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/composer?highlight=chat.optimize-before-sending",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.composer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.optimize-before-sending"
+  },
+  {
    "id": "setting:chat.pin-summary-in-side-panel",
    "kind": "setting",
    "label_key": "pages.settings.chatPanel.side_panel_pin_summary",
@@ -7135,6 +7858,25 @@
    "setting_id": "chat.pr-and-issue-chips-on-session-cards"
   },
   {
+   "id": "setting:chat.preferred-reply-language",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.preferred_language",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/transcript?highlight=chat.preferred-reply-language",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.transcript"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.preferred-reply-language"
+  },
+  {
    "id": "setting:chat.prevent-sleep-while-running",
    "kind": "setting",
    "label_key": "pages.settings.chatPanel.prevent_sleep_while_running",
@@ -7154,6 +7896,63 @@
    "setting_id": "chat.prevent-sleep-while-running"
   },
   {
+   "id": "setting:chat.preview-lines-on-session-cards",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.session_preview_lines",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/sessions?highlight=chat.preview-lines-on-session-cards",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.sessions"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.preview-lines-on-session-cards"
+  },
+  {
+   "id": "setting:chat.project-tags",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.project_tags",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/sessions?highlight=key%3Adashboard.project_tags_enabled",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.sessions"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.project-tags"
+  },
+  {
+   "id": "setting:chat.quick-reply-card-on-hover",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.needs_me_hover_card",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/sessions?highlight=chat.quick-reply-card-on-hover",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.sessions"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.quick-reply-card-on-hover"
+  },
+  {
    "id": "setting:chat.quick-send",
    "kind": "setting",
    "label_key": "pages.settings.chatPanel.quick_send",
@@ -7171,6 +7970,63 @@
     }
    ],
    "setting_id": "chat.quick-send"
+  },
+  {
+   "id": "setting:chat.reasoning-starts-expanded",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.reasoning_starts_expanded",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/transcript?highlight=chat.reasoning-starts-expanded",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.transcript"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.reasoning-starts-expanded"
+  },
+  {
+   "id": "setting:chat.recall-sent-messages-with-arrow-keys",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.arrow_key_prompt_history",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/composer?highlight=chat.recall-sent-messages-with-arrow-keys",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.composer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.recall-sent-messages-with-arrow-keys"
+  },
+  {
+   "id": "setting:chat.require-a-second-escape-to-stop-the-turn",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.double_escape_to_stop",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/composer?highlight=chat.require-a-second-escape-to-stop-the-turn",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.composer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.require-a-second-escape-to-stop-the-turn"
   },
   {
    "id": "setting:chat.response-verbosity",
@@ -7249,6 +8105,25 @@
    "setting_id": "chat.selectable-models"
   },
   {
+   "id": "setting:chat.send-follow-ups-with-one-click",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.followup_start_sends",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/composer?highlight=chat.send-follow-ups-with-one-click",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.composer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.send-follow-ups-with-one-click"
+  },
+  {
    "id": "setting:chat.send-shortcut",
    "kind": "setting",
    "label_key": "pages.settings.chatPanel.send_shortcut",
@@ -7285,6 +8160,25 @@
     }
    ],
    "setting_id": "chat.session-summaries"
+  },
+  {
+   "id": "setting:chat.sessions-per-creator",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.sessions_per_creator",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/sessions?highlight=key%3Asession.max_per_creator",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.sessions"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.sessions-per-creator"
   },
   {
    "id": "setting:chat.show-context-percentage",
@@ -7342,6 +8236,25 @@
     }
    ],
    "setting_id": "chat.show-full-titles-while-scrolling"
+  },
+  {
+   "id": "setting:chat.show-optimize-prompt",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.show_optimize_prompt",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/composer?highlight=chat.show-optimize-prompt",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.composer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.show-optimize-prompt"
   },
   {
    "id": "setting:chat.show-pasted-text-in-full",
@@ -7496,6 +8409,25 @@
    "setting_id": "chat.split-view-session-grid"
   },
   {
+   "id": "setting:chat.start-new-chats-in-conductor-mode",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.new_chat_crew_mode",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/sessions?highlight=key%3Adashboard.new_chat_crew_mode",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.sessions"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.start-new-chats-in-conductor-mode"
+  },
+  {
    "id": "setting:chat.style-markdown-while-typing",
    "kind": "setting",
    "label_key": "pages.settings.chatPanel.inline_markdown_input",
@@ -7629,6 +8561,25 @@
    "setting_id": "chat.text-streaming-style"
   },
   {
+   "id": "setting:chat.title-lines-on-session-cards",
+   "kind": "setting",
+   "label_key": "pages.settings.chatPanel.session_title_lines",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/chat/sessions?highlight=chat.title-lines-on-session-cards",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.chat",
+      "settings.sub.chat.sessions"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "chat.title-lines-on-session-cards"
+  },
+  {
    "id": "setting:chat.tool-calls-start-expanded",
    "kind": "setting",
    "label_key": "pages.settings.chatPanel.tool_calls_start_expanded",
@@ -7654,7 +8605,7 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/chat/sessions?highlight=chat.topic-tags",
+     "route": "/settings/chat/sessions?highlight=key%3Adashboard.topic_tags_enabled",
      "parent_ids": [
       "page.settings",
       "settings.tab.chat",
@@ -7833,60 +8784,6 @@
    "setting_id": "computer-use.show-cursor-motion"
   },
   {
-   "id": "setting:connections.client-id",
-   "kind": "setting",
-   "label_key": "pages.settings.connectionsPanel.client_id",
-   "placements": [
-    {
-     "surface_id": "settings",
-     "route": "/settings/connections?highlight=connections.client-id",
-     "parent_ids": [
-      "page.settings",
-      "settings.tab.connections"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ],
-   "setting_id": "connections.client-id"
-  },
-  {
-   "id": "setting:connections.client-secret",
-   "kind": "setting",
-   "label_key": "pages.settings.connectionsPanel.client_secret",
-   "placements": [
-    {
-     "surface_id": "settings",
-     "route": "/settings/connections?highlight=connections.client-secret",
-     "parent_ids": [
-      "page.settings",
-      "settings.tab.connections"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ],
-   "setting_id": "connections.client-secret"
-  },
-  {
-   "id": "setting:connections.client-secret-2",
-   "kind": "setting",
-   "label_key": "pages.settings.connectionsPanel.client_secret",
-   "placements": [
-    {
-     "surface_id": "settings",
-     "route": "/settings/connections?highlight=connections.client-secret-2",
-     "parent_ids": [
-      "page.settings",
-      "settings.tab.connections"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ],
-   "setting_id": "connections.client-secret-2"
-  },
-  {
    "id": "setting:connections.oauth-client-asana",
    "kind": "setting",
    "label_key": "pages.settings.connectionsPanel.oauth_app",
@@ -7923,16 +8820,92 @@
    "setting_id": "connections.oauth-client-github"
   },
   {
+   "id": "setting:connections.oauth-client-google",
+   "kind": "setting",
+   "label_key": "pages.settings.connectionsPanel.oauth_app",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/connections?highlight=connections.oauth-client-google",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.connections"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "connections.oauth-client-google"
+  },
+  {
+   "id": "setting:developer.acp-runtime-sharing",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.chat_runtime_sharing",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.acp-runtime-sharing",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.acp-runtime-sharing"
+  },
+  {
+   "id": "setting:developer.agent-harness-for-worker-chats",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.session_harness",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.agent-harness-for-worker-chats",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.agent-harness-for-worker-chats"
+  },
+  {
+   "id": "setting:developer.also-send-screenshots-of-the-agent-s-browser-tab",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.decisions_browser_images",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.also-send-screenshots-of-the-agent-s-browser-tab",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.also-send-screenshots-of-the-agent-s-browser-tab"
+  },
+  {
    "id": "setting:developer.also-send-snippets-of-recalled-memories-so-jev-can-drop-the-ones-that-do-not-help",
    "kind": "setting",
    "label_key": "pages.developer.featurePreviewsTab.decisions_memory_text",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.also-send-snippets-of-recalled-memories-so-jev-can-drop-the-ones-that-do-not-help",
+     "route": "/settings/developer/feature-previews?highlight=developer.also-send-snippets-of-recalled-memories-so-jev-can-drop-the-ones-that-do-not-help",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -7947,10 +8920,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.also-send-the-conversation-and-tool-call-inputs-so-jev-can-score-compaction",
+     "route": "/settings/developer/feature-previews?highlight=developer.also-send-the-conversation-and-tool-call-inputs-so-jev-can-score-compaction",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -7965,10 +8939,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.also-send-tool-call-arguments-so-jev-can-flag-risky-calls",
+     "route": "/settings/developer/feature-previews?highlight=developer.also-send-tool-call-arguments-so-jev-can-flag-risky-calls",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -7983,10 +8958,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.artifact-deploy",
+     "route": "/settings/developer/feature-previews?highlight=developer.artifact-deploy",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8001,10 +8977,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=key%3Adashboard.dynamic_dashboard_cards",
+     "route": "/settings/developer/feature-previews?highlight=key%3Adashboard.dynamic_dashboard_cards",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8019,10 +8996,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.chat-on-a-crew",
+     "route": "/settings/developer/feature-previews?highlight=developer.chat-on-a-crew",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8037,10 +9015,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.composable-layout",
+     "route": "/settings/developer/feature-previews?highlight=developer.composable-layout",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8049,40 +9028,23 @@
    "setting_id": "developer.composable-layout"
   },
   {
-   "id": "setting:developer.decisions-jev",
+   "id": "setting:developer.decisions",
    "kind": "setting",
    "label_key": "pages.developer.featurePreviewsTab.decisions",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.decisions-jev",
+     "route": "/settings/developer/feature-previews?highlight=developer.decisions",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
     }
    ],
-   "setting_id": "developer.decisions-jev"
-  },
-  {
-   "id": "setting:developer.developer-mode",
-   "kind": "setting",
-   "label_key": "pages.settings.developerPanel.developer_mode",
-   "placements": [
-    {
-     "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.developer-mode",
-     "parent_ids": [
-      "page.settings",
-      "settings.tab.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ],
-   "setting_id": "developer.developer-mode"
+   "setting_id": "developer.decisions"
   },
   {
    "id": "setting:developer.earlier-conversation-one-decision-may-carry-in-characters",
@@ -8091,10 +9053,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.earlier-conversation-one-decision-may-carry-in-characters",
+     "route": "/settings/developer/feature-previews?highlight=developer.earlier-conversation-one-decision-may-carry-in-characters",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8103,16 +9066,36 @@
    "setting_id": "developer.earlier-conversation-one-decision-may-carry-in-characters"
   },
   {
+   "id": "setting:developer.explore",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.explore",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.explore",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.explore"
+  },
+  {
    "id": "setting:developer.folder-conductor",
    "kind": "setting",
    "label_key": "pages.developer.featurePreviewsTab.folder_conductor",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.folder-conductor",
+     "route": "/settings/developer/feature-previews?highlight=developer.folder-conductor",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8127,10 +9110,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.jev-api-key",
+     "route": "/settings/developer/feature-previews?highlight=developer.jev-api-key",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8139,22 +9123,42 @@
    "setting_id": "developer.jev-api-key"
   },
   {
-   "id": "setting:developer.mates",
+   "id": "setting:developer.mark-out-of-date-dashboard-fields",
    "kind": "setting",
-   "label_key": "pages.developer.featurePreviewsTab.crew_members",
+   "label_key": "pages.developer.featurePreviewsTab.dashboard_stale_fields",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.mates",
+     "route": "/settings/developer/feature-previews?highlight=developer.mark-out-of-date-dashboard-fields",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
     }
    ],
-   "setting_id": "developer.mates"
+   "setting_id": "developer.mark-out-of-date-dashboard-fields"
+  },
+  {
+   "id": "setting:developer.mcp-sign-in-by-kiro-crew",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.crew_oauth",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.mcp-sign-in-by-kiro-crew",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.mcp-sign-in-by-kiro-crew"
   },
   {
    "id": "setting:developer.model-for-the-small-model-judge",
@@ -8163,10 +9167,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.model-for-the-small-model-judge",
+     "route": "/settings/developer/feature-previews?highlight=developer.model-for-the-small-model-judge",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8175,22 +9180,61 @@
    "setting_id": "developer.model-for-the-small-model-judge"
   },
   {
-   "id": "setting:developer.reply-threads-on-mate-chat-messages",
+   "id": "setting:developer.quick-worker-check-before-a-hard-choice",
    "kind": "setting",
-   "label_key": "pages.settings.crewmatesSection.reply_threads",
+   "label_key": "pages.developer.featurePreviewsTab.worker_grill",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.reply-threads-on-mate-chat-messages",
+     "route": "/settings/developer/feature-previews?highlight=developer.quick-worker-check-before-a-hard-choice",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
     }
    ],
-   "setting_id": "developer.reply-threads-on-mate-chat-messages"
+   "setting_id": "developer.quick-worker-check-before-a-hard-choice"
+  },
+  {
+   "id": "setting:developer.remote-dispatch",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.remote_dispatch",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=key%3Awork_ledger.remote_dispatch",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.remote-dispatch"
+  },
+  {
+   "id": "setting:developer.reply-threads-on-bot-chat-messages",
+   "kind": "setting",
+   "label_key": "pages.settings.crewmatesSection.reply_threads",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.reply-threads-on-bot-chat-messages",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.reply-threads-on-bot-chat-messages"
   },
   {
    "id": "setting:developer.run-a-local-gateway",
@@ -8199,10 +9243,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.run-a-local-gateway",
+     "route": "/settings/developer/feature-previews?highlight=developer.run-a-local-gateway",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8217,10 +9262,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.run-kas-on-kiro-crew-s-own-engine",
+     "route": "/settings/developer/feature-previews?highlight=developer.run-kas-on-kiro-crew-s-own-engine",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8229,16 +9275,118 @@
    "setting_id": "developer.run-kas-on-kiro-crew-s-own-engine"
   },
   {
+   "id": "setting:developer.secrets-vault-redesign",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.secrets_vault",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.secrets-vault-redesign",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.secrets-vault-redesign"
+  },
+  {
+   "id": "setting:developer.send-pending-approvals-to-chat-apps",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.bridge_approvals",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.send-pending-approvals-to-chat-apps",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.send-pending-approvals-to-chat-apps"
+  },
+  {
+   "id": "setting:developer.session-environments",
+   "kind": "setting",
+   "label_key": "sessionEnvironments.title",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.session-environments",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.session-environments"
+  },
+  {
+   "id": "setting:developer.shared-crew",
+   "kind": "setting",
+   "label_key": "sharedCrew.preview_title",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.shared-crew",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "developer.shared-crew"
+  },
+  {
+   "id": "setting:developer.wake-bots-to-update-out-of-date-fields",
+   "kind": "setting",
+   "label_key": "pages.developer.featurePreviewsTab.dashboard_stale_wake",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews?highlight=developer.wake-bots-to-update-out-of-date-fields",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-dashboard-stale-fields",
+       "location": "setting:developer.mark-out-of-date-dashboard-fields"
+      }
+     ]
+    }
+   ],
+   "setting_id": "developer.wake-bots-to-update-out-of-date-fields"
+  },
+  {
    "id": "setting:developer.webhooks",
    "kind": "setting",
    "label_key": "pages.developer.featurePreviewsTab.webhooks",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.webhooks",
+     "route": "/settings/developer/feature-previews?highlight=developer.webhooks",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8253,10 +9401,11 @@
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/developer?highlight=developer.which-judge-answers",
+     "route": "/settings/developer/feature-previews?highlight=developer.which-judge-answers",
      "parent_ids": [
       "page.settings",
-      "settings.tab.developer"
+      "settings.tab.developer",
+      "settings.sub.developer.feature-previews"
      ],
      "entry_kind": "tab",
      "requires": []
@@ -8282,6 +9431,25 @@
     }
    ],
    "setting_id": "display.command-completion"
+  },
+  {
+   "id": "setting:display.copy-on-select",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.terminal_copy_on_select",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/terminal?highlight=display.copy-on-select",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.terminal"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.copy-on-select"
   },
   {
    "id": "setting:display.cursor-style",
@@ -8379,6 +9547,25 @@
    "setting_id": "display.display-mode"
   },
   {
+   "id": "setting:display.editor",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.remote_editor_editor",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/remote-editor?highlight=key%3Adashboard.remote_editor.editor",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.remote-editor"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.editor"
+  },
+  {
    "id": "setting:display.enable-ligatures",
    "kind": "setting",
    "label_key": "pages.settings.displayPanel.custom_font_ligatures",
@@ -8396,6 +9583,31 @@
     }
    ],
    "setting_id": "display.enable-ligatures"
+  },
+  {
+   "id": "setting:display.explore",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.milestones",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/view?highlight=key%3Adashboard.milestones_enabled",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.view"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-explore",
+       "location": "setting:developer.explore"
+      }
+     ]
+    }
+   ],
+   "setting_id": "display.explore"
   },
   {
    "id": "setting:display.external-terminal-app",
@@ -8531,6 +9743,34 @@
    "setting_id": "display.interface"
   },
   {
+   "id": "setting:display.keep-running-in-the-background-after-closing-the-window",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.keep_running_when_window_closed",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/view?highlight=display.keep-running-in-the-background-after-closing-the-window",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.view"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.keep-running-in-the-background-after-closing-the-window",
+   "terms": [
+    "close to tray",
+    "minimize to tray",
+    "quit on close",
+    "exit on close",
+    "run in background",
+    "system tray",
+    "close button"
+   ]
+  },
+  {
    "id": "setting:display.language",
    "kind": "setting",
    "label_key": "settings.display.language.label",
@@ -8576,6 +9816,25 @@
    ]
   },
   {
+   "id": "setting:display.overlays",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.theme_experience_overlays",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/theme?highlight=display.overlays",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.theme"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.overlays"
+  },
+  {
    "id": "setting:display.palette",
    "kind": "setting",
    "label_key": "pages.settings.displayPanel.palette",
@@ -8595,6 +9854,25 @@
    "setting_id": "display.palette"
   },
   {
+   "id": "setting:display.persona",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.theme_experience_persona",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/theme?highlight=display.persona",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.theme"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.persona"
+  },
+  {
    "id": "setting:display.reuse-the-current-terminal",
    "kind": "setting",
    "label_key": "pages.settings.displayPanel.terminal_reuse_current",
@@ -8612,6 +9890,144 @@
     }
    ],
    "setting_id": "display.reuse-the-current-terminal"
+  },
+  {
+   "id": "setting:display.show-channels",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.channels",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/view?highlight=key%3Adashboard.channels_enabled",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.view"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "condition",
+       "id": "page_turned_on"
+      }
+     ]
+    }
+   ],
+   "setting_id": "display.show-channels"
+  },
+  {
+   "id": "setting:display.show-search-in-the-top-bar",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.show_topbar_search",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/view?highlight=display.show-search-in-the-top-bar",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.view"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.show-search-in-the-top-bar"
+  },
+  {
+   "id": "setting:display.show-task-runner",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.task_runner",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/view?highlight=key%3Ataskrunner.enabled",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.view"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.show-task-runner"
+  },
+  {
+   "id": "setting:display.show-tray-icon",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.show_tray_icon",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/view?highlight=display.show-tray-icon",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.view"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.show-tray-icon"
+  },
+  {
+   "id": "setting:display.show-unread-dot-on-session-cards",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.show_unread_dot",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/sidebar?highlight=key%3Adashboard.show_unread_dot",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.sidebar"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.show-unread-dot-on-session-cards"
+  },
+  {
+   "id": "setting:display.sounds",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.theme_experience_sounds",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/theme?highlight=display.sounds",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.theme"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.sounds"
+  },
+  {
+   "id": "setting:display.ssh-host",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.remote_editor_host",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/remote-editor?highlight=key%3Adashboard.remote_editor.host",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.remote-editor"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.ssh-host"
   },
   {
    "id": "setting:display.theme",
@@ -8657,6 +10073,25 @@
     }
    ],
    "setting_id": "display.translucent-panels"
+  },
+  {
+   "id": "setting:display.use-command-bar",
+   "kind": "setting",
+   "label_key": "pages.settings.displayPanel.command_bar",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/view?highlight=key%3Adashboard.command_bar_enabled",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display",
+      "settings.sub.display.view"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "display.use-command-bar"
   },
   {
    "id": "setting:display.zoom-level",
@@ -8733,6 +10168,44 @@
    "setting_id": "notifications.mark-sessions-unread-only-when-they-need-you"
   },
   {
+   "id": "setting:notifications.mute-sounds",
+   "kind": "setting",
+   "label_key": "pages.settings.notificationsPanel.mute_sounds",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/notifications/sound?highlight=notifications.mute-sounds",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.notifications",
+      "settings.sub.notifications.sound"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "notifications.mute-sounds"
+  },
+  {
+   "id": "setting:notifications.notify-me-even-when-kiro-crew-is-closed",
+   "kind": "setting",
+   "label_key": "pages.settings.notificationsPanel.push_toggle_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/notifications/alerts?highlight=notifications.notify-me-even-when-kiro-crew-is-closed",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.notifications",
+      "settings.sub.notifications.alerts"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "notifications.notify-me-even-when-kiro-crew-is-closed"
+  },
+  {
    "id": "setting:notifications.notify-when-a-background-chat-finishes",
    "kind": "setting",
    "label_key": "pages.settings.notificationsPanel.notify_when_a_background_chat_finishes",
@@ -8750,6 +10223,25 @@
     }
    ],
    "setting_id": "notifications.notify-when-a-background-chat-finishes"
+  },
+  {
+   "id": "setting:notifications.only-notify-for-longer-turns",
+   "kind": "setting",
+   "label_key": "pages.settings.notificationsPanel.notify_min_turn",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/notifications/alerts?highlight=notifications.only-notify-for-longer-turns",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.notifications",
+      "settings.sub.notifications.alerts"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "notifications.only-notify-for-longer-turns"
   },
   {
    "id": "setting:notifications.play-sound-on-new-notifications",
@@ -8771,13 +10263,13 @@
    "setting_id": "notifications.play-sound-on-new-notifications"
   },
   {
-   "id": "setting:notifications.show-a-banner-for-new-notifications",
+   "id": "setting:notifications.show-a-banner-while-this-window-is-open",
    "kind": "setting",
    "label_key": "pages.settings.notificationsPanel.show_banner_for_new_notifications",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/notifications/alerts?highlight=notifications.show-a-banner-for-new-notifications",
+     "route": "/settings/notifications/alerts?highlight=notifications.show-a-banner-while-this-window-is-open",
      "parent_ids": [
       "page.settings",
       "settings.tab.notifications",
@@ -8787,7 +10279,7 @@
      "requires": []
     }
    ],
-   "setting_id": "notifications.show-a-banner-for-new-notifications"
+   "setting_id": "notifications.show-a-banner-while-this-window-is-open"
   },
   {
    "id": "setting:notifications.sound-category-agent",
@@ -9115,6 +10607,44 @@
    "setting_id": "secrets.wakatime-api-key"
   },
   {
+   "id": "setting:security.ask-me-before-running-tools-an-mcp-server-pre-approves",
+   "kind": "setting",
+   "label_key": "pages.settings.securityPanel.safetySwitches.ask_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/security/safety?highlight=key%3Amcp.honour_auto_approve",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.security",
+      "settings.sub.security.safety"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "security.ask-me-before-running-tools-an-mcp-server-pre-approves"
+  },
+  {
+   "id": "setting:security.config-pending",
+   "kind": "setting",
+   "label_key": "pages.settings.securityPanel.configPending.nav_dot",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/security/posture?highlight=security.config-pending",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.security",
+      "settings.sub.security.posture"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "security.config-pending"
+  },
+  {
    "id": "setting:security.denied-commands",
    "kind": "setting",
    "label_key": "pages.settings.securityPanel.denied_commands",
@@ -9191,13 +10721,13 @@
    "setting_id": "security.live-security-posture"
   },
   {
-   "id": "setting:security.redact-credentials-in-files-the-dashboard-opens-for-you",
+   "id": "setting:security.redact-credentials",
    "kind": "setting",
    "label_key": "pages.settings.securityPanel.credential_redaction_toggle",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/security/redaction?highlight=security.redact-credentials-in-files-the-dashboard-opens-for-you",
+     "route": "/settings/security/redaction?highlight=security.redact-credentials",
      "parent_ids": [
       "page.settings",
       "settings.tab.security",
@@ -9207,7 +10737,26 @@
      "requires": []
     }
    ],
-   "setting_id": "security.redact-credentials-in-files-the-dashboard-opens-for-you"
+   "setting_id": "security.redact-credentials"
+  },
+  {
+   "id": "setting:security.stop-the-agent-from-editing-its-own-permission-rules",
+   "kind": "setting",
+   "label_key": "pages.settings.securityPanel.safetySwitches.protect_label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/security/safety?highlight=key%3Amcp.protect_kiro_permission_rules",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.security",
+      "settings.sub.security.safety"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "security.stop-the-agent-from-editing-its-own-permission-rules"
   },
   {
    "id": "setting:security.trust-every-third-party-app",
@@ -9265,6 +10814,150 @@
     }
    ],
    "setting_id": "security.your-custom-denies"
+  },
+  {
+   "id": "setting:session-environments.coder-url",
+   "kind": "setting",
+   "label_key": "sessionEnvironments.url",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/session-environments?highlight=key%3Asession_environments.coder_url",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.session-environments"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-session-environments",
+       "location": "setting:developer.session-environments"
+      }
+     ]
+    }
+   ],
+   "setting_id": "session-environments.coder-url"
+  },
+  {
+   "id": "setting:session-environments.default-for-new-chats",
+   "kind": "setting",
+   "label_key": "sessionEnvironments.defaultProfile",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/session-environments?highlight=session-environments.default-for-new-chats",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.session-environments"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-session-environments",
+       "location": "setting:developer.session-environments"
+      }
+     ]
+    }
+   ],
+   "setting_id": "session-environments.default-for-new-chats"
+  },
+  {
+   "id": "setting:session-environments.machine-size",
+   "kind": "setting",
+   "label_key": "sessionEnvironments.boxdSize",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/session-environments?highlight=session-environments.machine-size",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.session-environments"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-session-environments",
+       "location": "setting:developer.session-environments"
+      }
+     ]
+    }
+   ],
+   "setting_id": "session-environments.machine-size"
+  },
+  {
+   "id": "setting:session-environments.secret-name-for-the-token-usually-sprites-token",
+   "kind": "setting",
+   "label_key": "sessionEnvironments.tokenSecret",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/session-environments?highlight=session-environments.secret-name-for-the-token-usually-sprites-token",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.session-environments"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-session-environments",
+       "location": "setting:developer.session-environments"
+      }
+     ]
+    }
+   ],
+   "setting_id": "session-environments.secret-name-for-the-token-usually-sprites-token"
+  },
+  {
+   "id": "setting:session-environments.start-new-chats-on-a-profile",
+   "kind": "setting",
+   "label_key": "sessionEnvironments.defaultEnabled",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/session-environments?highlight=key%3Asession_environments.default_profile",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.session-environments"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-session-environments",
+       "location": "setting:developer.session-environments"
+      }
+     ]
+    }
+   ],
+   "setting_id": "session-environments.start-new-chats-on-a-profile"
+  },
+  {
+   "id": "setting:session-environments.stop-workspaces-when-kiro-crew-shuts-down",
+   "kind": "setting",
+   "label_key": "sessionEnvironments.stopOnShutdown",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/session-environments?highlight=key%3Asession_environments.stop_on_shutdown",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.session-environments"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-session-environments",
+       "location": "setting:developer.session-environments"
+      }
+     ]
+    }
+   ],
+   "setting_id": "session-environments.stop-workspaces-when-kiro-crew-shuts-down"
   },
   {
    "id": "setting:shortcuts.enable-shortcuts",
@@ -9789,6 +11482,24 @@
    "setting_id": "voice.shortcut-key"
   },
   {
+   "id": "setting:voice.slide-up-and-right-to-send",
+   "kind": "setting",
+   "label_key": "pages.settings.sttSettings.slide_to_send",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/voice?highlight=key%3Astt.slide_to_send",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.voice"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "voice.slide-up-and-right-to-send"
+  },
+  {
    "id": "setting:voice.speed",
    "kind": "setting",
    "label_key": "pages.settings.voicePanel.speed",
@@ -9859,6 +11570,24 @@
     }
    ],
    "setting_id": "voice.tap-vs-hold-cutoff"
+  },
+  {
+   "id": "setting:voice.tell-the-agent-this-was-dictated",
+   "kind": "setting",
+   "label_key": "pages.settings.sttSettings.dictation_note",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/voice?highlight=key%3Astt.dictation_note",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.voice"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ],
+   "setting_id": "voice.tell-the-agent-this-was-dictated"
   },
   {
    "id": "setting:voice.tidy-up-transcripts-with-ai",
@@ -10246,6 +11975,176 @@
    ]
   },
   {
+   "id": "settings.sub.developer.archive",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.archive.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/archive",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.config",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.config.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/config",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.debug-tools",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.debugTools.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/debug-tools",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.feature-previews",
+   "kind": "tab",
+   "label_key": "pages.settings.developerPanel.feature_previews",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/feature-previews",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.logs",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.logs.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/logs",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.memory",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.memory.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/memory",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.storage",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.storage.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/storage",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.system",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.system.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/system",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.developer.telemetry",
+   "kind": "tab",
+   "label_key": "pages.developerPage.tabs.telemetry.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/developer/telemetry",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.developer"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.sub.display.remote-editor",
+   "kind": "tab",
+   "label_key": "pages.settings.displayPanel.remote_editor",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/display/remote-editor",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.display"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
    "id": "settings.sub.display.sidebar",
    "kind": "tab",
    "label_key": "pages.settings.displayPanel.sidebar_colors",
@@ -10450,13 +12349,13 @@
    ]
   },
   {
-   "id": "settings.sub.security.delivery",
+   "id": "settings.sub.security.bodyFields",
    "kind": "tab",
-   "label_key": "pages.settings.securityPanel.file_delivery_section",
+   "label_key": "pages.settings.securityPanel.bodyFields.section_title",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/security/delivery",
+     "route": "/settings/security/bodyFields",
      "parent_ids": [
       "page.settings",
       "settings.tab.security"
@@ -10586,6 +12485,23 @@
    ]
   },
   {
+   "id": "settings.sub.security.safety",
+   "kind": "tab",
+   "label_key": "pages.settings.securityPanel.safetySwitches.section_title",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/security/safety",
+     "parent_ids": [
+      "page.settings",
+      "settings.tab.security"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
    "id": "settings.sub.security.tailnet",
    "kind": "tab",
    "label_key": "pages.settings.securityPanel.tailnet_section",
@@ -10610,6 +12526,22 @@
     {
      "surface_id": "settings",
      "route": "/settings/about",
+     "parent_ids": [
+      "page.settings"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.tab.advanced",
+   "kind": "tab",
+   "label_key": "settings.tabs.advanced.label",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/advanced",
      "parent_ids": [
       "page.settings"
      ],
@@ -10734,6 +12666,13 @@
      "entry_kind": "tab",
      "requires": []
     }
+   ],
+   "terms": [
+    "developer page",
+    "developer tools",
+    "dev tools",
+    "debug tools",
+    "developer settings page"
    ]
   },
   {
@@ -10817,13 +12756,13 @@
    ]
   },
   {
-   "id": "settings.tab.privacy",
+   "id": "settings.tab.people",
    "kind": "tab",
-   "label_key": "privacyDisclosure.settingsLabel",
+   "label_key": "sharedCrew.settings_tab_label",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/privacy",
+     "route": "/settings/people",
      "parent_ids": [
       "page.settings"
      ],
@@ -10833,13 +12772,13 @@
    ]
   },
   {
-   "id": "settings.tab.releases",
+   "id": "settings.tab.privacy",
    "kind": "tab",
-   "label_key": "settings.tabs.releases.label",
+   "label_key": "privacyDisclosure.settingsLabel",
    "placements": [
     {
      "surface_id": "settings",
-     "route": "/settings/releases",
+     "route": "/settings/privacy",
      "parent_ids": [
       "page.settings"
      ],
@@ -10884,6 +12823,28 @@
      ],
      "entry_kind": "tab",
      "requires": []
+    }
+   ]
+  },
+  {
+   "id": "settings.tab.session-environments",
+   "kind": "tab",
+   "label_key": "sessionEnvironments.title",
+   "placements": [
+    {
+     "surface_id": "settings",
+     "route": "/settings/session-environments",
+     "parent_ids": [
+      "page.settings"
+     ],
+     "entry_kind": "tab",
+     "requires": [
+      {
+       "kind": "preview_flag",
+       "flag": "mc-preview-session-environments",
+       "location": "setting:developer.session-environments"
+      }
+     ]
     }
    ]
   },
@@ -11017,58 +12978,6 @@
     "connect a new device",
     "connect a new device with a qr code",
     "connect a device to the gateway"
-   ]
-  },
-  {
-   "id": "shell.developer",
-   "kind": "button",
-   "label_key": "app.developer",
-   "placements": [
-    {
-     "surface_id": "shell",
-     "route": "",
-     "parent_ids": [],
-     "entry_kind": "rail",
-     "requires": [
-      {
-       "kind": "viewport",
-       "value": "desktop"
-      },
-      {
-       "kind": "condition",
-       "id": "developer_mode"
-      }
-     ]
-    },
-    {
-     "surface_id": "shell",
-     "route": "",
-     "parent_ids": [
-      "shell.mobile-menu"
-     ],
-     "entry_kind": "menu",
-     "requires": [
-      {
-       "kind": "viewport",
-       "value": "mobile"
-      },
-      {
-       "kind": "condition",
-       "id": "not_on_sessions_page"
-      },
-      {
-       "kind": "condition",
-       "id": "developer_mode"
-      }
-     ]
-    }
-   ],
-   "terms": [
-    "developer page",
-    "developer tools",
-    "dev tools",
-    "debug tools",
-    "logs page"
    ]
   },
   {
@@ -11350,6 +13259,10 @@
       {
        "kind": "condition",
        "id": "search_bar_unclaimed"
+      },
+      {
+       "kind": "condition",
+       "id": "topbar_search_shown"
       }
      ]
     }
@@ -11622,13 +13535,29 @@
    ]
   },
   {
-   "id": "tab.capabilities.mcp",
+   "id": "tab.capabilities.mcp-servers",
    "kind": "tab",
-   "label_key": "pages.capabilitiesPage.connections_label",
+   "label_key": "nav.mcp_servers",
    "placements": [
     {
      "surface_id": "capabilities",
-     "route": "/capabilities?tab=mcp",
+     "route": "/capabilities?tab=mcp-servers",
+     "parent_ids": [
+      "page.capabilities"
+     ],
+     "entry_kind": "tab",
+     "requires": []
+    }
+   ]
+  },
+  {
+   "id": "tab.capabilities.powers",
+   "kind": "tab",
+   "label_key": "pages.capabilitiesPage.powers_label",
+   "placements": [
+    {
+     "surface_id": "capabilities",
+     "route": "/capabilities?tab=powers",
      "parent_ids": [
       "page.capabilities"
      ],
@@ -11716,150 +13645,6 @@
      "route": "/capabilities?tab=workflows",
      "parent_ids": [
       "page.capabilities"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.archive",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.archive.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=archive",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.config",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.config.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=config",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.debug-tools",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.debugTools.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=debug-tools",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.logs",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.logs.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=logs",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.mcp-pool",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.mcpPool.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=mcp-pool",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.memory",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.memory.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=memory",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.storage",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.storage.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=storage",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.system",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.system.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=system",
-     "parent_ids": [
-      "page.developer"
-     ],
-     "entry_kind": "tab",
-     "requires": []
-    }
-   ]
-  },
-  {
-   "id": "tab.developer.telemetry",
-   "kind": "tab",
-   "label_key": "pages.developerPage.tabs.telemetry.label",
-   "placements": [
-    {
-     "surface_id": "developer",
-     "route": "/developer?tab=telemetry",
-     "parent_ids": [
-      "page.developer"
      ],
      "entry_kind": "tab",
      "requires": []

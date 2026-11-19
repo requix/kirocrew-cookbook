@@ -73,11 +73,11 @@ groups:
         text: A shell on the machine that runs Kiro Crew, in a panel at the bottom. It shows once the terminal is on in Settings.
       - at: page.capabilities
         name: Customize
-        text: Everything that shapes what the agent knows and can do. Mates, custom agents, skills, MCP connections, knowledge, prompts, steering, hooks and workflows all live here.
+        text: Everything that shapes what the agent knows and can do. Bots, custom agents, skills, MCP servers, knowledge, prompts, steering, hooks and workflows all live here.
       - at: page.settings
         name: Settings
         text: How the dashboard and the gateway behave.
-        task: developer-mode
+        task: advanced-settings
 
   - group: Session list
     zones:

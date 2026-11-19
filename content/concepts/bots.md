@@ -43,6 +43,8 @@ This split matters for three reasons:
 
 The conductor has no `spawn_run` or subagent tools. It hands work to worker sessions using `session_create` and `session_send`, then reads results with `session_read_message`. That is the only delegation path a bot has.
 
+Since 0.13.0 the worker chats a bot opens stay on the bot's own **Sessions** tab and out of your Sessions list. Turn on **Show in my Sessions list** on its profile if you want them there. **Workers at once**, on the same profile, caps how many workers the bot runs at the same time.
+
 ## How work reaches a bot
 
 There are four ways, and they are not interchangeable.

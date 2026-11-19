@@ -26,11 +26,11 @@ DRAWN = {"x.history-nav", "x.status", "x.feedback", "x.apps-group", "x.session-r
 # Description keys for Customize tabs, by UI-index id (website/src/pages/CapabilitiesPage.tsx).
 CUSTOMIZE_TEXT = {
     "tab.capabilities.crews": "crews", "tab.capabilities.templates": "templates", "tab.capabilities.skills": "skills",
-    "tab.capabilities.mcp": "connections", "tab.capabilities.knowledge": "knowledge", "tab.capabilities.prompts": "prompts",
+    "tab.capabilities.mcp-servers": "mcp_servers", "tab.capabilities.powers": "powers", "tab.capabilities.knowledge": "knowledge", "tab.capabilities.prompts": "prompts",
     "tab.capabilities.steering": "steering", "tab.capabilities.hooks": "hooks", "tab.capabilities.workflows": "workflows",
 }
 # Placeholders the dashboard fills at runtime, filled the way a default install does.
-FILL = {"{{registry}}": "packages", "{{productName}}": "KiroCrew"}
+FILL = {"{{registry}}": "packages", "{{productName}}": "Kiro Crew"}
 
 
 class MapError(Exception):
@@ -145,7 +145,7 @@ def widget_html(data: dict, rel: str) -> str:
 <div class="dm-tourbox"></div>
 <div class="dm-screens" id="dm-screens"></div>
 <div class="wi-frame" aria-hidden="true"><div class="wi-canvas" id="dm-canvas"></div></div>
-<p class="wi-caption">A simplified drawing of the KiroCrew {esc(data["version"])} dashboard. It only shows where things are; nothing in it is clickable. Labels come from KiroCrew's own UI index; order and spacing on your screen can differ.</p>
+<p class="wi-caption">A simplified drawing of the Kiro Crew {esc(data["version"])} dashboard. It only shows where things are; nothing in it is clickable. Labels come from Kiro Crew's own UI index; order and spacing on your screen can differ.</p>
 </div>
 <script type="application/json" id="dm-data">{payload}</script>
 </div>

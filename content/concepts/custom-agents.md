@@ -63,7 +63,7 @@ The harness is the engine that runs your agent's turns. You pick it under **Sett
 
 With Strands, the provider keys live in the secret store, so they stay out of your spec and out of the chat. With Copilot, check the installed version first, because a mismatch fails at session start rather than falling back to another harness.
 
-A bot can run on a different harness than the rest of your sessions. The bot's profile card has an **Agent harness** row (0.12.0+), so one bot can run on Claude Code while the others stay on KAS.
+A bot can run on a different harness than the rest of your sessions. The bot's profile card has an **Agent harness** row, out of preview since 0.13.0, so one bot can run on Claude Code while the others stay on KAS. It lists only the harnesses a bot can run on here, and **Inherited** follows **Settings → Agent Harness**. When a bot has to stay on KAS, a bell note names the entries in its file that keep it there.
 
 ## What Kiro Crew adds to every session
 

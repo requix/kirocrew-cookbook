@@ -1,6 +1,6 @@
-"""Ultra Mode conductor/worker diagram.
+"""Conductor mode conductor/worker diagram.
 
-ultra-mode-diagram.yaml holds the drawing (nodes, links, animation steps).
+conductor-mode-diagram.yaml holds the drawing (nodes, links, animation steps).
 This widget shows how a request flows through the conductor to workers
 and back, with animated steps the user can navigate.
 """
@@ -20,7 +20,7 @@ class UltraModeError(Exception):
 
 
 def load(project: Path) -> dict:
-    spec = yaml.safe_load((project / "content" / "previews" / "ultra-mode-diagram.yaml").read_text(encoding="utf-8"))
+    spec = yaml.safe_load((project / "content" / "concepts" / "conductor-mode-diagram.yaml").read_text(encoding="utf-8"))
     nodes = {n["id"]: n for n in spec["nodes"]}
     w, h = spec["canvas"]
 
@@ -28,7 +28,7 @@ def load(project: Path) -> dict:
     links = []
     for a, b, text in spec["links"]:
         if a not in nodes or b not in nodes:
-            raise UltraModeError(f"ultra-mode-diagram.yaml: link {a}>{b} names an unknown node")
+            raise UltraModeError(f"conductor-mode-diagram.yaml: link {a}>{b} names an unknown node")
         links.append({"id": f"{a}>{b}", "from": a, "to": b, "label": text})
     link_ids = {l["id"] for l in links}
 
@@ -37,7 +37,7 @@ def load(project: Path) -> dict:
     for i, step in enumerate(spec["steps"], start=1):
         for item in step.get("show", []):
             if item not in all_ids:
-                raise UltraModeError(f"ultra-mode-diagram.yaml: step {i} names unknown '{item}'")
+                raise UltraModeError(f"conductor-mode-diagram.yaml: step {i} names unknown '{item}'")
 
     # Figure out which step first shows each node/link
     first_step: dict[str, int] = {}
@@ -48,7 +48,7 @@ def load(project: Path) -> dict:
     # Validate all nodes/links are shown by some step
     missing = all_ids - set(first_step)
     if missing:
-        raise UltraModeError(f"ultra-mode-diagram.yaml: never shown by any step: {sorted(missing)}")
+        raise UltraModeError(f"conductor-mode-diagram.yaml: never shown by any step: {sorted(missing)}")
 
     # Build output nodes with positions and step info
     out_nodes = []
@@ -57,7 +57,7 @@ def load(project: Path) -> dict:
         x, y = n["at"]
         nw, nh = n.get("size", [140, 52])
         if x < 0 or y < 0 or x + nw > w or y + nh > h:
-            raise UltraModeError(f"ultra-mode-diagram.yaml: node '{n['id']}' does not fit the {w}x{h} canvas")
+            raise UltraModeError(f"conductor-mode-diagram.yaml: node '{n['id']}' does not fit the {w}x{h} canvas")
         style = styles.get(n.get("style", ""), {})
         out_nodes.append({
             "id": n["id"],
@@ -88,7 +88,7 @@ def widget_html(data: dict, rel: str) -> str:
         for i, s in enumerate(data["steps"])
     )
     return f"""<div class="um" data-ultra-mode>
-<div class="um-frame"><div class="um-canvas" role="group" aria-label="Ultra Mode conductor and worker diagram"></div></div>
+<div class="um-frame"><div class="um-canvas" role="group" aria-label="Conductor mode diagram: conductor and workers"></div></div>
 <div class="um-controls">
 <ol class="um-steps" aria-label="Animation steps">{step_notes}</ol>
 <div class="um-bar">
