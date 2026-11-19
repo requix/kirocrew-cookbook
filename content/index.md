@@ -48,6 +48,7 @@ Each recipe is one shape: **problem → steps → verify → gotchas.** You can 
 - **[What Kiro Crew actually is](./concepts/what-kirocrew-is.md)** — the mental model. Gateway, session, agent, memory, in one picture.
 - **[How Kiro Crew keeps you safe](./concepts/security.md)** — the checks every tool call passes before it runs.
 - **[Bots](./concepts/bots.md)** — agents with their own memory, workspace and job.
+- **[Conductor mode](./concepts/conductor-mode.md)** — a chat that hands each task to its own worker chat.
 - **[The knowledge library](./concepts/knowledge-base.md)** — let the agent search your docs and cite them.
 
 ## Recipes

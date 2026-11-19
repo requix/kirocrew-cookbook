@@ -196,14 +196,9 @@
       at: agents.add
       terms: [bot, crewmate, mate, crew member, new agent, teammate]
       see: concepts/bots
-    - id: bots-page
-      task: Open the Bots page
-      why: name
-      at: setting:developer.mates
-      terms: [bots, mates, crewmates, roster]
     - id: chat-with-bot
       task: Chat with a bot
-      why: preview
+      why: name
       at: members.roster-list
       terms: [bot chat, mate chat, crewmate chat, talk to bot]
 
@@ -308,11 +303,11 @@
       why: name
       at: backup.export
       terms: [backup, export, import, migrate, zip]
-    - id: developer-mode
-      task: Turn on developer mode
-      why: deep
-      at: setting:developer.developer-mode
-      terms: [developer, debug, advanced]
+    - id: advanced-settings
+      task: Change a setting that has no switch of its own
+      why: name
+      at: settings.tab.advanced
+      terms: [advanced, config, config.json, every setting, developer, key]
     - id: webhooks
       task: Let another system start a chat
       why: preview

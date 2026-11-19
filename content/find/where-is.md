@@ -27,7 +27,7 @@ Some Kiro Crew names differ from the words people search for. The search box abo
 |---|---|---|
 | Working directory, cwd | Project | The folder name under the message box |
 | Bot, crewmate, crew member | Bot | **Customize → Bots** |
-| MCP servers | Connections | **Customize → Connections** |
+| Sign in to GitHub, Google, Notion | Connections | **Settings → Connections** |
 | Agent config, agent JSON | Custom agents | **Customize → Custom agents** |
 | Rules, instructions | Steering | **Customize → Steering** |
 | Permissions, auto-approve | Approval mode | The **Normal** button in the message box |
@@ -63,6 +63,6 @@ The same answers without the animation. Each task name links to its animation ab
 
 ## Where the labels and drawing come from
 
-This page and [the dashboard map](dashboard-map.md) use the same sources. The labels and click paths come from Kiro Crew's own UI index. It is the file the agent reads to find controls, and it ships inside each Kiro Crew release. Both pages use the copy from Kiro Crew 0.11.0. A release can move or rename things, so the cookbook build checks every task and every map part against that copy and stops if a control is gone.
+This page and [the dashboard map](dashboard-map.md) use the same sources. The labels and click paths come from Kiro Crew's own UI index. It is the file the agent reads to find controls, and it ships inside each Kiro Crew release. Both pages use the copy from Kiro Crew 0.13.0. A release can move or rename things, so the cookbook build checks every task and every map part against that copy and stops if a control is gone.
 
 Two controls are not in the index yet: the project folder and the agent picker under the message box. Their paths come from the Kiro Crew docs instead. The drawing follows real Kiro Crew screenshots but leaves things out, so your screen shows more than it does.

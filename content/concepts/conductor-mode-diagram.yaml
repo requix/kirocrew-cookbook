@@ -1,4 +1,4 @@
-# The conductor/worker diagram on the Ultra Mode page.
+# The conductor/worker diagram on the Conductor mode page.
 # Shows the flow: You → Conductor → Workers → Results
 
 canvas: [760, 400]
@@ -34,7 +34,7 @@ links:
 # Animation sequence for the page
 steps:
   - show: [you, conductor, you>conductor]
-    note: "You type a request into your Ultra Mode chat"
+    note: "You type a request into your conductor mode chat"
   - show: [worker1, worker2, worker3, worker4, conductor>worker1, conductor>worker2, conductor>worker3, conductor>worker4]
     note: "The conductor splits the work and dispatches workers"
   - show: [status1, status2, status3, status4, worker1>status1, worker2>status2, worker3>status3, worker4>status4, board, conductor>board]

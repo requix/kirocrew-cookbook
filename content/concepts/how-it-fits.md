@@ -53,7 +53,7 @@ In the dashboard: **Customize → Steering** and **Customize → Skills**. Read 
 
 The agent acts through tools: the shell, files, search, and the tools of any MCP server you connect. Every tool call passes Kiro Crew's gate first. Depending on the approval mode and your rules, the gate lets it run, asks you, or blocks it, and the agent cannot switch the gate off.
 
-In the dashboard: the **Normal** button in the message box sets the approval mode, and **Customize → Connections** holds MCP servers. Read [How Kiro Crew keeps you safe](security.md).
+In the dashboard: the **Normal** button in the message box sets the approval mode, and **Customize → MCP Servers** holds MCP servers. Read [How Kiro Crew keeps you safe](security.md).
 
 ### 7. Memory carries over; the library is looked up
 
@@ -65,7 +65,7 @@ In the dashboard: **Customize → Knowledge** for the library. Read [Make it rem
 
 A bot is a named assistant built from an agent config, with a memory store of its own. (The codebase still calls it a "mate" or "crewmate" in places.) What it learns stays with it, so your on-call notes do not leak into a side project. Plain sessions share one global memory; each bot keeps its own.
 
-In the dashboard: **Customize → Bots** lists your bots and makes new ones. To chat with a bot, open the **Bots** page in the sidebar. See [where it is](../find/where-is.md#task=bots-page), and read [Bots](bots.md).
+In the dashboard: **Customize → Bots** lists your bots and makes new ones. To chat with a bot, open the **Bots** page in the sidebar. See [where it is](../find/where-is.md#task=chat-with-bot), and read [Bots](bots.md).
 
 ### 9. Schedules and apps start and extend it
 

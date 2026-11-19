@@ -16,10 +16,11 @@ Preview features are finished enough to use but not yet stable. They ship off by
 
 | Feature | What it does | Since |
 |---------|--------------|-------|
-| [Ultra Mode](ultra-mode.md) | A chat that hands tasks to worker chats, with a Board tab to see what's running | 0.12.0 |
 | [Session Environments](session-environments.md) | Run a session in a Coder, Fly.io or boxd workspace instead of the gateway machine | 0.12.0 |
 | Shared Crew | Share the gateway over Tailscale with teammates | 0.12.0 |
-| Remote dispatch | Let Ultra Mode run tasks on machines connected via Remote Crew | 0.12.0 |
+| Remote dispatch | Let conductor mode run tasks on machines connected via Remote Crew | 0.12.0 |
+
+Ultra Mode left preview in 0.13.0. It is now [conductor mode](../concepts/conductor-mode.md) and needs no switch.
 
 ## How to turn one on
 

@@ -112,7 +112,7 @@ Two things to know:
 
 Reference tokens as `${ENV_VAR}` in a server entry, never a literal value. On the KAS wire, `headers` are withheld from every entry and `env` is filtered per key, because those routinely hold credentials.
 
-Manage all of this from **Customize → Connections**. Changes there do not restart sessions by default; scope changes take effect at the next session spawn, or use Apply & Restart to drain the warm pool.
+Manage all of this from **Customize → MCP Servers**. Changes there do not restart sessions by default; scope changes take effect at the next session spawn, or use Apply & Restart to drain the warm pool.
 
 ## Hooks
 
@@ -182,7 +182,7 @@ Search your skills for "<name of one of my skills>" and tell me where it loaded 
 
 ### 4. Confirm your MCP servers merged
 
-Open **Customize → Connections** and check the MCP panel: the servers from your `~/.kiro/settings/mcp.json` should be listed beside Kiro Crew's own. A red "0 tools" row on a server that works in your terminal is usually a probe limitation on a host with no OS sandbox, not a broken server — the error text says so.
+Open **Customize → MCP Servers** and check the **Servers** list: the servers from your `~/.kiro/settings/mcp.json` should be listed beside Kiro Crew's own. A red "0 tools" row on a server that works in your terminal is usually a probe limitation on a host with no OS sandbox, not a broken server — the error text says so.
 
 ### 5. Run your own agent
 

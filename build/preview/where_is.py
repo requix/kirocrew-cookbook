@@ -23,7 +23,8 @@ RAIL = {
 }
 # Customize tabs and their groups (website/src/pages/CapabilitiesPage.tsx).
 CUSTOMIZE = [
-    ("Agent", ["tab.capabilities.crews", "tab.capabilities.templates", "tab.capabilities.skills", "tab.capabilities.mcp"]),
+    ("Agent", ["tab.capabilities.crews", "tab.capabilities.templates", "tab.capabilities.skills",
+               "tab.capabilities.mcp-servers", "tab.capabilities.powers"]),
     ("Knowledge & instructions", ["tab.capabilities.knowledge", "tab.capabilities.prompts", "tab.capabilities.steering"]),
     ("Automation", ["tab.capabilities.hooks", "tab.capabilities.workflows"]),
 ]
@@ -32,19 +33,21 @@ SETTINGS = [
     ("", ["overview", "imports"]),
     ("Preferences", ["agent", "chat", "display", "voice", "notifications", "shortcuts", "skills"]),
     ("", ["channels"]),
-    ("System", ["browser", "computer-use", "webhooks", "instances", "privacy", "security", "connections", "secrets", "developer"]),
-    ("", ["releases", "about"]),
+    ("System", ["browser", "computer-use", "webhooks", "instances", "people", "privacy", "security", "connections", "secrets",
+                "session-environments", "developer", "advanced"]),
+    ("", ["about"]),
 ]
 # Sub-section order inside Settings tabs (website/src/pages/settings/*Panel.tsx); the index lists them A-Z.
 SUB_ORDER = {
     "chat": ["transcript", "composer", "sessions", "sidepanel", "models", "aboutyou", "discovery", "advanced"],
     "display": ["view", "zoom", "terminal", "theme", "sidebar"],
     "notifications": ["sources", "alerts", "sound", "percategory", "custom"],
-    "security": ["posture", "approval", "rules", "tailnet", "apps", "registries", "redaction", "layers", "governance", "docs"],
+    "security": ["posture", "approval", "rules", "tailnet", "apps", "registries", "redaction", "bodyFields", "safety", "layers",
+                 "governance", "docs"],
     "channels": ["slack", "discord", "telegram", "webex", "wecom", "feishu", "teams", "weixin", "imessage", "whatsapp"],
 }
 # Settings tabs that exist only behind a preview switch: drawn only for a task that needs them.
-PREVIEW_TABS = {"settings.tab.webhooks"}
+PREVIEW_TABS = {"settings.tab.webhooks", "settings.tab.people", "settings.tab.session-environments"}
 SHORT = {
     "chat.session-title": "Chat title",
     "chat.model-picker": "Model, under the message box",
@@ -190,7 +193,7 @@ def resolve_at(task: dict, idx: Index, by_target: dict[str, str]) -> dict:
         steps.insert(len(steps) - 1, {"loc": loc, "label": text, "area": "content"})
     terms = list(task.get("terms") or []) + list(idx.locs[target].get("terms") or [])
     return {"surface": p["surface_id"], "steps": steps, "needs": needs, "terms": terms,
-            "detail": idx.description(target), "source": f"KiroCrew {idx.version} UI index: {target}"}
+            "detail": idx.description(target), "source": f"Kiro Crew {idx.version} UI index: {target}"}
 
 
 def resolve_manual(task: dict, idx: Index) -> dict:
@@ -315,7 +318,7 @@ def widget_html(data: dict, rel: str) -> str:
 <div class="wi-stage">
 <div class="wi-answer" id="wi-answer"><p class="wi-hint">Pick a task. A pointer shows every click on a drawn dashboard.</p></div>
 <div class="wi-frame" aria-hidden="true"><div class="wi-canvas" id="wi-canvas"></div></div>
-<p class="wi-caption">A simplified drawing of the KiroCrew {esc(data["version"])} dashboard. Labels come from KiroCrew's own UI index; order and spacing on your screen can differ.</p>
+<p class="wi-caption">A simplified drawing of the Kiro Crew {esc(data["version"])} dashboard. Labels come from Kiro Crew's own UI index; order and spacing on your screen can differ.</p>
 </div>
 <script type="application/json" id="wi-data">{payload}</script>
 </div>

@@ -1,81 +1,87 @@
 ---
 title: Connect Google Workspace
-description: Create your own Google OAuth app and connect Gmail, Drive, Calendar, Sheets, Docs and Slides.
+description: Create one Google OAuth app and connect Gmail, Drive, Calendar, Sheets, Docs and Slides with it.
 category: Connections
 difficulty: intermediate
-time: 30 min
+time: 20 min, plus a few days' wait the first time
 surfaces: [dashboard]
 tags: [connections, google, oauth]
-updated: 2026-11-08
+updated: 2026-11-19
 featured: false
 prerequisites:
-  - Kiro Crew 0.12.0 or later
+  - Kiro Crew 0.13.0 or later
   - A Google account that can create a Google Cloud project
+  - The gcloud CLI, for the setup script
 ---
 
-**Problem.** You want the agent to read your mail, find a file in Drive, or check your calendar. Google does not let Kiro Crew register itself as an app on the fly, so there is no one-click Connect for these services. You register your own OAuth app once, paste it into Kiro Crew, and all six Google cards use it.
+**Problem.** You want the agent to read your mail, find a file in Drive, or check your calendar. Google does not let Kiro Crew register itself as an app on the fly, so there is no one-click Connect for these services. You register your own OAuth app once, paste it into Kiro Crew once, and all six Google products use it.
+
+This is a private setup: your own Google account, your own Kiro Crew.
 
 ## What you get
 
-Release 0.12.0 adds six Google cards to **Customize → Connections**: Gmail, Google Drive, Google Calendar, Google Sheets, Google Docs and Google Slides. Each card reads "Configure OAuth app" until you finish this recipe.
+**Settings → Connections** has one **Google** entry. Inside it are six products: Gmail, Google Drive, Google Calendar, Google Sheets, Google Docs and Google Slides. They share one Google OAuth client.
 
-One OAuth client serves all six cards. You create it once and paste the same client ID and secret into each.
+Before 0.13.0 these were six separate cards under **Customize → Connections**, each with its own copy of the client. If you set them up then, they keep working. You only need this recipe for a new setup or a new client.
 
 ## Steps
 
-### 1. Open the OAuth Apps panel first
+### 1. Run the setup script
 
-Go to **Settings → OAuth Apps**. It shows the exact redirect URI you have to register in Google. Copy it now, because Google rejects the sign-in if the string differs by even one character.
+Kiro Crew ships a script that does the Google Cloud part for you. Get it from the [Kiro Crew repository](https://github.com/kirodotdev/KiroCrew/tree/v0.13.0/scripts) (`google-oauth-setup.sh` for macOS and Linux, `google-oauth-setup.ps1` for Windows), then run it:
 
-### 2. Create a Google Cloud project
+```bash
+scripts/google-oauth-setup.sh
+```
 
-1. Open the [Google Cloud console](https://console.cloud.google.com/) and create a new project. A dedicated project keeps the app easy to find and delete later.
-2. Open **APIs & Services → Library** and enable the APIs for the services you plan to use: Gmail API, Google Drive API, Google Calendar API, Google Sheets API, Google Docs API and Google Slides API.
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\google-oauth-setup.ps1
+```
 
-Enable only the ones you need. A card for a service whose API is off will sign in and then fail on the first call.
+It signs you in to gcloud, picks or creates a project named **Kiro Crew**, enables the twelve APIs the six products need, and prints your **Project number**, a line of scopes, six redirect URIs and direct links for the next step. To use a project you already have, pass its ID: `scripts/google-oauth-setup.sh my-project`. Running it again is safe. It changes nothing already set and writes nothing to disk.
 
-### 3. Configure the consent screen
+Keep the output on screen. You need it for the next step.
 
-1. Open **APIs & Services → OAuth consent screen**.
-2. Pick **External** for a personal Google account, or **Internal** if you are on a Workspace domain and only your organization will use it.
-3. Fill in the app name and your email address.
-4. While the app is in **Testing** status, add your own Google account under **Test users**. Without that, Google blocks the sign-in.
+### 2. Three steps in Google's console
 
-In Testing status, Google also expires refresh tokens after about a week, so you sign in again regularly. Publishing the app avoids that, but for sensitive scopes such as Gmail, Google asks for a verification review. For a personal setup, Testing is the usual choice.
+Google has no API for these, so you click them. The script's links open each page with your project already selected.
 
-### 4. Create the OAuth client
+1. **Join the Developer Preview.** Google's MCP servers are a Developer Preview, and they refuse calls until Google accepts your project. Open [the Workspace preview page](https://developers.google.com/workspace/preview), click **Apply to join** and paste the Project number. Acceptance usually takes a few days. If the script said the MCP APIs did not enable yet, run it again after Google's email.
+2. **Consent screen.** Open the **Branding** link and click **Get Started**. Name the app `Kiro Crew` and use your own email for support and contact.
+   - **Audience:** pick **Internal** if it is offered (a Google Workspace account). Otherwise pick **External**, stay in **Testing**, and add yourself under **Audience → Test users**.
+   - **Data Access → Add or Remove Scopes → Manually add scopes:** paste the scope line the script printed, then **Add to Table**, **Update**, **Save**.
+3. **OAuth client.** Open the **Create client** link.
+   - Set **Application type** to **Web application**.
+   - Under **Authorized redirect URIs**, add the six URIs the script printed. You can add only the products you will use.
+   - Tick **Use this client for an AI-powered agent**. Google's MCP servers reject a client without it.
+   - Click **Create** and copy the **Client ID** and **Client secret**. Google shows the full secret only once.
 
-1. Open **APIs & Services → Credentials** and choose **Create credentials → OAuth client ID**.
-2. Set the application type to **Web application**.
-3. Under **Authorized redirect URIs**, paste the URI you copied from **Settings → OAuth Apps**.
-4. Create it and keep the client ID and client secret on screen.
+### 3. Paste once
 
-### 5. Enter the client in Kiro Crew
+In Kiro Crew, open **Settings → Connections** and open the **Google** entry. Paste the Client ID and Client secret, leave **Also save on Google Drive, …** on, and click **Save**. All six products now show **Configured**.
 
-Back in **Settings → OAuth Apps**, enter the client ID and the client secret for each Google entry. The client ID goes into `config.json` under `connections.oauth_clients.<slug>.client_id`. The secret goes into the encrypted vault as `CONNECTIONS_<SLUG>_CLIENT_SECRET`. The panel handles both, and it never reads the secret back, so a screenshot of it leaks nothing.
+The panel stores the secret in the encrypted vault and never shows it back. Do not write it into an MCP server entry by hand, where it would sit in plain text in a file the agent can read.
 
-Do not write the secret into an MCP server entry by hand. It would sit in plaintext in a file the agent can read.
+### 4. Connect each product
 
-### 6. Connect each service
+Still in the **Google** entry, click **Connect** on each product you want. Google shows a consent screen. Approve it with the account you added as a test user. On **External / Testing**, Google first warns "Google hasn't verified this app". Click **Continue**. That is expected for a private app.
 
-Open **Customize → Connections**, pick a Google card and start the sign-in. Google shows a consent screen listing the scopes. Approve it with the account you added as a test user.
-
-Repeat for each service you want. After the sign-in, drain the warm pool or restart the gateway, then start a fresh session. A running session caches its tool list, so a new chat alone can come up without the new tools.
+Then start a fresh session. A running session keeps the tool list it started with.
 
 ## What the agent can do
 
-Each service exposes its own tools, so the exact list depends on the Google MCP endpoint behind the card. In practice, expect this:
+Kiro Crew asks Google only for read-only scopes. The agent can search and read. It cannot send, edit or create.
 
-| Service | Typical use |
-|---|---|
-| Gmail | Search and read messages, summarize a thread, draft a reply |
-| Google Drive | Find files by name or content, read them, list a folder |
-| Google Calendar | List upcoming events, check availability, create an event |
-| Google Sheets | Read ranges, update cells, append rows |
-| Google Docs | Read a document, edit or append text |
-| Google Slides | Read a deck, add or edit slides |
+| Product | What works | What fails |
+|---|---|---|
+| Gmail | Search threads, read messages, list labels and drafts | Creating drafts, labelling |
+| Google Drive | Find and read files | Anything that writes |
+| Google Calendar | List calendars and events, check free/busy | Creating or changing events |
+| Google Sheets | Read spreadsheets | Editing cells |
+| Google Docs | Read documents | Editing |
+| Google Slides | Read decks | Editing |
 
-To see what the agent has in your session, run the card's **Test** action. It starts a promptless session, reads the real tool inventory and reports **usable**, **no tools** or **failed**. It never calls a tool, so it cannot touch your account.
+A write tool may still show up in the agent's tool list, because Google's server lists it. A call to it fails with a permission error. Adding more scopes on Google's **Data Access** page does not change this, since Kiro Crew requests only the read-only ones.
 
 A first prompt to try:
 
@@ -85,19 +91,21 @@ Find the three most recent emails from my manager and summarize them in two line
 
 ## Verify
 
-- The card's badge reads **Signed in** and the health badge reads `ok`.
-- **Test** reports **usable**.
+- Every product you connected shows as connected in the **Google** entry.
 - In a new session, the prompt above returns real messages from your inbox.
 
 ## Gotchas
 
-- **Redirect URI mismatch.** The most common failure. Copy the URI from **Settings → OAuth Apps** and paste it unchanged into the Google client.
-- **Access blocked for a test user.** The Google account you sign in with has to be listed under **Test users** on the consent screen while the app is in Testing.
-- **Sign-in worked but no data.** The API for that service is not enabled in your Google Cloud project, or you approved the consent screen with a different account.
-- **Tools missing in chat.** Drain the warm pool or restart the gateway, then open a new session.
-- **Removing a card's config does not revoke the grant.** Use the card's **Disconnect**, or the revoke page in your Google account permissions, when you want to end access.
-- **Keep the scope small.** Gmail and Drive hold a lot of private data. Connect only the services you will use, and read the consent screen before approving.
+- **`redirect_uri_mismatch`.** That product's URI is missing from the client or differs by a character. Use `127.0.0.1`, not `localhost`, and no trailing slash. Client edits can take a few minutes to apply.
+- **`access_denied` or "app is being tested".** Your account is not under **Audience → Test users**.
+- **`403` or "API has not been used in project".** Google has not accepted the project into the Developer Preview yet, or an MCP API is off. Run the script again.
+- **Sign-in works, every tool call is rejected.** The client is missing **Use this client for an AI-powered agent**. You cannot add it to an existing client. Create a new one and paste it again.
+- **Access ends after a week.** On **External / Testing**, Google expires the grant seven days after you consent. Click **Connect** again. **Internal** does not expire this way.
+- **Remote or Docker install.** After consent the browser lands on `http://127.0.0.1:<port>/callback?...` and the page fails to load. Copy the whole URL from the address bar into the field Kiro Crew shows during Connect.
+- **Changing only the Client ID saves on one product.** Enter the secret again to update all six.
+- **Revoking.** Remove the app at [your Google account permissions](https://myaccount.google.com/permissions). That ends every Google product connected through it at once.
+- **Mail is untrusted input.** An email can carry text written to steer the agent. Review what the agent does with what it reads.
 
 ## What you learned
 
-Google Workspace needs your own OAuth app because Google does not allow runtime registration. Register one Web client with the redirect URI from **Settings → OAuth Apps**, enter it for each Google entry, sign in per service, and start a fresh session after the warm pool is drained.
+Google needs your own OAuth app because it does not allow runtime registration. The script prepares the project, three console steps make the client, and one paste in **Settings → Connections** serves all six products. Connect each one, then start a fresh session.
