@@ -9,6 +9,10 @@
     "let-it-browse",
     "connect-google-workspace",
     "add-bedrock-knowledge-base",
+    "answer-from-anywhere",
+    "fence-the-agent",
+    "trace-agent-turns",
+    "slack-code-channels",
     "when-it-goes-wrong"
   ]
 }
