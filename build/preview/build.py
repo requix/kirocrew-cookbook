@@ -21,6 +21,7 @@ import html
 import json
 import posixpath
 import re
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -35,14 +36,14 @@ from pygments.util import ClassNotFound
 import concept_map
 import dash_map
 import diagrams
-import ultra_mode_diagram
 import where_is
+import widgets
 
 HERE = Path(__file__).resolve().parent
 PROJECT = HERE.parent.parent
 CONTENT = PROJECT / "content"
 DESIGN_TOKENS = HERE / "assets" / "design-tokens"
-DIST = HERE / "dist"
+DIST = Path(os.environ["KC_DIST"]).resolve() if os.environ.get("KC_DIST") else HERE / "dist"
 
 SITE = "Kiro Crew Cookbook"
 DIFFICULTIES = ("beginner", "intermediate", "advanced")
@@ -306,7 +307,9 @@ def make_md() -> MarkdownIt:
         tok = tokens[idx]
         words = tok.info.strip().split()
         lang = words[0] if words else ""
-        if lang in ("where-is", "where-is-table", "dashboard-map", "dashboard-map-table", "concept-map", "ultra-mode-diagram", "find-your-way"):
+        if lang == "widget" and len(words) == 2:
+            return f"<!--widget:{words[1]}-->\n"
+        if lang in ("where-is", "where-is-table", "dashboard-map", "dashboard-map-table", "concept-map", "find-your-way"):
             return f"<!--{lang}-->\n"
         if lang in ("flow", "tree"):
             try:
@@ -650,11 +653,14 @@ def doc_page(site: dict, page: dict) -> str:
             body = body.replace("<!--concept-map-->", concept_map.widget_html(concept_map.load(PROJECT, page["body"]), r))
         except concept_map.ConceptMapError as exc:
             fail([f"concept-map: {exc}"])
-    if "<!--ultra-mode-diagram-->" in body:
+    for name in dict.fromkeys(re.findall(r"<!--widget:([a-z0-9-]+)-->", body)):
         try:
-            body = body.replace("<!--ultra-mode-diagram-->", ultra_mode_diagram.widget_html(ultra_mode_diagram.load(PROJECT), r))
-        except ultra_mode_diagram.UltraModeError as exc:
-            fail([f"ultra-mode-diagram: {exc}"])
+            body = body.replace(f"<!--widget:{name}-->", widgets.html_for(name, PROJECT, r))
+        except widgets.WidgetError as exc:
+            if os.environ.get("KC_ONLY_WIDGET") not in (None, name):
+                body = body.replace(f"<!--widget:{name}-->", "")
+                continue
+            fail([f"{page['slug']}: widget {name}: {exc}"])
     if "<!--dashboard-map" in body:
         body = (body.replace("<!--dashboard-map-->", dash_map.widget_html(site["dmap"], r))
                     .replace("<!--dashboard-map-table-->", dash_map.fallback_table(site["dmap"])))
@@ -701,7 +707,7 @@ def page_markdown(page: dict, finder: dict | None = None, dmap: dict | None = No
         body = re.sub(r"```where-is\n```\n?", "", body)
         body = re.sub(r"```where-is-table\n```\n?", lambda _: where_is.markdown_table(finder), body)
     body = re.sub(r"```concept-map\n```\n?", "", body)
-    body = re.sub(r"```ultra-mode-diagram\n```\n?", "", body)
+    body = widgets.FENCE.sub(lambda m: _widget_md(m.group(1)), body)
     body = re.sub(r"```flow\n(.*?)```\n?", lambda m: diagrams.flow_markdown(m.group(1)), body, flags=re.S)
     body = re.sub(r"```tree\n(.*?)```\n?", lambda m: diagrams.tree_markdown(m.group(1)), body, flags=re.S)
     if dmap:
@@ -710,6 +716,15 @@ def page_markdown(page: dict, finder: dict | None = None, dmap: dict | None = No
     pre = "".join(f"- [ ] {x}\n" for x in m.get("prerequisites") or [])
     pre = f"## Before you start\n\n{pre}\n" if pre else ""
     return f"# {m['title']}\n\n> {m['description']}\n\n{pre}{body.lstrip()}"
+
+
+def _widget_md(name: str) -> str:
+    try:
+        return widgets.markdown_for(name, PROJECT)
+    except widgets.WidgetError as exc:
+        if os.environ.get("KC_ONLY_WIDGET") not in (None, name):
+            return ""
+        fail([f"widget {name}: {exc}"])
 
 
 def llms_txt(site: dict) -> str:
@@ -730,8 +745,9 @@ def main() -> None:
         (DIST / s["id"]).mkdir(exist_ok=True)
     for name in ("vc-tokens.css", "vc-overrides.css"):
         shutil.copy(DESIGN_TOKENS / name, DIST / "assets" / name)
-    for name in ("site.css", "site.js", "where-is.css", "where-is.js", "kc-drawing.js", "dashboard-map.js", "concept-map.js", "concept-map.css", "ultra-mode-diagram.js", "ultra-mode-diagram.css"):
+    for name in ("site.css", "site.js", "where-is.css", "where-is.js", "kc-drawing.js", "dashboard-map.js", "concept-map.js", "concept-map.css"):
         shutil.copy(HERE / "assets" / name, DIST / "assets" / name)
+    shutil.copytree(widgets.ASSETS, DIST / "assets" / "widgets")
 
     out = {"index.html": landing(site), "recipes/index.html": recipe_index(site), "llms.txt": llms_txt(site)}
     for p in site["docs"]:

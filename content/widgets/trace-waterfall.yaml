@@ -1,0 +1,109 @@
+# A sample agent turn as a trace waterfall. Span names and attribute keys come from the v0.13.0
+# tracing code (kiro_crew/tracing: turns.py, steps.py, correlation.py). Python checks every
+# attribute against the export allowlist, so the card can never show a key a real trace drops.
+# Times are seconds from the start of the turn. The numbers are made up but plausible.
+title: Where did four minutes go?
+total: 240
+
+never: Never recorded on any span. Prompt and reply text, tool arguments and output, file paths, MCP server and tool names.
+
+spans:
+  - id: turn
+    name: invoke_agent kirocrew
+    start: 0
+    end: 240
+    depth: 0
+    about: The whole turn. Every other span hangs under it.
+    attrs:
+      gen_ai.operation.name: invoke_agent
+      gen_ai.agent.name: kirocrew
+      kirocrew.attempt: 1
+
+  - id: chat
+    name: chat
+    start: 0
+    end: 240
+    depth: 1
+    about: The model's side of the turn. Spend sits here, once per turn.
+    attrs:
+      gen_ai.operation.name: chat
+      gen_ai.request.model: claude-sonnet-4.5
+      gen_ai.usage.input_tokens: 48210
+      gen_ai.usage.output_tokens: 3120
+      kirocrew.usage.complete: true
+
+  - id: step1
+    name: kirocrew.step
+    start: 0
+    end: 9
+    depth: 1
+    about: The first model call, up to its first tool call.
+    attrs:
+      kirocrew.step.index: 1
+      kirocrew.step.derived: true
+
+  - id: tool1
+    name: execute_tool mcp
+    start: 9
+    end: 21
+    depth: 1
+    about: An MCP tool call. The span says mcp and nothing about which server or tool.
+    attrs:
+      gen_ai.operation.name: execute_tool
+      gen_ai.tool.name: mcp
+      kirocrew.tool_kind: fetch
+      kirocrew.tool.outcome: completed
+
+  - id: step2
+    name: kirocrew.step
+    start: 21
+    end: 30
+    depth: 1
+    about: The second model call.
+    attrs:
+      kirocrew.step.index: 2
+      kirocrew.step.derived: true
+
+  - id: approval
+    name: kirocrew.approval
+    start: 30
+    end: 182
+    depth: 1
+    slow: true
+    about: The agent waited two and a half minutes for you to approve a command.
+    attrs:
+      kirocrew.approval.wait_ms: 152000
+      kirocrew.approval.decided_by: person
+      kirocrew.approval.outcome: approved
+
+  - id: tool2
+    name: execute_tool execute
+    start: 182
+    end: 205
+    depth: 1
+    about: The approved command ran. Its arguments and output are not on the span.
+    attrs:
+      gen_ai.operation.name: execute_tool
+      kirocrew.tool_kind: execute
+      kirocrew.tool.outcome: completed
+
+  - id: compaction
+    name: kirocrew.compaction
+    start: 205
+    end: 219
+    depth: 1
+    about: The context was compacted before the last model call.
+    attrs:
+      kirocrew.compaction.outcome: completed
+
+  - id: step3
+    name: kirocrew.step
+    start: 219
+    end: 240
+    depth: 1
+    about: The last model call writes the reply.
+    attrs:
+      kirocrew.step.index: 3
+      kirocrew.step.derived: true
+
+start: approval

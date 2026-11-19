@@ -49,6 +49,11 @@ Kiro Crew's own masks and seals go on top of your list and always win, so a read
 
 The fence only exists where Kiro Crew applies its own sandbox. It is not enforced when `agent.sandbox` is `off`, when a macOS spawn is delegated to kiro-cli's internal sandbox, or on Windows, which logs a SECURITY warning instead.
 
+Try it below. Pick a folder, set the two lists, and see whether the agent may write there.
+
+```widget fence-check
+```
+
 ### 2. Know what happens when someone edits a settings file by hand
 
 On a Linux host with the sandbox, a change to one of these four files that Kiro Crew did not write no longer applies by itself:
