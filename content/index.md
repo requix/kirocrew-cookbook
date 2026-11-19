@@ -42,6 +42,7 @@ Each recipe is one shape: **problem → steps → verify → gotchas.** You can 
 1. **[Install Kiro Crew step by step](./start/install.md)** — every prerequisite, the installer, the gateway, keeping it running.
 2. **[Your first hour](./start/first-hour.md)** — install, open the dashboard, get one useful task done.
 3. **[Bring your Kiro setup](./start/bring-your-kiro-setup.md)** — steering, agents, skills, MCP servers and hooks from Kiro CLI or IDE.
+4. **[What's new in 0.13](./start/whats-new-0.13.md)** — conductor mode, answering from anywhere, safety you can review.
 
 ## Concepts
 
@@ -56,7 +57,11 @@ Each recipe is one shape: **problem → steps → verify → gotchas.** You can 
 1. **[Make it remember](./recipes/make-it-remember.md)** — memory and lessons, done right. What to teach it, what to keep out.
 2. **[Teach it a skill](./recipes/teach-it-a-skill.md)** — a project-local skill, from a real case.
 3. **[Schedule real work](./recipes/schedule-real-work.md)** — a cron job you would actually keep.
-4. **[When it goes wrong](./recipes/when-it-goes-wrong.md)** — loops, blocked tools, drift, recovery.
+4. **[Answer from anywhere](./recipes/answer-from-anywhere.md)** — reply to a waiting session from the sidebar or your own chat app.
+5. **[Fence the agent](./recipes/fence-the-agent.md)** — read-only folders and config edits that wait for your review.
+6. **[Trace every agent turn](./recipes/trace-agent-turns.md)** — send turn traces to Langfuse or any OTLP collector.
+7. **[Slack code channels](./recipes/slack-code-channels.md)** — one Slack channel per coding task, each in its own worktree.
+8. **[When it goes wrong](./recipes/when-it-goes-wrong.md)** — loops, blocked tools, drift, recovery.
 
 ## Who this is for
 
