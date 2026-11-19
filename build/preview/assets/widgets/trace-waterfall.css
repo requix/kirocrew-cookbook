@@ -1,0 +1,20 @@
+.kw-trace-waterfall .tw-chart { display: grid; gap: 2px; }
+.kw-trace-waterfall .tw-row { display: grid; grid-template-columns: minmax(150px, 34%) 1fr 44px; align-items: center; gap: 10px;
+  padding: 4px 6px; border: 1px solid transparent; background: transparent; color: var(--vc-text-body);
+  font: inherit; text-align: left; cursor: pointer; transition: background var(--vc-dur-fast), border-color var(--vc-dur-fast); }
+.kw-trace-waterfall .tw-row:hover { background: var(--vc-layer-2); }
+.kw-trace-waterfall .tw-row[aria-pressed="true"] { border-color: var(--vc-accent); background: var(--vc-layer-2); }
+.kw-trace-waterfall .tw-row:focus-visible { outline: 2px solid var(--vc-focus); outline-offset: 1px; }
+.kw-trace-waterfall .tw-name { font-family: var(--vc-font-code); font-size: 0.75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kw-trace-waterfall .tw-lane { position: relative; height: 12px; background: var(--vc-layer-2); }
+.kw-trace-waterfall .tw-bar { position: absolute; top: 0; bottom: 0; background: var(--vc-accent); opacity: 0.75; }
+.kw-trace-waterfall .tw-bar.is-slow { background: var(--vc-warning); opacity: 1; }
+.kw-trace-waterfall .tw-row[aria-pressed="true"] .tw-bar { opacity: 1; }
+.kw-trace-waterfall .tw-secs { font-size: 0.75rem; color: var(--vc-text-muted); text-align: right; }
+.kw-trace-waterfall .tw-detail { border: 1px solid var(--vc-border-subtle); background: var(--vc-layer-2); padding: 10px 12px; }
+.kw-trace-waterfall .tw-dname { margin: 0; font-family: var(--vc-font-code); font-size: 0.8125rem; color: var(--vc-text); }
+.kw-trace-waterfall .tw-about { margin: 4px 0 8px; font-size: 0.8125rem; }
+.kw-trace-waterfall .tw-attrs { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; font-size: 0.75rem; }
+.kw-trace-waterfall .tw-attrs dt { font-family: var(--vc-font-code); color: var(--vc-text-muted); }
+.kw-trace-waterfall .tw-attrs dd { margin: 0; font-family: var(--vc-font-code); color: var(--vc-text); }
+@media (max-width: 560px) { .kw-trace-waterfall .tw-row { grid-template-columns: 1fr 40px; } .kw-trace-waterfall .tw-lane { grid-column: 1 / -1; grid-row: 2; } }

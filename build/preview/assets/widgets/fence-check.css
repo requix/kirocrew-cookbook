@@ -1,0 +1,3 @@
+.kw-fence-check .kw-chip { font-family: var(--vc-font-code); font-size: 0.75rem; }
+.kw-fence-check .fc-row .kw-label { margin-bottom: 6px; }
+.kw-fence-check .fc-note { margin: -6px 0 0; font-size: 0.8125rem; color: var(--vc-text-muted); }

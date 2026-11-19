@@ -1,0 +1,51 @@
+# "Where does this note go?" Facts: the quick reply card, Deliver to routes, the priority menu and
+# the "Send pending approvals to chat apps" preview in Kiro Crew 0.13.0, as described in
+# recipes/answer-from-anywhere.md. Python works out every combination; the browser only looks it up.
+title: Where does this note go?
+
+labels:
+  kind: The note
+  priority: Its priority
+  route: Priority menu
+  apps: Deliver to
+  preview: Send pending approvals to chat apps
+
+# Kinds of note. asks: true means the session waits on you (sidebar card, needs the preview for a DM).
+kinds:
+  - { id: approval, label: Tool approval, asks: true, priority: critical }
+  - { id: question, label: Question, asks: true, priority: critical }
+  - { id: error, label: Chat error, asks: false, priority: default }
+
+priorities:
+  - { id: critical, label: Critical }
+  - { id: default, label: Default }
+  - { id: passive, label: Passive }
+
+# The priority menu under a Sources row, and which priorities each option lets through.
+routes:
+  - { id: critical_only, label: Critical only, passes: [critical] }
+  - { id: default_and_critical, label: Default and critical, passes: [critical, default] }
+  - { id: every, label: Every priority, passes: [critical, default, passive] }
+
+# Chat apps and how you answer from each once the preview is on.
+apps:
+  - { id: slack, label: Slack, answer: Approve and Deny buttons }
+  - { id: telegram, label: Telegram, answer: "reply approve or deny" }
+  - { id: feishu, label: Feishu, answer: note only, answer in the dashboard }
+
+start:
+  kind: approval
+  route: critical_only
+  apps: [slack]
+  preview: false
+
+places:
+  card: Sidebar card
+  dm: DM
+
+verdicts:
+  card_only: Only the sidebar card. A DM for this needs the preview.
+  card_and_dm: "Sidebar card and a DM to {apps}."
+  dm: "A DM to {apps}."
+  filtered: "No DM. The priority menu holds back {priority} notes."
+  no_apps: No DM. Tick an app under Deliver to.

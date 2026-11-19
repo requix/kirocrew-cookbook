@@ -1,0 +1,43 @@
+# "Can the agent write here?" Facts: agent.sandbox_readonly_paths and
+# agent.sandbox_readonly_exceptions in Kiro Crew 0.13.0, as described in recipes/fence-the-agent.md.
+# Python works out every combination of the choices below, so the browser only looks answers up.
+title: Can the agent write here?
+
+labels:
+  folder: Agent writes to
+  paths: Sandbox Read-Only Paths
+  exceptions: Sandbox Read-Only Exceptions
+  sandbox: Kiro Crew sandbox on
+
+# The files the agent tries to write. One is picked at a time.
+targets:
+  - /srv/archive/report.pdf
+  - /srv/archive/scratch/notes.txt
+  - /mnt/c/Users/me/todo.txt
+  - /home/me/project/app.py
+
+# Entries you can add to the read-only list. "/" is there to show a skipped entry.
+paths:
+  - /srv/archive
+  - /mnt/c
+  - /
+
+# Entries you can add to the exceptions list. /home/me/project is not inside any entry, so it is skipped.
+exceptions:
+  - /srv/archive/scratch
+  - /home/me/project
+
+# Starting state of the card.
+start:
+  target: /srv/archive/report.pdf
+  paths: [/srv/archive]
+  exceptions: []
+  sandbox: true
+
+verdicts:
+  "off": Writable. The fence is not enforced while agent.sandbox is off.
+  free: Writable. No read-only entry covers this folder.
+  blocked: "Blocked. Read-only under {entry}."
+  excepted: "Writable. {exception} is an exception inside {entry}."
+  skipped_root: "{entry} is skipped with a SECURITY warning, so it covers nothing."
+  skipped_exception: "{exception} is skipped: it is not strictly inside a read-only entry."

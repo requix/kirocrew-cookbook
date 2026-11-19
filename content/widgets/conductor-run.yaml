@@ -1,0 +1,76 @@
+# A conductor mode run, step by step. Facts: Board labels from the v0.13.0 UI strings
+# (en.manual.json conductor_mode_*); the plan/patrol/pause behavior from the conductor mode docs.
+# Python checks every step against the nodes and states below and derives the Board text.
+title: A conductor mode run, step by step
+
+# Board labels. Python rejects any text that is not on the confirmed list.
+labels:
+  board: Board
+  recap: Recap
+  needs_you: Needs you
+  milestones: Milestones
+  paused: Paused
+  pause_all: Pause all
+  resume_all: Resume all
+  recap_empty: The crew has not reported yet.
+  needs_you_none: Nothing needs you right now.
+  milestones_none: No milestones yet.
+
+conductor:
+  name: Conductor
+  states:
+    idle: { label: "" }
+    planning: { label: Planning }
+    dispatching: { label: Dispatching }
+    patrolling: { label: Patrolling }
+    replanning: { label: Re-planning one item }
+    holding: { label: Paused }
+    done: { label: Finished }
+
+workers:
+  - { id: w1, name: Worker 1, task: Task A }
+  - { id: w2, name: Worker 2, task: Task B }
+  - { id: w3, name: Worker 3, task: Task C }
+  - { id: w4, name: Worker 4, task: Task D }
+
+# node = label on the worker card. board = label in the Milestones list ("" hides the row).
+worker_states:
+  absent:  { node: "",             board: "" }
+  idle:    { node: Not started,    board: Not started }
+  working: { node: Working,        board: In progress }
+  drifting: { node: Drifting,      board: In progress }
+  waiting: { node: Needs you,      board: Waiting on your approval above }
+  paused:  { node: Paused,         board: Paused }
+  done:    { node: Done,           board: Done }
+
+steps:
+  - caption: The conductor plans from your goal and tests the plan before any worker starts.
+    conductor: planning
+    workers: { w1: absent, w2: absent, w3: absent, w4: absent }
+
+  - caption: It dispatches workers, one chat per item.
+    conductor: dispatching
+    workers: { w1: working, w2: working, w3: working, w4: working }
+
+  - caption: Worker 3 asks for an approval and lands under Needs you. The others carry on.
+    conductor: idle
+    workers: { w1: done, w2: working, w3: waiting, w4: working }
+
+  - caption: On a patrol the conductor finds Worker 2 drifting and re-plans only that item.
+    conductor: replanning
+    workers: { w1: done, w2: drifting, w3: waiting, w4: working }
+
+  - caption: You press Pause all and every running worker stops.
+    conductor: holding
+    workers: { w1: done, w2: paused, w3: waiting, w4: paused }
+    control: pause_all
+    crew_paused: true
+
+  - caption: Resume all, and the steps that were cut off run again from the start.
+    conductor: idle
+    workers: { w1: done, w2: working, w3: waiting, w4: working }
+    control: resume_all
+
+  - caption: You approve Worker 3, every item finishes, and the run ends with a Recap.
+    conductor: done
+    workers: { w1: done, w2: done, w3: done, w4: done }

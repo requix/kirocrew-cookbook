@@ -32,7 +32,7 @@ The LTS edition does not offer conductor mode. There, the conductor templates ar
 
 The chat runs on a conductor, a specialised agent called `kirocrew-conductor`. To run a different conductor, set `agent.crew_mode_agent`. The conductor does not do the leaf work itself. It keeps a goal and a list of items, and for each item it opens a separate worker chat and hands the task over. The chat keeps its memory and history after the switch.
 
-```ultra-mode-diagram
+```widget conductor-run
 ```
 
 Each worker is a normal agent with your default toolset plus the two tools it needs to report back. It has its own context, so one task's logs and file reads do not crowd out another's. When a worker says it is done, the conductor checks the claim against acceptance criteria instead of trusting the worker's own summary.

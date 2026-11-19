@@ -59,6 +59,11 @@ Unticking every app removes the route and resets the priority menu with it.
 
 Feishu needs one extra condition. Notes go only while exactly one `open_id` is in `allowed_open_ids`, because that is how the gateway knows the DM is yours.
 
+Try it below. Pick a note, its priority and where it may go, and see where it lands.
+
+```widget note-router
+```
+
 ### 3. Mute sounds when you need quiet
 
 On the same **Notifications** page, the sound section has a **Mute sounds** menu. It silences notification sounds for a while and then turns them back on by itself. Notifications still arrive, so the sidebar card and your DM keep working. Pick **For 1 hour**, **For 2 hours**, or the last choice, which reads "Until" followed by a time (the morning). While it is active the menu reads "Muted until" followed by the time, and **Off** ends it early.

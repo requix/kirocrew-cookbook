@@ -66,6 +66,11 @@ kirocrew trace show <key>
 
 The command only reads the local files. It needs no running gateway and no OpenTelemetry SDK. It shows span names, timing and the error type, nothing else.
 
+Here is a sample turn drawn the same way. Click a bar to see what that span records.
+
+```widget trace-waterfall
+```
+
 ### 4. Send traces to a collector (optional)
 
 Local files are enough for step 3. To see traces in Langfuse, CloudWatch or another OTLP backend, set the endpoint to the full OTLP/HTTP traces URL, path included:
