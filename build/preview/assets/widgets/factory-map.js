@@ -1,34 +1,49 @@
-import { mount, el, verdict } from "./widget-base.js";
+import { mount, el } from "./widget-base.js";
 
 mount("factory-map", ({ body, data }) => {
-  const tiles = [];
-  const name = el("p", { class: "fm-name" });
-  const feats = el("ul", { class: "kw-chips fm-feats", "aria-label": "Kiro Crew parts" });
-  const says = verdict();
-  const more = el("a", { class: "fm-more" }, "Read this part");
+  const n = data.stations.length;
+  const stops = [];
+  const zones = data.zones.map((z) => el("li", { class: "fm-zone", style: `grid-column: span ${z.stations.length}` },
+    el("span", {}, z.label)));
 
-  const zones = data.zones.map((z) => el("div", { class: "fm-zone" },
-    el("p", { class: "kw-label" }, z.label),
-    el("div", { class: "fm-tiles" }, z.stations.map((i) => {
-      const b = el("button", { type: "button", class: "fm-tile", "aria-pressed": "false", onclick: () => pick(i) },
-        el("span", { class: "fm-num" }, String(i + 1)), el("span", {}, data.stations[i].name));
-      tiles[i] = b;
-      return b;
-    }))));
+  const track = el("ol", { class: "fm-track", role: "tablist", "aria-label": data.title, style: `--n:${n}` },
+    data.stations.map((s, i) => {
+      const b = el("button", { type: "button", class: "fm-stop", role: "tab", "aria-selected": "false", tabindex: "-1",
+        onclick: () => pick(i), onkeydown: (e) => key(e, i) },
+        el("span", { class: "fm-dot" }, String(i + 1)), el("span", { class: "fm-label" }, s.name));
+      stops[i] = b;
+      return el("li", {}, b);
+    }));
+
+  const name = el("p", { class: "fm-name" });
+  const more = el("a", { class: "fm-more" }, "Read section");
+  const says = el("p", { class: "fm-says" });
+  const feats = el("ul", { class: "fm-feats", "aria-label": "Kiro Crew parts" });
+  const detail = el("div", { class: "fm-detail", role: "tabpanel", "aria-live": "polite" },
+    el("div", { class: "fm-detail-head" }, name, more), says, feats);
+
+  function key(e, i) {
+    const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: n - 1 }[e.key];
+    if (to == null) return;
+    e.preventDefault();
+    const j = (to + n) % n;
+    pick(j);
+    stops[j].focus();
+  }
 
   function pick(i) {
     const s = data.stations[i];
-    tiles.forEach((t, k) => t.setAttribute("aria-pressed", String(k === i)));
-    name.textContent = s.name;
-    feats.replaceChildren(...s.features.map((f) => el("li", { class: "kw-chip fm-feat" }, f)));
-    says.set(s.says, "info");
+    stops.forEach((b, k) => {
+      b.setAttribute("aria-selected", String(k === i));
+      b.tabIndex = k === i ? 0 : -1;
+      b.classList.toggle("is-passed", k < i);
+    });
+    name.textContent = `${i + 1}. ${s.name}`;
+    says.textContent = s.says;
+    feats.replaceChildren(...s.features.map((f) => el("li", {}, f)));
     more.href = `#${s.anchor}`;
   }
 
-  body.append(
-    el("div", { class: "fm-zones" }, zones),
-    el("div", { class: "fm-detail", "aria-live": "polite" }, el("div", { class: "fm-detail-head" }, name, more), feats),
-    says.node,
-  );
+  body.append(el("div", { class: "fm-scroll" }, el("ol", { class: "fm-zones", style: `--n:${n}` }, zones), track), detail);
   pick(data.start);
 });

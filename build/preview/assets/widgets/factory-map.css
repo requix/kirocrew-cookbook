@@ -1,19 +1,29 @@
-.kw-factory-map .fm-zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px;
-  background: var(--vc-border-subtle); border: 1px solid var(--vc-border-subtle); }
-.kw-factory-map .fm-zone { background: var(--vc-layer-1); padding: 10px 12px; }
-.kw-factory-map .fm-tiles { display: grid; gap: 6px; }
-.kw-factory-map .fm-tile { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border: 1px solid var(--vc-border);
-  background: var(--vc-layer-2); color: var(--vc-text-body); font: inherit; font-size: 0.875rem; text-align: left; cursor: pointer;
-  transition: border-color var(--vc-dur-fast), background var(--vc-dur-fast); }
-.kw-factory-map .fm-tile:hover { border-color: var(--vc-accent); }
-.kw-factory-map .fm-tile[aria-pressed="true"] { border-color: var(--vc-accent); background: var(--vc-accent-soft); color: var(--vc-accent-text); }
-.kw-factory-map .fm-tile:focus-visible { outline: 2px solid var(--vc-focus); outline-offset: 2px; }
-.kw-factory-map .fm-num { display: grid; place-items: center; width: 20px; height: 20px; flex: none; font-size: 0.6875rem;
-  border: 1px solid var(--vc-border); color: var(--vc-text-muted); }
-.kw-factory-map .fm-tile[aria-pressed="true"] .fm-num { border-color: var(--vc-accent); color: var(--vc-accent-text); }
-.kw-factory-map .fm-detail { display: grid; gap: 8px; }
+.kw-factory-map .fm-scroll { overflow-x: auto; padding-bottom: 2px; }
+.kw-factory-map .fm-zones, .kw-factory-map .fm-track { display: grid; grid-template-columns: repeat(var(--n), minmax(58px, 1fr));
+  min-width: 600px; list-style: none; }
+.kw-factory-map .fm-zone { padding: 0 4px 6px; border-bottom: 1px solid var(--vc-border); margin: 0 3px 10px !important;
+  font-size: 0.6875rem; letter-spacing: var(--vc-label-tracking); text-transform: uppercase; color: var(--vc-text-muted); text-align: center; }
+.kw-factory-map .fm-track { position: relative; }
+.kw-factory-map .fm-track::before { content: ""; position: absolute; top: 13px; left: calc(50% / var(--n)); right: calc(50% / var(--n));
+  height: 1px; background: var(--vc-border-strong); }
+.kw-factory-map .fm-stop { position: relative; display: grid; justify-items: center; gap: 6px; width: 100%; padding: 0 2px;
+  border: 0; background: none; color: var(--vc-text-muted); font: inherit; cursor: pointer; }
+.kw-factory-map .fm-dot { display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--vc-border-strong);
+  background: var(--vc-layer-1); font-family: var(--vc-font-code); font-size: 0.6875rem; color: var(--vc-text-muted);
+  transition: background var(--vc-dur-fast), border-color var(--vc-dur-fast), color var(--vc-dur-fast); }
+.kw-factory-map .fm-label { font-size: 0.75rem; line-height: 1.25; text-align: center; }
+.kw-factory-map .fm-stop:hover .fm-dot { border-color: var(--vc-accent); }
+.kw-factory-map .fm-stop.is-passed .fm-dot { border-color: var(--vc-accent); color: var(--vc-accent-text); }
+.kw-factory-map .fm-stop[aria-selected="true"] .fm-dot { background: var(--vc-accent); border-color: var(--vc-accent); color: var(--vc-text-on-accent); }
+.kw-factory-map .fm-stop[aria-selected="true"] .fm-label { color: var(--vc-text); }
+.kw-factory-map .fm-stop:focus-visible { outline: none; }
+.kw-factory-map .fm-stop:focus-visible .fm-dot { outline: 2px solid var(--vc-focus); outline-offset: 2px; }
+
+.kw-factory-map .fm-detail { display: grid; gap: 6px; padding: 12px 14px; border-left: 2px solid var(--vc-accent); background: var(--vc-layer-2); }
 .kw-factory-map .fm-detail-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.kw-factory-map .fm-name { margin: 0; font-family: var(--vc-font-head); font-size: 1rem; color: var(--vc-text); }
-.kw-factory-map .fm-more { font-size: 0.8125rem; color: var(--vc-accent-text); }
-.kw-factory-map .fm-feat { cursor: default; }
-.kw-factory-map .fm-feat:hover { border-color: var(--vc-border); }
+.kw-factory-map .fm-name { margin: 0; font-family: var(--vc-font-head); font-size: 0.9375rem; color: var(--vc-text); }
+.kw-factory-map .fm-more { flex: none; font-size: 0.8125rem; color: var(--vc-accent-text); }
+.kw-factory-map .fm-says { margin: 0; font-size: 0.875rem; color: var(--vc-text-body); }
+.kw-factory-map .fm-feats { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.kw-factory-map .fm-feats li { padding: 2px 10px !important; border: 1px solid var(--vc-border); border-radius: var(--vc-radius-pill);
+  font-size: 0.75rem; color: var(--vc-text-body); }
