@@ -1,6 +1,6 @@
 ---
 title: Kiro Crew as a software factory
-description: What recent papers say an AI software factory needs, which Kiro Crew feature plays each part, and what held up when we ran it.
+description: What recent papers say an AI software factory needs, and which Kiro Crew feature plays each part.
 category: Concepts
 difficulty: intermediate
 time: 20 min
@@ -13,9 +13,9 @@ prerequisites:
   - A git repository the agent may work on
 ---
 
-"Software factory" is what people call a setup where issues go in at one end and pull requests come out at the other, with agents doing most of the steps between. Kiro Crew has no feature with that name. It has the parts, so the useful questions are which part does which job, and whether the parts hold up when you run them.
+"Software factory" is what people call a setup where issues go in at one end and pull requests come out at the other, with agents doing most of the steps between. Kiro Crew has no feature with that name. It has the parts, so the useful question is which part does which job.
 
-For the first question I leaned on five papers from 2025 and 2026 about building software with agents. For the second, we ran each part on a Kiro Crew 0.13.0 instance against a small lab repository with three seeded issues. Each section below says what the papers ask for, which Kiro Crew feature answers it, and what happened in the lab. Click a part to see all three at once.
+I leaned on five papers from 2025 and 2026 about building software with agents. Each section below says what the papers ask for and which Kiro Crew feature answers it. Click a part to see both at once.
 
 ```widget factory-map
 ```
@@ -64,7 +64,6 @@ Work can reach Kiro Crew four ways, and you can combine them:
 
 > **What the papers say.** Sogeti's agents start with "product discovery" that frames the problem and its success criteria before anyone builds. DORA lists a user-centric focus among the seven capabilities that decide whether AI helps a team. An order that arrives without a clear outcome is the first place a factory goes wrong.
 
-**In the lab:** a one-shot cron job fired on time and wrote its order to the lab. We did not test webhooks or Issue Radar.
 
 ## 2. Planning turns an order into work
 
@@ -84,7 +83,6 @@ Work can reach Kiro Crew four ways, and you can combine them:
 
 > **What the papers say.** Sogeti puts it plainly: "Specifications — not prompts — become the enduring contract between humans and agents." OpenAI's guide pushes the other way on size: "maximize a single agent's capabilities first," and split into several agents only when one agent fails to follow complicated instructions or keeps picking the wrong tools. Kiro Crew's own rule about two qualifying items says the same thing.
 
-**In the lab:** not tested for Spec Builder. For the conductor, see the next section.
 
 ## 3. Work orders say what done means
 
@@ -105,7 +103,6 @@ The acceptance condition is one of five kinds: `pr_checks`, `pr_merged`, `editio
 
 > **What the papers say.** Sogeti: "Conversations are transient; artifacts are authoritative." Janda's paper opens with the requirement that agent work must be specified, bounded, isolated, checked, approved and reconstructable afterwards (my translation from the German). The ledger is Kiro Crew's answer to the "specified" and "reconstructable" parts.
 
-**In the lab:** this failed. The conductor's first ledger write was refused with `crew_log_unrecorded` ("the write was not recorded and has been undone"), both when the conductor ran as a spawned subagent and when it ran as a scheduled session. A rebuild did not help. We could not create items, record verdicts or open the Crew board, so this section is from the docs. If you hit the same refusal, the docs say to retry; ours never succeeded, which points at the instance rather than the request.
 
 ## 4. The line moves items through fixed steps
 
@@ -120,7 +117,6 @@ A `#N` chip names the item's open pull request. An arc under the lane means the 
 
 > **What the papers say.** DORA counts platform engineering among the seven AI capabilities: a platform gives agents "automated, secure pathways" instead of one-off scripts. Sogeti wants agents to operate "within a governed SDLC". A fixed line that every repository shares is that kind of pathway.
 
-**In the lab:** not tested. Issue Radar could not run on our test instance.
 
 ## 5. Workbenches keep workers apart
 
@@ -140,7 +136,6 @@ Each worker is its own chat with its own context. For code, its bench is a **git
 
 > **What the papers say.** Anthropic's 2026 trends report describes multi-agent setups where "an orchestrator ... coordinate[s] specialized agents working in parallel—each with dedicated context." Janda's first principle is a single writer per workspace: exactly one agent writes to each working copy.
 
-**In the lab:** this passed. Three workers fixed three issues at the same time, each in its own worktree on its own branch, in about three and a half minutes each, and each branch's tests passed. One small leak: the agent harness left an empty settings file in the main checkout, outside the worktrees. It did no harm, but "touch nothing outside your worktree" was not strictly true.
 
 ## 6. Quality control checks every claim
 
@@ -163,7 +158,6 @@ When a worker reports `done`, the item stays open. The conductor runs an accepta
 
 > **What the papers say.** Janda separates the roles outright: whoever writes does not approve. One of Anthropic's four priorities for 2026 is "Scaling human-agent oversight through AI-automated review systems that focus human attention where it matters most." Janda adds a warning that applies to every gate on this page: a gate whose failure looks like success is worse than no gate (my translation).
 
-**In the lab:** a separate reviewer, which had not written any of the fixes, read all three diffs against the issues and approved them with reasons. It also listed edge cases the issues did not ask for. I ran the tests on each branch myself as a second check. Janda's warning showed up in a small way: the `file` acceptance kind checks that a file exists, and the same worker that does the work writes that file. Prefer `pr_checks` where you can, so CI rather than the worker decides.
 
 ## 7. Safety: fences and the stop button
 
@@ -193,7 +187,6 @@ When a worker reports `done`, the item stays open. The conductor runs an accepta
 
 > **What the papers say.** OpenAI's guide names two triggers for handing control back to a person: "Exceeding failure thresholds" and "High-risk actions," and suggests rating each tool low, medium or high risk by whether it writes, whether it can be undone, and what it can cost. It calls guardrails "a layered defense mechanism". Anthropic wants agents that learn "when to ask for help, rather than blindly attempting every task."
 
-**In the lab:** partly tested. We gave one worker a task with no right answer: rename a function to a name nobody had decided. It changed nothing and came back with a question, three candidate names and a recommendation. That is the behavior the papers ask for. We did not test approvals or read-only folders, because both need settings that the agent is not allowed to change on its own, which is itself the right design.
 
 ## 8. Shipping ends at a pull request
 
@@ -214,7 +207,6 @@ I keep that merge with a person. Everything before it can run without me, but th
 
 > **What the papers say.** DORA lists working in small batches and version control among its AI capabilities, because faster change needs a safety net. Sogeti describes reintegration "in stages rather than as a single disruptive merge," with an orchestrator that tracks merge readiness. In Sogeti's role table the reviewer stays human.
 
-**In the lab:** the three branches were ready, but merging them back into one copy of main hit a conflict: two workers had both added tests at the end of the same test file. Each worker did its job; nobody owned putting the pieces together. Kiro Crew has no step for staged reintegration, so plan for it yourself: merge one pull request at a time and let the next worker rebase, or give one worker the job of combining them.
 
 ## 9. Gauges show where work piles up
 
@@ -236,7 +228,6 @@ Issue Radar's **Pipeline** dashboard shows, for each step, what is sitting there
 
 > **What the papers say.** If AI amplifies what is already there, as DORA finds, you need to see what is there before you speed it up. Anthropic's report notes that engineers "fully delegate" only 0 to 20 percent of tasks even while using AI in about 60 percent of their work, so the gauges that matter show where people still spend their time.
 
-**In the lab:** not tested. Traces need a setting we did not change.
 
 ## 10. Getting better every run
 
@@ -253,24 +244,6 @@ A correction you give with "always" or "never" becomes a **lesson** that comes b
 
 > **What the papers say.** OpenAI: "Add new guardrails based on real-world edge cases and failures you encounter." DORA's capabilities include AI-accessible internal data and a healthy data ecosystem: what the organization already knows has to reach the agent.
 
-**In the lab:** not tested.
-
-## What we tested, and how
-
-We set up a small Python repository with three issues, each with a written acceptance line, and ran every part we could on Kiro Crew 0.13.0. Agents worked only on local branches; nothing was pushed.
-
-| Part | Result |
-|---|---|
-| Orders in (cron) | Passed |
-| Planning and work orders (conductor, ledger) | Failed: every ledger write refused |
-| The line (Issue Radar) | Not tested |
-| Workbenches (parallel workers, worktrees) | Passed, with one stray file outside the worktrees |
-| Quality control (independent review) | Passed |
-| Safety (asking a person) | Passed; approvals and read-only folders not tested |
-| Shipping (merging back) | Partly passed: two branches conflicted |
-| Gauges, getting better | Not tested |
-
-Three gaps stood out. The work ledger is the piece that ties a conductor run together, and it did not work on our instance. The `file` acceptance kind lets the worker supply its own proof. And nothing in Kiro Crew owns the merge-back step when several workers touch the same files. None of these stop you from running a factory, but they decide where you still need a person.
 
 ## Pick a size
 

@@ -30,7 +30,3 @@
 .kw-factory-map .fm-meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 4px 0 0; font-size: 0.8125rem; }
 .kw-factory-map .fm-meta dt { color: var(--vc-text-muted); font-size: 0.75rem; letter-spacing: var(--vc-label-tracking); text-transform: uppercase; padding-top: 2px; }
 .kw-factory-map .fm-meta dd { margin: 0; color: var(--vc-text-body); }
-.kw-factory-map .fm-tag { display: inline-block; margin-right: 8px; padding: 0 8px; border: 1px solid var(--vc-border); font-size: 0.75rem; color: var(--vc-text); }
-.kw-factory-map .fm-tag[data-status="pass"] { border-color: var(--vc-success); }
-.kw-factory-map .fm-tag[data-status="partial"] { border-color: var(--vc-warning); }
-.kw-factory-map .fm-tag[data-status="fail"] { border-color: var(--vc-error); }

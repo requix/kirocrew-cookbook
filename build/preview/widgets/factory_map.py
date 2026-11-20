@@ -12,7 +12,6 @@ from pathlib import Path
 from . import WidgetError, check_text, read_yaml
 
 NAME = "factory-map"
-STATUSES = {"pass": "Passed", "partial": "Partly passed", "fail": "Failed", "none": "Not tested"}
 HOST_PAGE = Path("content") / "concepts" / "software-factory.md"
 
 
@@ -63,9 +62,6 @@ def load(project: Path) -> dict:
                 raise _err(f"{where} names unknown paper '{pid}'")
         if not s.get("papers"):
             raise _err(f"{where} names no paper")
-        tested = s.get("tested") or {}
-        if tested.get("status") not in STATUSES or not tested.get("note"):
-            raise _err(f"{where}: tested needs a status in {sorted(STATUSES)} and a note")
         if anchors and s.get("anchor") not in anchors:
             raise _err(f"{where}: anchor '{s.get('anchor')}' is not a heading on {HOST_PAGE.as_posix()}")
     data = {
@@ -73,9 +69,7 @@ def load(project: Path) -> dict:
         "zones": [{"id": z["id"], "label": z["label"],
                    "stations": [i for i, s in enumerate(stations) if s["zone"] == z["id"]]} for z in zones],
         "stations": [{"name": s["name"], "features": list(s["features"]), "says": s["says"],
-                      "anchor": s["anchor"], "papers": [sources[p] for p in s["papers"]],
-                      "tested": {"status": s["tested"]["status"], "label": STATUSES[s["tested"]["status"]],
-                                 "note": s["tested"]["note"]}} for s in stations],
+                      "anchor": s["anchor"], "papers": [sources[p] for p in s["papers"]]} for s in stations],
         "start": ids.index(spec["start"]),
     }
     check_text(NAME, data)
@@ -83,7 +77,7 @@ def load(project: Path) -> dict:
 
 
 def markdown(data: dict) -> str:
-    rows = [f"**{data['title']}**", "", "| Factory part | Kiro Crew parts | Papers | Lab result |", "| --- | --- | --- | --- |"]
+    rows = [f"**{data['title']}**", "", "| Factory part | Kiro Crew parts | Papers |", "| --- | --- | --- |"]
     for s in data["stations"]:
-        rows.append(f"| {s['name']} | {', '.join(s['features'])} | {', '.join(s['papers'])} | {s['tested']['label']} |")
+        rows.append(f"| {s['name']} | {', '.join(s['features'])} | {', '.join(s['papers'])} |")
     return "\n".join(rows)

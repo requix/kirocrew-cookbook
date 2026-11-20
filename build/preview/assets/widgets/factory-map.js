@@ -20,11 +20,8 @@ mount("factory-map", ({ body, data }) => {
   const says = el("p", { class: "fm-says" });
   const feats = el("ul", { class: "fm-feats", "aria-label": "Kiro Crew parts" });
   const papers = el("span", {});
-  const testTag = el("span", { class: "fm-tag" });
-  const testNote = el("span", {});
   const meta = el("dl", { class: "fm-meta" },
-    el("dt", {}, "Papers"), el("dd", {}, papers),
-    el("dt", {}, "Lab"), el("dd", {}, testTag, testNote));
+    el("dt", {}, "Papers"), el("dd", {}, papers));
   const detail = el("div", { class: "fm-detail", role: "tabpanel", "aria-live": "polite" },
     el("div", { class: "fm-detail-head" }, name, more), says, feats, meta);
 
@@ -49,9 +46,6 @@ mount("factory-map", ({ body, data }) => {
     feats.replaceChildren(...s.features.map((f) => el("li", {}, f)));
     more.href = `#${s.anchor}`;
     papers.textContent = s.papers.join(", ");
-    testTag.textContent = s.tested.label;
-    testTag.dataset.status = s.tested.status;
-    testNote.textContent = s.tested.note;
   }
 
   body.append(el("div", { class: "fm-scroll" }, el("ol", { class: "fm-zones", style: `--n:${n}` }, zones), track), detail);

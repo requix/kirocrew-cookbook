@@ -86,12 +86,10 @@ def test_markdown_versions():
     assert "AWAIT CI" in factory_run.markdown(factory_run.load(ROOT))
 
 
-def test_map_every_station_has_papers_and_a_lab_result():
+def test_map_every_station_has_papers():
     d = factory_map.load(ROOT)
     for s in d["stations"]:
         assert s["papers"]
-        assert s["tested"]["label"] in factory_map.STATUSES.values()
-        assert s["tested"]["note"]
 
 
 def test_map_rejects_unknown_paper(tmp_path):
@@ -100,9 +98,3 @@ def test_map_rejects_unknown_paper(tmp_path):
     with pytest.raises(widgets.WidgetError, match="unknown paper"):
         factory_map.load(p)
 
-
-def test_map_rejects_unknown_lab_status(tmp_path):
-    p = copy(tmp_path, "factory-map")
-    edit(p, "factory-map", "status: none, note: \"Not tested.\"", "status: maybe, note: \"Not tested.\"")
-    with pytest.raises(widgets.WidgetError, match="tested needs a status"):
-        factory_map.load(p)

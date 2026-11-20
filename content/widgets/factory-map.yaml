@@ -1,7 +1,7 @@
 # The software factory map. Each station is one factory idea and the Kiro Crew parts that play it.
 # Facts: Kiro Crew 0.13.0 docs (apps, issue-radar-pipeline, work-ledger, monitor-loops,
 # inbound-webhooks, workflows) and the cookbook pages each station links to.
-# papers: which sources below back the idea. tested: what our lab run on 0.13.0 showed.
+# papers: which sources below back the idea.
 # Python checks that every station has a zone, features and an anchor that exists on the page.
 title: The software factory, part by part
 
@@ -25,7 +25,6 @@ stations:
     says: Work arrives from your issue tracker, a Slack channel, an HTTP call or a schedule.
     anchor: 1-orders-come-in
     papers: [sogeti, dora]
-    tested: { status: pass, note: "A scheduled job started on time. Webhooks and Issue Radar were not tested." }
 
   - id: planning
     zone: front
@@ -34,7 +33,6 @@ stations:
     says: An idea becomes requirements, a design and tasks, or a conductor splits a goal into items.
     anchor: 2-planning-turns-an-order-into-work
     papers: [sogeti, openai]
-    tested: { status: fail, note: "The conductor could not write its work ledger on our test instance." }
 
   - id: orders
     zone: front
@@ -43,7 +41,6 @@ stations:
     says: Each item has a title and a completion condition written before any work starts.
     anchor: 3-work-orders-say-what-done-means
     papers: [sogeti, janda]
-    tested: { status: fail, note: "Same as planning: no work items could be created." }
 
   - id: line
     zone: floor
@@ -52,7 +49,6 @@ stations:
     says: Six fixed steps, from Scan to Cleanup, that every issue passes through.
     anchor: 4-the-line-moves-items-through-fixed-steps
     papers: [dora, sogeti]
-    tested: { status: none, note: "Issue Radar could not run on our test instance." }
 
   - id: benches
     zone: floor
@@ -61,7 +57,6 @@ stations:
     says: Each worker gets its own chat and context, and code work gets its own worktree.
     anchor: 5-workbenches-keep-workers-apart
     papers: [anthropic, janda, openai]
-    tested: { status: pass, note: "Three workers fixed three issues at once, each in its own worktree." }
 
   - id: quality
     zone: floor
@@ -70,7 +65,6 @@ stations:
     says: A worker saying done is only a claim until the conductor checks it.
     anchor: 6-quality-control-checks-every-claim
     papers: [janda, anthropic]
-    tested: { status: pass, note: "A separate reviewer checked all three branches and approved them." }
 
   - id: safety
     zone: floor
@@ -79,7 +73,6 @@ stations:
     says: Fences limit what a worker can touch, and you can stop the whole floor.
     anchor: 7-safety-fences-and-the-stop-button
     papers: [openai, anthropic]
-    tested: { status: partial, note: "A worker asked a person instead of guessing. Approvals were not tested." }
 
   - id: shipping
     zone: back
@@ -88,7 +81,6 @@ stations:
     says: The product is a pull request. It waits for a merge.
     anchor: 8-shipping-ends-at-a-pull-request
     papers: [dora, sogeti]
-    tested: { status: partial, note: "Three branches were ready, but two of them conflicted when merged." }
 
   - id: gauges
     zone: back
@@ -97,7 +89,6 @@ stations:
     says: You see where work piles up, how long it waited and what each issue cost.
     anchor: 9-gauges-show-where-work-piles-up
     papers: [dora]
-    tested: { status: none, note: "Traces need a setting we did not change." }
 
   - id: better
     zone: back
@@ -106,6 +97,5 @@ stations:
     says: Corrections become lessons, and a metric decides which changes stay.
     anchor: 10-getting-better-every-run
     papers: [openai, dora]
-    tested: { status: none, note: "Not tested." }
 
 start: intake
