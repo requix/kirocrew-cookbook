@@ -67,7 +67,7 @@ Work can reach Kiro Crew four ways, and you can combine them:
 
 ## 2. Planning turns an order into work
 
-**Spec Builder** is a built-in app for spec-driven work: a feature idea becomes Requirements, then Design, then Tasks, and the tasks feed an execution session. **Conductor mode** plans from a goal instead. The conductor keeps the goal and a list of items, and hands each item to its own worker chat. An item qualifies only when it is independent of the others, has a completion condition you can name up front, and runs long enough to be worth watching. With fewer than two such items, one plain session is the better shape. See [Conductor mode](conductor-mode.md).
+**Spec Builder** is a built-in app for spec-driven work: a feature idea becomes Requirements, then Design, then Tasks, and the tasks feed an execution session. **Conductor mode** plans from a goal instead. Start it as a dashboard chat with the **Conductor mode** switch on, rather than as a background subagent or a scheduled job. The conductor keeps the goal and a list of items, and hands each item to its own worker chat. An item qualifies only when it is independent of the others, has a completion condition you can name up front, and runs long enough to be worth watching. With fewer than two such items, one plain session is the better shape. See [Conductor mode](conductor-mode.md).
 
 ```flow
 - box: Feature idea or goal
