@@ -1,11 +1,11 @@
 ---
 title: Kiro Crew as a software factory
-description: The parts of a software factory, from orders in to shipping, and the Kiro Crew feature that plays each one.
+description: What recent papers say an AI software factory needs, which Kiro Crew feature plays each part, and what held up when we ran it.
 category: Concepts
 difficulty: intermediate
-time: 15 min
+time: 20 min
 surfaces: [dashboard, channels, cli]
-tags: [software-factory, issue-radar, conductor-mode, work-ledger, worktree, pipeline, automation]
+tags: [software-factory, agentic-coding, conductor-mode, work-ledger, worktree, pipeline, governance]
 updated: 2026-11-20
 featured: true
 prerequisites:
@@ -13,21 +13,39 @@ prerequisites:
   - A git repository the agent may work on
 ---
 
-"Software factory" is a name people give to a setup where issues go in at one end and pull requests come out at the other, with agents doing most of the steps between. Kiro Crew has no feature with that name. It has the parts, though, and they map onto a factory quite well: something takes orders, something plans, workers sit at separate benches, someone checks the output, and there is a button that stops the line.
+"Software factory" is what people call a setup where issues go in at one end and pull requests come out at the other, with agents doing most of the steps between. Kiro Crew has no feature with that name. It has the parts, so the useful questions are which part does which job, and whether the parts hold up when you run them.
 
-This page walks through those parts one at a time. Each section names the factory idea, the Kiro Crew feature that plays it, and draws how the pieces connect. Click a part below to jump to it.
+For the first question I leaned on five papers from 2025 and 2026 about building software with agents. For the second, we ran each part on a Kiro Crew 0.13.0 instance against a small lab repository with three seeded issues. Each section below says what the papers ask for, which Kiro Crew feature answers it, and what happened in the lab. Click a part to see all three at once.
 
 ```widget factory-map
 ```
 
+## What the papers agree on
+
+The five sources come from different places: two model vendors, a consultancy, Google's DORA research program and an independent architect. They still land on the same handful of rules, which I find more convincing than any single one of them:
+
+| Rule | Sources |
+|---|---|
+| One coordinating agent hands work to helpers, each with its own context | Anthropic, OpenAI, Sogeti |
+| The written spec is the contract between people and agents, not the chat | Sogeti, Janda |
+| Exactly one agent writes to each working copy | Janda, Sogeti |
+| The agent that wrote the change does not approve it | Janda, Anthropic |
+| A person steps in on risky actions and after repeated failures | OpenAI, Anthropic, Sogeti |
+| Agents ask for help instead of guessing | Anthropic |
+| Small batches under version control | DORA, Sogeti |
+| Security is designed in from the start | Anthropic, OpenAI |
+| AI makes an organization's existing strengths and weaknesses larger | DORA |
+
+That last one frames the rest. DORA's 2025 report says AI's "primary role is as an amplifier, magnifying an organization's existing strengths and weaknesses." A factory with weak gates produces bad pull requests faster, so most of this page is about the gates.
+
 ## 1. Orders come in
 
-A factory needs a way to receive orders. In Kiro Crew, work can arrive four ways, and you can use more than one:
+Work can reach Kiro Crew four ways, and you can combine them:
 
-- **Issue Radar** is an app that reads your GitHub, GitLab or Azure DevOps items, suggests labels and keeps a local findings ledger. It is the natural front door when your backlog already lives in an issue tracker.
-- **Slack code channels** give each coding task its own Slack channel. The channel is one Kiro Crew session, and on a git project it works in its own worktree. See [Slack code channels](../recipes/slack-code-channels.md).
-- **Inbound webhooks** let another system start a turn. A CI runner or a ticket system POSTs to `/api/hooks/agent`, the gateway runs one agent turn in a short-lived session, and the answer goes to your notifications. The endpoint is supported, while its dashboard page sits behind the **Webhooks** switch under **Settings > Developer > Feature Previews**.
-- **Cron jobs** start work on a schedule, such as "every morning, check the new issues". See [Schedule real work](../recipes/schedule-real-work.md).
+- **Issue Radar** is an app that reads your GitHub, GitLab or Azure DevOps items, suggests labels and keeps a local findings ledger.
+- **Slack code channels** give each coding task its own Slack channel and, on a git project, its own worktree. See [Slack code channels](../recipes/slack-code-channels.md).
+- **Inbound webhooks** let another system start a turn. A CI runner or ticket system POSTs to `/api/hooks/agent`, the gateway runs one turn in a short-lived session, and the answer goes to your notifications. The dashboard page for it sits behind the **Webhooks** switch under **Settings > Developer > Feature Previews**.
+- **Cron jobs** start work on a schedule. See [Schedule real work](../recipes/schedule-real-work.md).
 
 ```flow
 - split:
@@ -44,13 +62,13 @@ A factory needs a way to receive orders. In Kiro Crew, work can arrive four ways
   accent: true
 ```
 
+> **What the papers say.** Sogeti's agents start with "product discovery" that frames the problem and its success criteria before anyone builds. DORA lists a user-centric focus among the seven capabilities that decide whether AI helps a team. An order that arrives without a clear outcome is the first place a factory goes wrong.
+
+**In the lab:** a one-shot cron job fired on time and wrote its order to the lab. We did not test webhooks or Issue Radar.
+
 ## 2. Planning turns an order into work
 
-A raw issue is rarely ready to build. Someone has to decide what "fixed" looks like and how to split the job. Kiro Crew has two planners for this.
-
-**Spec Builder** is a built-in app for spec-driven work. A feature idea becomes Requirements, then Design, then Tasks, and the tasks feed an execution session. Use it when a request is vague and you want to read the plan before any code changes.
-
-**Conductor mode** plans from a goal. The conductor keeps the goal and a list of items, and hands each item to its own worker chat. A piece of work qualifies as an item only when it is independent of the other items, has a completion condition you can name up front, and runs long enough that you would want to watch it. With fewer than two such items, one plain session is the better shape. See [Conductor mode](conductor-mode.md).
+**Spec Builder** is a built-in app for spec-driven work: a feature idea becomes Requirements, then Design, then Tasks, and the tasks feed an execution session. **Conductor mode** plans from a goal instead. The conductor keeps the goal and a list of items, and hands each item to its own worker chat. An item qualifies only when it is independent of the others, has a completion condition you can name up front, and runs long enough to be worth watching. With fewer than two such items, one plain session is the better shape. See [Conductor mode](conductor-mode.md).
 
 ```flow
 - box: Feature idea or goal
@@ -64,11 +82,15 @@ A raw issue is rarely ready to build. Someone has to decide what "fixed" looks l
   accent: true
 ```
 
+> **What the papers say.** Sogeti puts it plainly: "Specifications — not prompts — become the enduring contract between humans and agents." OpenAI's guide pushes the other way on size: "maximize a single agent's capabilities first," and split into several agents only when one agent fails to follow complicated instructions or keeps picking the wrong tools. Kiro Crew's own rule about two qualifying items says the same thing.
+
+**In the lab:** not tested for Spec Builder. For the conductor, see the next section.
+
 ## 3. Work orders say what done means
 
-On a factory floor, a work order travels with the part. In Kiro Crew that order is an item in the **work ledger**, the shared record between a conductor and its workers. The conductor writes the item's title and its acceptance condition. The worker writes back a status, a short summary, pointers to what it made and, when it opened one, a pull request number.
+A conductor's items live in the **work ledger**. The conductor writes each item's title and its acceptance condition before dispatch. The worker writes back a status, a short summary, what it produced and, if it opened one, a pull request number. The conductor reads those fields, not the worker's transcript. A session that owns a ledger has **Crew board** in its session actions menu, which shows the items read-only.
 
-The conductor learns what happened by reading those fields, not by reading the worker's transcript. A transcript grows without limit and can carry instructions; a ledger field is plain data. A session that owns a ledger has **Crew board** in its session actions menu, which shows the items read-only: what needs your decision first, then open work, then finished items.
+The acceptance condition is one of five kinds: `pr_checks`, `pr_merged`, `edition_check`, `file` or `human_approval`. There is no "run this command" kind, so "the tests pass" is expressed as `pr_checks` on the pull request, and CI's verdict counts.
 
 ```flow
 - box: Work order (ledger item)
@@ -81,22 +103,28 @@ The conductor learns what happened by reading those fields, not by reading the w
   note: Read-only. Items that need you come first.
 ```
 
+> **What the papers say.** Sogeti: "Conversations are transient; artifacts are authoritative." Janda's paper opens with the requirement that agent work must be specified, bounded, isolated, checked, approved and reconstructable afterwards (my translation from the German). The ledger is Kiro Crew's answer to the "specified" and "reconstructable" parts.
+
+**In the lab:** this failed. The conductor's first ledger write was refused with `crew_log_unrecorded` ("the write was not recorded and has been undone"), both when the conductor ran as a spawned subagent and when it ran as a scheduled session. A rebuild did not help. We could not create items, record verdicts or open the Crew board, so this section is from the docs. If you hit the same refusal, the docs say to retry; ours never succeeded, which points at the instance rather than the request.
+
 ## 4. The line moves items through fixed steps
 
-Issue Radar runs one fixed pipeline for every repository: Scan, Triage, Dispatch, Implement, Verify and Cleanup. A repository can set how long a claim lasts, which label a crew applies when it needs a person, and its commit trailer. It cannot add steps of its own, which keeps every repository's board readable the same way.
+Issue Radar runs one fixed pipeline for every repository: Scan, Triage, Dispatch, Implement, Verify and Cleanup. A repository can set how long a claim lasts, which label a crew applies when it needs a person, and its commit trailer. It cannot add steps of its own.
 
-Inside the pipeline, each crew work item gets a lane on the **Item lanes** board. The lane runs through the phase columns below. Press Play to follow one issue, including a CI failure that sends it back to Implement.
+Each crew work item gets a lane on the **Item lanes** board. Press Play to follow one issue through the phase columns, including a CI failure that sends it back to Implement.
 
 ```widget factory-run
 ```
 
-The board draws state with shapes. A `#N` chip names the item's open pull request. An arc under the lane means the item went back to a phase, and a stub off the lane is an exit: skipped, yielded, handed back, preempted, or waiting on a human reply. The Pipeline tab works with GitHub only, while Item lanes works on every forge.
+A `#N` chip names the item's open pull request. An arc under the lane means the item went back to a phase, and a stub off the lane is an exit: skipped, yielded, handed back, preempted, or waiting on a human reply. The Pipeline tab works with GitHub only, while Item lanes works on every forge.
+
+> **What the papers say.** DORA counts platform engineering among the seven AI capabilities: a platform gives agents "automated, secure pathways" instead of one-off scripts. Sogeti wants agents to operate "within a governed SDLC". A fixed line that every repository shares is that kind of pathway.
+
+**In the lab:** not tested. Issue Radar could not run on our test instance.
 
 ## 5. Workbenches keep workers apart
 
-Two workers at one bench get in each other's way. In Kiro Crew each worker is its own chat with its own context, so one task's logs and file reads do not crowd out another's. For code, the bench is a **git worktree**: a separate checkout of the same repository on its own branch. A Slack code channel, for example, cuts a worktree on a branch named `slack/<slug>-<hash>`.
-
-There are also limits on how many workers run at once. On the Item lanes board, Implement and Addressing review sit inside a fence: those phases hold a worktree with uncommitted changes, so at most one item per crew is in them at a time. A bot has a **Workers at once** setting on its profile that caps how many workers it runs together. See [Bots](bots.md).
+Each worker is its own chat with its own context. For code, its bench is a **git worktree**: a separate checkout of the same repository on its own branch. On the Item lanes board, Implement and Addressing review sit inside a fence because they hold a worktree with uncommitted changes, and at most one item per crew is in them at a time. A bot has a **Workers at once** setting that caps how many workers it runs together. See [Bots](bots.md).
 
 ```flow
 - box: Conductor or crew
@@ -110,11 +138,13 @@ There are also limits on how many workers run at once. On the Item lanes board, 
   via: hands out items, within the cap
 ```
 
+> **What the papers say.** Anthropic's 2026 trends report describes multi-agent setups where "an orchestrator ... coordinate[s] specialized agents working in parallel—each with dedicated context." Janda's first principle is a single writer per workspace: exactly one agent writes to each working copy.
+
+**In the lab:** this passed. Three workers fixed three issues at the same time, each in its own worktree on its own branch, in about three and a half minutes each, and each branch's tests passed. One small leak: the agent harness left an empty settings file in the main checkout, outside the worktrees. It did no harm, but "touch nothing outside your worktree" was not strictly true.
+
 ## 6. Quality control checks every claim
 
-When a worker reports `done`, the item stays open. The conductor runs an acceptance check against the item's own condition and records a verdict: `pass`, `fail` or `pending`. A `pending` item waits up to 24 hours before the conductor decides whether to keep waiting or drop it. Only a `pass` closes the item as done.
-
-Two more checkers fit here. A **monitor loop** keeps one conversation checking a pull request or a CI run on a schedule, and only speaks up when something changes. **Code Review Sage** is a built-in app that deep-reviews a GitHub pull request and tells you which changes deserve your attention.
+When a worker reports `done`, the item stays open. The conductor runs an acceptance check against the item's own condition and records `pass`, `fail` or `pending`. Only `pass` closes it. Two more checkers fit here: a **monitor loop** keeps one conversation watching a pull request or CI run, and **Code Review Sage** deep-reviews a GitHub pull request and points at the changes that deserve your attention.
 
 ```flow
 - box: Worker says done
@@ -131,15 +161,17 @@ Two more checkers fit here. A **monitor loop** keeps one conversation checking a
         note: Wait, at most 24 hours on end
 ```
 
-## 7. Safety fences and the stop button
+> **What the papers say.** Janda separates the roles outright: whoever writes does not approve. One of Anthropic's four priorities for 2026 is "Scaling human-agent oversight through AI-automated review systems that focus human attention where it matters most." Janda adds a warning that applies to every gate on this page: a gate whose failure looks like success is worse than no gate (my translation).
 
-A factory keeps people's hands out of the machines and has a cord anyone can pull. Kiro Crew has both:
+**In the lab:** a separate reviewer, which had not written any of the fixes, read all three diffs against the issues and approved them with reasons. It also listed edge cases the issues did not ask for. I ran the tests on each branch myself as a second check. Janda's warning showed up in a small way: the `file` acceptance kind checks that a file exists, and the same worker that does the work writes that file. Prefer `pr_checks` where you can, so CI rather than the worker decides.
 
-- **Tool approvals** stop a worker before a risky tool call until someone approves it. An approval is a one-time grant for that call.
+## 7. Safety: fences and the stop button
+
+- **Tool approvals** stop a worker before a risky tool call until someone approves it, once.
 - **Read-only folders** (`agent.sandbox_readonly_paths`) let the agent read a folder and never write it. See [Fence the agent](../recipes/fence-the-agent.md).
-- **Needs you** on the conductor's Board lists every worker waiting on your answer. You can answer from the sidebar card or a chat app DM, as [Answer from anywhere](../recipes/answer-from-anywhere.md) shows.
-- **Pause all** on the Board stops every running worker, and no new workers start until you press **Resume all**. The pause holds across a gateway restart.
-- In Issue Radar, a crew that needs a person applies the repository's human label instead of guessing.
+- **Needs you** on the conductor's Board lists every worker waiting on your answer. [Answer from anywhere](../recipes/answer-from-anywhere.md) shows how to answer from the sidebar or a chat app.
+- **Pause all** on the Board stops every running worker until **Resume all**, and the pause holds across a gateway restart.
+- In Issue Radar, a crew that needs a person applies the repository's human label.
 
 ```flow
 - box: Worker wants to act
@@ -159,11 +191,15 @@ A factory keeps people's hands out of the machines and has a cord anyone can pul
   via: at any time
 ```
 
+> **What the papers say.** OpenAI's guide names two triggers for handing control back to a person: "Exceeding failure thresholds" and "High-risk actions," and suggests rating each tool low, medium or high risk by whether it writes, whether it can be undone, and what it can cost. It calls guardrails "a layered defense mechanism". Anthropic wants agents that learn "when to ask for help, rather than blindly attempting every task."
+
+**In the lab:** partly tested. We gave one worker a task with no right answer: rename a function to a name nobody had decided. It changed nothing and came back with a question, three candidate names and a recommendation. That is the behavior the papers ask for. We did not test approvals or read-only folders, because both need settings that the agent is not allowed to change on its own, which is itself the right design.
+
 ## 8. Shipping ends at a pull request
 
-What leaves this factory is a pull request. The worker records its number on the item, the Item lanes board shows it as a `#N` chip, and once CI and review are done the item sits in **AWAIT MRG** until someone merges.
+What leaves this factory is a pull request. The worker records its number on the item, the Item lanes board shows it as a `#N` chip, and once CI and review are done the item waits in **AWAIT MRG** for a merge.
 
-I keep that merge with a person. Everything before it can run without me, but the merge is where code reaches the main branch, and I want one human decision there. When you hand merges to an agent anyway, do it on a repository where a bad merge is cheap to revert.
+I keep that merge with a person. Everything before it can run without me, but the merge is where code reaches the main branch, and I want one human decision there.
 
 ```flow
 - box: Pull request opened
@@ -176,11 +212,13 @@ I keep that merge with a person. Everything before it can run without me, but th
 - box: RESOLVED
 ```
 
+> **What the papers say.** DORA lists working in small batches and version control among its AI capabilities, because faster change needs a safety net. Sogeti describes reintegration "in stages rather than as a single disruptive merge," with an orchestrator that tracks merge readiness. In Sogeti's role table the reviewer stays human.
+
+**In the lab:** the three branches were ready, but merging them back into one copy of main hit a conflict: two workers had both added tests at the end of the same test file. Each worker did its job; nobody owned putting the pieces together. Kiro Crew has no step for staged reintegration, so plan for it yourself: merge one pull request at a time and let the next worker rebase, or give one worker the job of combining them.
+
 ## 9. Gauges show where work piles up
 
-A factory manager watches the line, not each worker. Issue Radar's **Pipeline** dashboard does that job. For each of the six steps it shows what is sitting there now (**In step**), what moved through recently (**Recent**) and the total so far (**Total**). Click a step to see its items and the agent sessions each one opened, with turns, tokens, credits and cost where the server reports them. It is the only place the cost per issue shows up.
-
-The Item lanes tab adds **In flight**, **Editing**, **Escalations** and **Longest wait**, and flags any item that has sat in one phase for over an hour. For a single turn, [traces](../recipes/trace-agent-turns.md) show where the time went: model calls, tool calls and approval waits.
+Issue Radar's **Pipeline** dashboard shows, for each step, what is sitting there now (**In step**), what moved through recently (**Recent**) and the total so far (**Total**). Click a step to see its items and each agent session's turns, tokens, credits and cost where the server reports them. It is the only place the cost per issue shows up. The **Item lanes** tab adds **In flight**, **Editing**, **Escalations** and **Longest wait**, and flags any item stuck in one phase for over an hour. For one turn, [traces](../recipes/trace-agent-turns.md) show where the time went.
 
 ```flow
 - box: Pipeline tab
@@ -196,11 +234,13 @@ The Item lanes tab adds **In flight**, **Editing**, **Escalations** and **Longes
   note: One turn, drawn as a waterfall
 ```
 
+> **What the papers say.** If AI amplifies what is already there, as DORA finds, you need to see what is there before you speed it up. Anthropic's report notes that engineers "fully delegate" only 0 to 20 percent of tasks even while using AI in about 60 percent of their work, so the gauges that matter show where people still spend their time.
+
+**In the lab:** not tested. Traces need a setting we did not change.
+
 ## 10. Getting better every run
 
-A good factory fixes the cause of a defect, not only the defect. In Kiro Crew, a correction you give with "always" or "never" becomes a **lesson**, which comes back in later sessions, so the same mistake does not need the same correction twice. See [Make it remember](../recipes/make-it-remember.md).
-
-For the code itself, the **Auto-Improvement** app measures a GitHub repository before it changes anything, then runs improvement cycles where each change is kept or reverted against that measurement.
+A correction you give with "always" or "never" becomes a **lesson** that comes back in later sessions. See [Make it remember](../recipes/make-it-remember.md). For the code itself, the **Auto-Improvement** app measures a GitHub repository before it changes anything, then keeps or reverts each change against that measurement.
 
 ```flow
 - box: A run goes wrong
@@ -211,15 +251,42 @@ For the code itself, the **Auto-Improvement** app measures a GitHub repository b
 - box: Next run starts smarter
 ```
 
-## Pick a size
+> **What the papers say.** OpenAI: "Add new guardrails based on real-world edge cases and failures you encounter." DORA's capabilities include AI-accessible internal data and a healthy data ecosystem: what the organization already knows has to reach the agent.
 
-You do not need every part on day one. These are three sizes I would start from:
+**In the lab:** not tested.
+
+## What we tested, and how
+
+We set up a small Python repository with three issues, each with a written acceptance line, and ran every part we could on Kiro Crew 0.13.0. Agents worked only on local branches; nothing was pushed.
+
+| Part | Result |
+|---|---|
+| Orders in (cron) | Passed |
+| Planning and work orders (conductor, ledger) | Failed: every ledger write refused |
+| The line (Issue Radar) | Not tested |
+| Workbenches (parallel workers, worktrees) | Passed, with one stray file outside the worktrees |
+| Quality control (independent review) | Passed |
+| Safety (asking a person) | Passed; approvals and read-only folders not tested |
+| Shipping (merging back) | Partly passed: two branches conflicted |
+| Gauges, getting better | Not tested |
+
+Three gaps stood out. The work ledger is the piece that ties a conductor run together, and it did not work on our instance. The `file` acceptance kind lets the worker supply its own proof. And nothing in Kiro Crew owns the merge-back step when several workers touch the same files. None of these stop you from running a factory, but they decide where you still need a person.
+
+## Pick a size
 
 | Size | Parts | Fits |
 |---|---|---|
 | Small | A task runner spec run with `kirocrew run`, with an allowlist of the tools it may use | One batch of issues you start by hand |
 | Medium | A conductor mode chat, one worker per item, the Board and Pause all | A day of parallel work you watch |
 | Large | Issue Radar crews on the repository, the Pipeline dashboard and a human merge | A live backlog that keeps moving |
+
+## Sources
+
+- Anthropic, *2026 Agentic Coding Trends Report*, January 2026. [PDF](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf). Short quotes, pages 3, 8, 10 and 17.
+- OpenAI, *A practical guide to building agents*, April 2025. [PDF](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf). Short quotes, pages 16, 25, 27 and 31.
+- Mike Buob and Kevin Benner, Sogeti, *Transforming enterprise software delivery through agentic AI*, July 2026. [Page](https://labs.sogeti.com/whitepaper-transforming-enterprise-software-delivery-through-agentic-ai/). Short quotes, pages 2, 3, 5 and 7.
+- DORA (Google Cloud), *State of AI-assisted Software Development*, 2025, and the *DORA AI Capabilities Model*. [Report](https://dora.dev/research/2025/dora-report/), [capabilities](https://dora.dev/ai/capabilities-model/). Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) by Google LLC; quoted and summarized here.
+- Martin Janda, *Agentic Software Development: Enterprise Architecture with AI Agents*, version 3.2, October 2026. [Repository](https://github.com/mjanda0815/agentic-publikation). Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); principles summarized and translated from German.
 
 ## Related
 
