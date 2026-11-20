@@ -50,7 +50,7 @@ Traces are controlled by `telemetry.traces_enabled`. It is `false` by default, a
 kirocrew config set telemetry.traces_enabled true
 ```
 
-You can also set it in **Settings → Advanced**, which lists every config key. The setting is labelled **Traces Enabled**.
+**Settings → Advanced** lists it as **Traces Enabled**, but the row is read-only there because traces can send your activity to another service. Use the command above, run in your own terminal on the machine where Kiro Crew runs.
 
 ### 2. Run a turn
 
