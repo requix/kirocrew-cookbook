@@ -1,0 +1,83 @@
+# The software factory map. Each station is one factory idea and the Kiro Crew parts that play it.
+# Facts: Kiro Crew 0.13.0 docs (apps, issue-radar-pipeline, work-ledger, monitor-loops,
+# inbound-webhooks, workflows) and the cookbook pages each station links to.
+# Python checks that every station has a zone, features and an anchor that exists on the page.
+title: The software factory, part by part
+
+zones:
+  - { id: front, label: Front office }
+  - { id: floor, label: Factory floor }
+  - { id: back, label: Back office }
+
+stations:
+  - id: intake
+    zone: front
+    name: Orders in
+    features: [Issue Radar, Slack code channels, Inbound webhooks, Cron jobs]
+    says: Work arrives from your issue tracker, a Slack channel, an HTTP call or a schedule.
+    anchor: 1-orders-come-in
+
+  - id: planning
+    zone: front
+    name: Planning
+    features: [Spec Builder, Conductor]
+    says: An idea becomes requirements, a design and tasks, or a conductor splits a goal into items.
+    anchor: 2-planning-turns-an-order-into-work
+
+  - id: orders
+    zone: front
+    name: Work orders
+    features: [Work ledger, Crew board]
+    says: Each item has a title and a completion condition written before any work starts.
+    anchor: 3-work-orders-say-what-done-means
+
+  - id: line
+    zone: floor
+    name: The line
+    features: [Issue Radar pipeline, Item lanes]
+    says: Six fixed steps, from Scan to Cleanup, that every issue passes through.
+    anchor: 4-the-line-moves-items-through-fixed-steps
+
+  - id: benches
+    zone: floor
+    name: Workbenches
+    features: [Worker chats, Git worktrees, Workers at once]
+    says: Each worker gets its own chat and context, and code work gets its own worktree.
+    anchor: 5-workbenches-keep-workers-apart
+
+  - id: quality
+    zone: floor
+    name: Quality control
+    features: [Acceptance check, Monitor loops, Code Review Sage]
+    says: A worker saying done is only a claim until the conductor checks it.
+    anchor: 6-quality-control-checks-every-claim
+
+  - id: safety
+    zone: floor
+    name: Safety
+    features: [Tool approvals, Read-only folders, Pause all, Needs you]
+    says: Fences limit what a worker can touch, and you can stop the whole floor.
+    anchor: 7-safety-fences-and-the-stop-button
+
+  - id: shipping
+    zone: back
+    name: Shipping
+    features: [Pull requests, Await merge]
+    says: The product is a pull request. It waits for a merge.
+    anchor: 8-shipping-ends-at-a-pull-request
+
+  - id: gauges
+    zone: back
+    name: Gauges
+    features: [Pipeline dashboard, Traces, Crew board]
+    says: You see where work piles up, how long it waited and what each issue cost.
+    anchor: 9-gauges-show-where-work-piles-up
+
+  - id: better
+    zone: back
+    name: Getting better
+    features: [Lessons, Auto-Improvement]
+    says: Corrections become lessons, and a metric decides which changes stay.
+    anchor: 10-getting-better-every-run
+
+start: intake

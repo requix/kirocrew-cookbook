@@ -1,0 +1,45 @@
+# One issue down the line, drawn like an Issue Radar item lane. Facts: the phase columns, the
+# worktree fence and the exits come from the Item lanes board in the Kiro Crew 0.13.0 docs
+# (issue-radar-pipeline.md). The run itself is a made-up example.
+# Python checks every step against the phases and derives which phases were visited and re-entered.
+title: One issue down the line
+
+# Phase columns, in order, exactly as the Item lanes board labels them.
+phases: [SELECTED, CLAIMED, INVESTIG., IMPLEMENT, AWAIT CI, ADDR REV, AWAIT MRG, RESOLVED]
+
+# Phases that hold a dirty worktree. At most one item per crew may be in them at a time.
+fence: [IMPLEMENT, ADDR REV]
+fence_label: One item per crew
+
+steps:
+  - phase: SELECTED
+    who: Issue Radar
+    caption: "Triage picks issue #142 from the backlog and queues it for a crew."
+  - phase: CLAIMED
+    who: Crew
+    caption: A crew claims it. Each repository sets how long a claim lasts.
+  - phase: INVESTIG.
+    who: Worker
+    caption: A worker reads the issue and the code it touches.
+  - phase: IMPLEMENT
+    who: Worker
+    caption: It changes the code in its own worktree and opens pull request 87.
+    pr: 87
+  - phase: AWAIT CI
+    who: CI
+    caption: CI runs. One test fails.
+  - phase: IMPLEMENT
+    who: Worker
+    caption: The item goes back to Implement. The board draws this as a re-entry arc.
+  - phase: AWAIT CI
+    who: CI
+    caption: CI passes this time.
+  - phase: ADDR REV
+    who: Worker
+    caption: A reviewer leaves comments. The worker answers them in the same worktree.
+  - phase: AWAIT MRG
+    who: You
+    caption: Everything is green. The pull request waits for a merge.
+  - phase: RESOLVED
+    who: You
+    caption: You merge it, and the item reads Resolved.
