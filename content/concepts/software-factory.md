@@ -194,6 +194,15 @@ What leaves this factory is a pull request. The worker records its number on the
 
 I keep that merge with a person. Everything before it can run without me, but the merge is where code reaches the main branch, and I want one human decision there.
 
+Parallel workers create one more job that nobody owns by default: putting their branches back together. Workers that finish at the same time often touched the same files, for example each one appending tests to the same test file, so their branches conflict even though each one is fine on its own. Kiro Crew has no built-in step for this, so I give it to one worker as a separate item:
+
+1. Create an integration branch from main and merge the first finished branch into it.
+2. Merge the next branch. If git reports a conflict, the worker resolves it keeping both sides' intent, for example every test from both branches.
+3. Run the tests. Move on only when they pass.
+4. Repeat for each remaining branch, then open one pull request from the integration branch for the human merge.
+
+Only one worker writes to the integration branch, which keeps the one-writer rule intact.
+
 ```flow
 - box: Pull request opened
   note: "Shown as a #N chip on the lane"
