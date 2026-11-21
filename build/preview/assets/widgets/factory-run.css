@@ -6,14 +6,15 @@
 .kw-factory-run .fr-pr[hidden] { display: none; }
 .kw-factory-run .fr-who { margin-left: auto; padding: 1px 10px; border: 1px solid var(--vc-border); border-radius: var(--vc-radius-pill);
   font-size: 0.75rem; color: var(--vc-text); }
+.vc-prose .kw-factory-run .fr-lane > .fr-cell { margin: 0; padding: 14px 4px; }
 .kw-factory-run .fr-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; }
 .kw-factory-run .fr-lane { display: grid; grid-template-columns: repeat(8, minmax(72px, 1fr)); gap: 1px; margin: 0; padding: 0;
   list-style: none; background: var(--vc-border-subtle); border: 1px solid var(--vc-border-subtle); min-width: 600px; }
-.kw-factory-run .fr-cell { position: relative; display: grid; gap: 10px; justify-items: center; align-content: center; padding: 12px 4px;
+.kw-factory-run .fr-cell { position: relative; display: grid; grid-template-rows: auto 14px; row-gap: 14px; justify-items: center; align-items: center; align-content: center; box-sizing: border-box; min-height: 64px; margin: 0; padding: 14px 4px; line-height: 1;
   background: var(--vc-layer-1); transition: background var(--vc-dur-fast); }
 .kw-factory-run .fr-cell.is-fenced { background: var(--vc-layer-2); }
 .kw-factory-run .fr-phase { font-family: var(--vc-font-code); font-size: 0.6875rem; letter-spacing: 0.02em; color: var(--vc-text-muted); }
-.kw-factory-run .fr-mark { display: block; box-sizing: border-box; width: 12px; height: 12px; margin: 0; flex: none; border-radius: 50%; border: 1px solid var(--vc-border); background: transparent;
+.kw-factory-run .fr-mark { display: block; box-sizing: border-box; width: 12px; height: 12px; margin: 0; padding: 0; flex: none; border-radius: 50%; border: 1px solid var(--vc-border); background: transparent;
   transition: background var(--vc-dur-fast), border-color var(--vc-dur-fast), transform var(--vc-dur-fast); }
 .kw-factory-run .fr-cell.is-visited .fr-mark { background: var(--vc-accent-soft); border-color: var(--vc-accent); }
 .kw-factory-run .fr-cell.is-reentered .fr-mark { border-color: var(--vc-warning); box-shadow: 0 0 0 3px var(--vc-layer-1), 0 0 0 4px var(--vc-warning); }
