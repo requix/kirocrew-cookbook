@@ -21,16 +21,16 @@ stations:
   - id: intake
     zone: front
     name: Orders in
-    features: [Issue Radar, Slack code channels, Inbound webhooks, Cron jobs]
-    says: Work arrives from your issue tracker, a Slack channel, an HTTP call or a schedule.
+    features: [Conductor chat, Cron jobs]
+    says: Work arrives as a goal you give a chat, or on a schedule.
     anchor: 1-orders-come-in
     papers: [sogeti, dora]
 
   - id: planning
     zone: front
     name: Planning
-    features: [Spec Builder, Conductor]
-    says: An idea becomes requirements, a design and tasks, or a conductor splits a goal into items.
+    features: [Conductor]
+    says: A conductor splits a goal into items that a worker can pick up.
     anchor: 2-planning-turns-an-order-into-work
     papers: [sogeti, openai]
 
@@ -45,8 +45,8 @@ stations:
   - id: line
     zone: floor
     name: The line
-    features: [Issue Radar pipeline, Item lanes]
-    says: Six fixed steps, from Scan to Cleanup, that every issue passes through.
+    features: [Conductor, Worker, Reviewer]
+    says: Goal, item, worker, tests, acceptance, review, integration, merge.
     anchor: 4-the-line-moves-items-through-fixed-steps
     papers: [dora, sogeti]
 
@@ -61,7 +61,7 @@ stations:
   - id: quality
     zone: floor
     name: Quality control
-    features: [Acceptance check, Monitor loops, Code Review Sage]
+    features: [Acceptance check, Second-agent review, Monitor loops]
     says: A worker saying done is only a claim until the conductor checks it.
     anchor: 6-quality-control-checks-every-claim
     papers: [janda, anthropic]
@@ -77,24 +77,24 @@ stations:
   - id: shipping
     zone: back
     name: Shipping
-    features: [Pull requests, Await merge]
-    says: The product is a pull request. It waits for a merge.
+    features: [Branch per worker, Integration branch]
+    says: The product is a committed branch. A person merges it.
     anchor: 8-shipping-ends-at-a-pull-request
     papers: [dora, sogeti]
 
   - id: gauges
     zone: back
     name: Gauges
-    features: [Pipeline dashboard, Traces, Crew board]
-    says: You see where work piles up, how long it waited and what each issue cost.
+    features: [Traces, Crew board]
+    says: You see what is done and what needs you, and where a turn spent its time.
     anchor: 9-gauges-show-where-work-piles-up
     papers: [dora]
 
   - id: better
     zone: back
     name: Getting better
-    features: [Lessons, Auto-Improvement]
-    says: Corrections become lessons, and a metric decides which changes stay.
+    features: [Lessons]
+    says: A correction becomes a lesson that later workers follow.
     anchor: 10-getting-better-every-run
     papers: [openai, dora]
 

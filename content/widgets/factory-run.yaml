@@ -1,45 +1,42 @@
-# One issue down the line, drawn like an Issue Radar item lane. Facts: the phase columns, the
-# worktree fence and the exits come from the Item lanes board in the Kiro Crew 0.13.0 docs
-# (issue-radar-pipeline.md). The run itself is a made-up example.
-# Python checks every step against the phases and derives which phases were visited and re-entered.
+# One issue down the factory line, as this page sets it up with conductor mode.
+# The stage names are this page's own, not dashboard labels. Python checks every step
+# against them and derives which stages were visited and re-entered.
 title: One issue down the line
 
-# Phase columns, in order, exactly as the Item lanes board labels them.
-phases: [SELECTED, CLAIMED, INVESTIG., IMPLEMENT, AWAIT CI, ADDR REV, AWAIT MRG, RESOLVED]
+phases: [GOAL, ITEM, WORKER, TESTS, ACCEPT, REVIEW, INTEGRATE, MERGE]
 
-# Phases that hold a dirty worktree. At most one item per crew may be in them at a time.
-fence: [IMPLEMENT, ADDR REV]
-fence_label: One item per crew
+# Stages where exactly one worker writes to its own worktree.
+fence: [WORKER, TESTS]
+fence_label: One writer per worktree
 
 steps:
-  - phase: SELECTED
-    who: Issue Radar
-    caption: "Triage picks issue #142 from the backlog and queues it for a crew."
-  - phase: CLAIMED
-    who: Crew
-    caption: A crew claims it. Each repository sets how long a claim lasts.
-  - phase: INVESTIG.
-    who: Worker
-    caption: A worker reads the issue and the code it touches.
-  - phase: IMPLEMENT
-    who: Worker
-    caption: It changes the code in its own worktree and opens pull request 87.
-    pr: 87
-  - phase: AWAIT CI
-    who: CI
-    caption: CI runs. One test fails.
-  - phase: IMPLEMENT
-    who: Worker
-    caption: The item goes back to Implement. The board draws this as a re-entry arc.
-  - phase: AWAIT CI
-    who: CI
-    caption: CI passes this time.
-  - phase: ADDR REV
-    who: Worker
-    caption: A reviewer leaves comments. The worker answers them in the same worktree.
-  - phase: AWAIT MRG
+  - phase: GOAL
     who: You
-    caption: Everything is green. The pull request waits for a merge.
-  - phase: RESOLVED
+    caption: You give a conductor mode chat the goal and point it at the issue list.
+  - phase: ITEM
+    who: Conductor
+    caption: The conductor writes one work item per issue, with its acceptance condition, before any work starts.
+  - phase: WORKER
+    who: Worker
+    caption: A worker gets the item, cuts its own git worktree and branch, and changes the code there.
+  - phase: TESTS
+    who: Worker
+    caption: The tests fail on the first try.
+  - phase: WORKER
+    who: Worker
+    caption: The worker goes back and fixes its change. The line allows that loop.
+  - phase: TESTS
+    who: Worker
+    caption: The tests pass, and the worker commits on its branch.
+  - phase: ACCEPT
+    who: Conductor
+    caption: The conductor checks the item's own condition, not the worker's summary, and marks it accepted.
+  - phase: REVIEW
+    who: Reviewer
+    caption: A second agent that wrote none of it reads the diff against the issue and approves it.
+  - phase: INTEGRATE
+    who: Worker
+    caption: One worker merges the finished branches into an integration branch, one at a time, and runs the tests after each.
+  - phase: MERGE
     who: You
-    caption: You merge it, and the item reads Resolved.
+    caption: You merge the integration branch. That is the one human decision on the line.

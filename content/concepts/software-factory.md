@@ -5,7 +5,7 @@ category: Concepts
 difficulty: intermediate
 time: 20 min
 surfaces: [dashboard, channels, cli]
-tags: [software-factory, agentic-coding, conductor-mode, work-ledger, worktree, pipeline, governance]
+tags: [software-factory, agentic-coding, conductor-mode, work-ledger, worktree, governance]
 updated: 2026-11-20
 featured: true
 prerequisites:
@@ -40,21 +40,15 @@ That last one frames the rest. DORA's 2025 report says AI's "primary role is as 
 
 ## 1. Orders come in
 
-Work can reach Kiro Crew four ways, and you can combine them:
+Work reaches a factory in two ways here:
 
-- **Issue Radar** is an app that reads your GitHub, GitLab or Azure DevOps items, suggests labels and keeps a local findings ledger.
-- **Slack code channels** give each coding task its own Slack channel and, on a git project, its own worktree. See [Slack code channels](../recipes/slack-code-channels.md).
-- **Inbound webhooks** let another system start a turn. A CI runner or ticket system POSTs to `/api/hooks/agent`, the gateway runs one turn in a short-lived session, and the answer goes to your notifications. The dashboard page for it sits behind the **Webhooks** switch under **Settings > Developer > Feature Previews**.
+- **You** give a conductor mode chat a goal and point it at the issue list.
 - **Cron jobs** start work on a schedule. See [Schedule real work](../recipes/schedule-real-work.md).
 
 ```flow
 - split:
-    - - box: Issue tracker
-        note: Issue Radar
-    - - box: Slack channel
-        note: Code channel
-    - - box: Another system
-        note: Inbound webhook
+    - - box: You
+        note: A goal in a chat
     - - box: The clock
         note: Cron job
 - box: A Kiro Crew session
@@ -67,18 +61,14 @@ Work can reach Kiro Crew four ways, and you can combine them:
 
 ## 2. Planning turns an order into work
 
-**Spec Builder** is a built-in app for spec-driven work: a feature idea becomes Requirements, then Design, then Tasks, and the tasks feed an execution session. **Conductor mode** plans from a goal instead. Start it as a dashboard chat with the **Conductor mode** switch on, rather than as a background subagent or a scheduled job. The conductor keeps the goal and a list of items, and hands each item to its own worker chat. An item qualifies only when it is independent of the others, has a completion condition you can name up front, and runs long enough to be worth watching. With fewer than two such items, one plain session is the better shape. See [Conductor mode](conductor-mode.md).
+**Conductor mode** plans from a goal. Start it as a dashboard chat with the **Conductor mode** switch on, rather than as a background subagent or a scheduled job. The conductor keeps the goal and a list of items, and hands each item to its own worker chat. An item qualifies only when it is independent of the others, has a completion condition you can name up front, and runs long enough to be worth watching. With fewer than two such items, one plain session is the better shape. See [Conductor mode](conductor-mode.md).
 
 ```flow
-- box: Feature idea or goal
-- split:
-    - - box: Spec Builder
-        steps: [Requirements, Design, Tasks]
-    - - box: Conductor
-        note: Splits the goal into items
-  via: pick a planner
-- box: Work that a worker can pick up
+- box: Goal
+- box: Conductor
+  note: Splits the goal into items
   accent: true
+- box: Work that a worker can pick up
 ```
 
 > **What the papers say.** Sogeti puts it plainly: "Specifications — not prompts — become the enduring contract between humans and agents." OpenAI's guide pushes the other way on size: "maximize a single agent's capabilities first," and split into several agents only when one agent fails to follow complicated instructions or keeps picking the wrong tools. Kiro Crew's own rule about two qualifying items says the same thing.
@@ -106,21 +96,17 @@ The acceptance condition is one of five kinds: `pr_checks`, `pr_merged`, `editio
 
 ## 4. The line moves items through fixed steps
 
-Issue Radar runs one fixed pipeline for every repository: Scan, Triage, Dispatch, Implement, Verify and Cleanup. A repository can set how long a claim lasts, which label a crew applies when it needs a person, and its commit trailer. It cannot add steps of its own.
-
-Each crew work item gets a lane on the **Item lanes** board. Press Play to follow one issue through the phase columns, including a CI failure that sends it back to Implement.
+The line here is the one the conductor sets up: goal, item, worker, tests, acceptance, review, integration and merge. The names are this page's own, not dashboard labels. Press Play to follow one issue through it, including a failed test run that sends the worker back.
 
 ```widget factory-run
 ```
 
-A `#N` chip names the item's open pull request. An arc under the lane means the item went back to a phase, and a stub off the lane is an exit: skipped, yielded, handed back, preempted, or waiting on a human reply. The Pipeline tab works with GitHub only, while Item lanes works on every forge.
-
-> **What the papers say.** DORA counts platform engineering among the seven AI capabilities: a platform gives agents "automated, secure pathways" instead of one-off scripts. Sogeti wants agents to operate "within a governed SDLC". A fixed line that every repository shares is that kind of pathway.
+> **What the papers say.** DORA counts platform engineering among the seven AI capabilities: a platform gives agents "automated, secure pathways" instead of one-off scripts. Sogeti wants agents to operate "within a governed SDLC". A fixed order of steps that every item follows is that kind of pathway.
 
 
 ## 5. Workbenches keep workers apart
 
-Each worker is its own chat with its own context. For code, its bench is a **git worktree**: a separate checkout of the same repository on its own branch. On the Item lanes board, Implement and Addressing review sit inside a fence because they hold a worktree with uncommitted changes, and at most one item per crew is in them at a time. A bot has a **Workers at once** setting that caps how many workers it runs together. See [Bots](bots.md).
+Each worker is its own chat with its own context. For code, its bench is a **git worktree**: a separate checkout of the same repository on its own branch. Give each worker its own worktree and branch in the item's brief, and never let two workers write to the same one. A bot has a **Workers at once** setting that caps how many workers it runs together. See [Bots](bots.md).
 
 ```flow
 - box: Conductor or crew
@@ -139,7 +125,11 @@ Each worker is its own chat with its own context. For code, its bench is a **git
 
 ## 6. Quality control checks every claim
 
-When a worker reports `done`, the item stays open. The conductor runs an acceptance check against the item's own condition and records `pass`, `fail` or `pending`. Only `pass` closes it. Two more checkers fit here: a **monitor loop** keeps one conversation watching a pull request or CI run, and **Code Review Sage** deep-reviews a GitHub pull request and points at the changes that deserve your attention.
+When a worker reports `done`, the item stays open. The conductor runs an acceptance check against the item's own condition and records `pass`, `fail` or `pending`. Only `pass` closes it.
+
+The `file` kind has a catch: it checks that a file exists, and the worker writes that file itself. A worker that writes it too early passes the check, so make the worker write it only after the tests pass and the commit is made.
+
+Add a second reader for each change. A separate agent that wrote none of it reads the branch against the issue and approves or rejects it. A **monitor loop** keeps one conversation watching for a condition, such as a file appearing, and stops when it is met.
 
 ```flow
 - box: Worker says done
@@ -164,8 +154,9 @@ When a worker reports `done`, the item stays open. The conductor runs an accepta
 - **Tool approvals** stop a worker before a risky tool call until someone approves it, once.
 - **Read-only folders** (`agent.sandbox_readonly_paths`) let the agent read a folder and never write it. See [Fence the agent](../recipes/fence-the-agent.md).
 - **Needs you** on the conductor's Board lists every worker waiting on your answer. [Answer from anywhere](../recipes/answer-from-anywhere.md) shows how to answer from the sidebar or a chat app.
-- **Pause all** on the Board stops every running worker until **Resume all**, and the pause holds across a gateway restart.
-- In Issue Radar, a crew that needs a person applies the repository's human label.
+- **Pause all** on the Board stops every running worker until **Resume all**. Workers carry on from where they stopped.
+
+Approvals depend on the chat's approval mode. A worker in a conductor chat can run a command like `rm` without asking, while the same command in a normal chat with the default mode waits for approval. Check the mode before you rely on it.
 
 ```flow
 - box: Worker wants to act
@@ -190,28 +181,26 @@ When a worker reports `done`, the item stays open. The conductor runs an accepta
 
 ## 8. Shipping ends at a pull request
 
-What leaves this factory is a pull request. The worker records its number on the item, the Item lanes board shows it as a `#N` chip, and once CI and review are done the item waits in **AWAIT MRG** for a merge.
+What leaves this factory is a branch with a commit, or a pull request if your workers push. Tell workers to commit on their own branches and never merge or push. The merge to the main branch stays with a person.
 
-I keep that merge with a person. Everything before it can run without me, but the merge is where code reaches the main branch, and I want one human decision there.
+Everything before it can run without me, but the merge is where code reaches the main branch, and I want one human decision there.
 
 Parallel workers create one more job that nobody owns by default: putting their branches back together. Workers that finish at the same time often touched the same files, for example each one appending tests to the same test file, so their branches conflict even though each one is fine on its own. Kiro Crew has no built-in step for this, so I give it to one worker as a separate item:
 
 1. Create an integration branch from main and merge the first finished branch into it.
 2. Merge the next branch. If git reports a conflict, the worker resolves it keeping both sides' intent, for example every test from both branches.
 3. Run the tests. Move on only when they pass.
-4. Repeat for each remaining branch, then open one pull request from the integration branch for the human merge.
+4. Repeat for each remaining branch, then hand the integration branch to the human merge.
 
 Only one worker writes to the integration branch, which keeps the one-writer rule intact.
 
 ```flow
-- box: Pull request opened
-  note: "Shown as a #N chip on the lane"
-- box: CI and review
-- box: AWAIT MRG
+- box: Worker branches
+  note: One commit each, tests pass
+- box: Integration branch
   accent: true
-  note: Waits for a merge
+  note: One worker merges them one at a time
 - box: You merge
-- box: RESOLVED
 ```
 
 > **What the papers say.** DORA lists working in small batches and version control among its AI capabilities, because faster change needs a safety net. Sogeti describes reintegration "in stages rather than as a single disruptive merge," with an orchestrator that tracks merge readiness. In Sogeti's role table the reviewer stays human.
@@ -219,18 +208,13 @@ Only one worker writes to the integration branch, which keeps the one-writer rul
 
 ## 9. Gauges show where work piles up
 
-Issue Radar's **Pipeline** dashboard shows, for each step, what is sitting there now (**In step**), what moved through recently (**Recent**) and the total so far (**Total**). Click a step to see its items and each agent session's turns, tokens, credits and cost where the server reports them. It is the only place the cost per issue shows up. The **Item lanes** tab adds **In flight**, **Editing**, **Escalations** and **Longest wait**, and flags any item stuck in one phase for over an hour. For one turn, [traces](../recipes/trace-agent-turns.md) show where the time went.
+A session that owns a ledger has **Crew board** in its session actions menu. It shows the goal, what is done, what **needs your input** and a recap of the milestones, read-only. For one turn, [traces](../recipes/trace-agent-turns.md) show where the time went: `kirocrew trace show` draws the turn and its tool calls as nested spans, and a refused action shows as an error. Turn traces on from your own terminal, because the dashboard row is read-only.
 
 ```flow
-- box: Pipeline tab
+- box: Crew board
   accent: true
   items:
-    - In step, Recent, Total per step
-    - Cost per issue
-- box: Item lanes tab
-  items:
-    - In flight, Editing, Escalations, Longest wait
-    - Items stuck over an hour are flagged
+    - Done, needs your input, recap
 - box: Traces
   note: One turn, drawn as a waterfall
 ```
@@ -240,7 +224,7 @@ Issue Radar's **Pipeline** dashboard shows, for each step, what is sitting there
 
 ## 10. Getting better every run
 
-A correction you give with "always" or "never" becomes a **lesson** that comes back in later sessions. See [Make it remember](../recipes/make-it-remember.md). For the code itself, the **Auto-Improvement** app measures a GitHub repository before it changes anything, then keeps or reverts each change against that measurement.
+A correction you give with "always" or "never" becomes a **lesson** that comes back in later sessions. A worker you start later follows the rule without being told. See [Make it remember](../recipes/make-it-remember.md).
 
 ```flow
 - box: A run goes wrong
@@ -258,9 +242,8 @@ A correction you give with "always" or "never" becomes a **lesson** that comes b
 
 | Size | Parts | Fits |
 |---|---|---|
-| Small | A task runner spec run with `kirocrew run`, with an allowlist of the tools it may use | One batch of issues you start by hand |
-| Medium | A conductor mode chat, one worker per item, the Board and Pause all | A day of parallel work you watch |
-| Large | Issue Radar crews on the repository, the Pipeline dashboard and a human merge | A live backlog that keeps moving |
+| One session | A normal chat, with tool approvals on | One issue you watch |
+| Conductor | A conductor mode chat, one worker per item, the Board, Pause all, a reviewer and an integration worker | A day of parallel work you watch |
 
 ## Sources
 
@@ -274,7 +257,6 @@ A correction you give with "always" or "never" becomes a **lesson** that comes b
 
 - [Conductor mode](conductor-mode.md)
 - [Bots](bots.md)
-- [Slack code channels](../recipes/slack-code-channels.md)
 - [Fence the agent](../recipes/fence-the-agent.md)
 - [Answer from anywhere](../recipes/answer-from-anywhere.md)
 - [Trace every agent turn](../recipes/trace-agent-turns.md)

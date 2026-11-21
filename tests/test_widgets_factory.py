@@ -59,31 +59,22 @@ def test_map_rejects_unknown_zone(tmp_path):
 
 def test_run_tracks_visits_and_reentry():
     d = factory_run.load(ROOT)
-    implement = d["phases"].index("IMPLEMENT")
+    worker = d["phases"].index("WORKER")
     last = d["steps"][-1]
     assert all(last["visited"])
-    assert last["reentered"][implement]
-    assert last["pr"] == "#87"
-    assert d["steps"][0]["pr"] == ""
+    assert last["reentered"][worker]
 
 
 def test_run_rejects_unconfirmed_phase(tmp_path):
     p = copy(tmp_path, "factory-run")
-    edit(p, "factory-run", "  - phase: CLAIMED", "  - phase: GRABBED")
+    edit(p, "factory-run", "  - phase: ITEM", "  - phase: GRABBED")
     with pytest.raises(widgets.WidgetError, match="unknown phase"):
-        factory_run.load(p)
-
-
-def test_run_rejects_changed_columns(tmp_path):
-    p = copy(tmp_path, "factory-run")
-    edit(p, "factory-run", "AWAIT MRG, RESOLVED]", "MERGED, RESOLVED]")
-    with pytest.raises(widgets.WidgetError, match="Item lanes columns"):
         factory_run.load(p)
 
 
 def test_markdown_versions():
     assert "Orders in" in factory_map.markdown(factory_map.load(ROOT))
-    assert "AWAIT CI" in factory_run.markdown(factory_run.load(ROOT))
+    assert "INTEGRATE" in factory_run.markdown(factory_run.load(ROOT))
 
 
 def test_map_every_station_has_papers():

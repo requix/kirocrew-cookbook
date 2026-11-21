@@ -1,8 +1,8 @@
-"""One issue down the line, drawn like an Issue Radar item lane.
+"""One issue down the factory line, as the software factory page sets it up.
 
-content/widgets/factory-run.yaml holds the phases and the steps. load() checks every phase name
-against the Item lanes columns of v0.13.0 and works out, per step, which phases were visited,
-which were re-entered and the pull-request chip. The JS only renders.
+content/widgets/factory-run.yaml holds the stages and the steps. load() checks every step against
+the stages, and works out, per step, which stages were visited and which were re-entered. The
+stage names are the page's own words, not dashboard labels. The JS only renders.
 """
 from __future__ import annotations
 
@@ -11,9 +11,6 @@ from pathlib import Path
 from . import WidgetError, check_text, read_yaml
 
 NAME = "factory-run"
-# The Item lanes phase columns in the v0.13.0 Issue Radar Pipeline dashboard, in order.
-CONFIRMED_PHASES = ["SELECTED", "CLAIMED", "INVESTIG.", "IMPLEMENT", "AWAIT CI", "ADDR REV", "AWAIT MRG", "RESOLVED"]
-CONFIRMED_FENCE = ["IMPLEMENT", "ADDR REV"]
 
 
 def _err(msg: str) -> WidgetError:
@@ -26,17 +23,21 @@ def load(project: Path) -> dict:
         if key not in spec:
             raise _err(f"missing '{key}'")
     phases = spec["phases"]
-    if phases != CONFIRMED_PHASES:
-        raise _err(f"phases must be the v0.13.0 Item lanes columns {CONFIRMED_PHASES}")
-    if spec["fence"] != CONFIRMED_FENCE:
-        raise _err(f"fence must be {CONFIRMED_FENCE}, the phases that hold a dirty worktree")
+    if not 3 <= len(phases) <= 10 or len(set(phases)) != len(phases):
+        raise _err("phases must be 3 to 10 unique stage names")
+    fence = spec["fence"]
+    if not fence or any(f not in phases for f in fence):
+        raise _err("every fence stage must be one of the phases")
+    idx = sorted(phases.index(f) for f in fence)
+    if idx != list(range(idx[0], idx[-1] + 1)):
+        raise _err("fence stages must be next to each other")
     steps_in = spec["steps"]
     if not 3 <= len(steps_in) <= 12:
         raise _err("a run needs 3 to 12 steps")
     if steps_in[-1]["phase"] != phases[-1]:
         raise _err(f"the last step must be {phases[-1]}")
 
-    steps, visits, pr = [], [0] * len(phases), None
+    steps, visits = [], [0] * len(phases)
     for i, st in enumerate(steps_in, start=1):
         if st.get("phase") not in phases:
             raise _err(f"step {i} names unknown phase '{st.get('phase')}'")
@@ -44,14 +45,12 @@ def load(project: Path) -> dict:
             raise _err(f"step {i} needs a caption and a who")
         k = phases.index(st["phase"])
         visits[k] += 1
-        pr = st.get("pr", pr)
         steps.append({
             "phase": k,
             "who": st["who"],
             "caption": st["caption"],
             "visited": [n > 0 for n in visits],
             "reentered": [n > 1 for n in visits],
-            "pr": f"#{pr}" if pr else "",
         })
     data = {
         "title": spec["title"],

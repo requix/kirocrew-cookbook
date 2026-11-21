@@ -14,8 +14,7 @@ mount("factory-run", ({ head, body, data }) => {
   const fence = el("p", { class: "fr-fence", style: `--from:${first};--to:${last + 1};--n:${data.phases.length}` }, data.fence_label);
 
   const who = el("span", { class: "fr-who" });
-  const pr = el("span", { class: "fr-pr" });
-  const card = el("div", { class: "fr-card" }, el("span", { class: "kw-label" }, "Issue #142"), pr, who);
+  const card = el("div", { class: "fr-card" }, el("span", { class: "kw-label" }, "Issue 2"), who);
 
   const dotBtns = steps.map((_, i) => el("button", { type: "button", class: "kw-dot", "aria-label": `Step ${i + 1} of ${steps.length}`, onclick: () => { stop(); show(i); } }));
   const track = el("ol", { class: "kw-dots", "aria-label": "Steps" }, dotBtns.map((b) => el("li", {}, b)));
@@ -38,8 +37,6 @@ mount("factory-run", ({ head, body, data }) => {
       if (k === s.phase) c.setAttribute("aria-current", "step"); else c.removeAttribute("aria-current");
     });
     who.textContent = s.who;
-    pr.textContent = s.pr;
-    pr.hidden = !s.pr;
     dotBtns.forEach((b, k) => { b.classList.toggle("is-done", k < i); b.classList.toggle("is-current", k === i); });
     caption.set(s.caption, i === steps.length - 1 ? "ok" : "info");
   }
