@@ -60,3 +60,8 @@
 @media (prefers-reduced-motion: reduce) {
   .kw *, .kw *::after { transition: none !important; animation: none !important; }
 }
+
+/* Lists inside a widget are layout, not prose: drop the page's dash markers. */
+.vc-prose .kw ul > li::before, .vc-prose .kw ol > li::before { content: none; }
+.vc-prose .kw ul, .vc-prose .kw ol { margin: 0; padding: 0; }
+.vc-prose .kw li { margin: 0; padding: 0; }

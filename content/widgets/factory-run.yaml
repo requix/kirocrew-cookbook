@@ -1,0 +1,42 @@
+# One issue down the factory line, as this page sets it up with conductor mode.
+# The stage names are this page's own, not dashboard labels. Python checks every step
+# against them and derives which stages were visited and re-entered.
+title: One issue down the line
+
+phases: [GOAL, ITEM, WORKER, TESTS, ACCEPT, REVIEW, INTEGRATE, MERGE]
+
+# Stages where exactly one worker writes to its own worktree.
+fence: [WORKER, TESTS]
+fence_label: One writer per worktree
+
+steps:
+  - phase: GOAL
+    who: You
+    caption: You give a conductor mode chat the goal and point it at the issue list.
+  - phase: ITEM
+    who: Conductor
+    caption: The conductor writes one work item per issue, with its acceptance condition, before any work starts.
+  - phase: WORKER
+    who: Worker
+    caption: A worker gets the item, cuts its own git worktree and branch, and changes the code there.
+  - phase: TESTS
+    who: Worker
+    caption: The tests fail on the first try.
+  - phase: WORKER
+    who: Worker
+    caption: The worker goes back and fixes its change. The line allows that loop.
+  - phase: TESTS
+    who: Worker
+    caption: The tests pass, and the worker commits on its branch.
+  - phase: ACCEPT
+    who: Conductor
+    caption: The conductor checks the item's own condition, not the worker's summary, and marks it accepted.
+  - phase: REVIEW
+    who: Reviewer
+    caption: A second agent that wrote none of it reads the diff against the issue and approves it.
+  - phase: INTEGRATE
+    who: Worker
+    caption: One worker merges the finished branches into an integration branch, one at a time, and runs the tests after each.
+  - phase: MERGE
+    who: You
+    caption: You merge the integration branch. That is the one human decision on the line.
