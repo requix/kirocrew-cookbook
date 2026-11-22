@@ -6,7 +6,7 @@ difficulty: intermediate
 time: 20 min
 surfaces: [dashboard, channels, cli]
 tags: [software-factory, agentic-coding, conductor-mode, work-ledger, worktree, governance]
-updated: 2026-11-20
+updated: 2026-11-22
 featured: true
 prerequisites:
   - Kiro Crew 0.13.0 or later
