@@ -9,8 +9,9 @@
 .kw-factory-run .fr-scroll { overflow-x: auto; }
 .kw-factory-run .fr-lane { display: grid; grid-template-columns: repeat(8, minmax(72px, 1fr)); gap: 1px; margin: 0; padding: 0;
   list-style: none; background: var(--vc-border-subtle); border: 1px solid var(--vc-border-subtle); min-width: 600px; }
-.kw-factory-run .fr-cell { position: relative; display: grid; gap: 8px; justify-items: center; padding: 8px 4px 10px;
+.kw-factory-run .fr-cell { position: relative; display: grid; place-items: center; gap: 8px; padding: 10px 4px;
   background: var(--vc-layer-1); transition: background var(--vc-dur-fast); }
+.kw-factory-run .fr-cell::before { content: none !important; }
 .kw-factory-run .fr-cell.is-fenced { background: var(--vc-layer-2); }
 .kw-factory-run .fr-phase { font-family: var(--vc-font-code); font-size: 0.6875rem; letter-spacing: 0.02em; color: var(--vc-text-muted); }
 .kw-factory-run .fr-mark { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--vc-border); background: transparent;
@@ -20,11 +21,12 @@
 .kw-factory-run .fr-cell.is-current { background: var(--vc-accent-soft); }
 .kw-factory-run .fr-cell.is-current .fr-phase { color: var(--vc-accent-text); }
 .kw-factory-run .fr-cell.is-current .fr-mark { background: var(--vc-accent); border-color: var(--vc-accent); transform: scale(1.25); }
-.kw-factory-run .fr-fence { position: relative; margin: 4px 0 0; min-width: 600px; height: 18px; font-size: 0.6875rem; color: var(--vc-text-muted); }
+.kw-factory-run .fr-fence { position: relative; margin: 4px 0 0; min-width: 600px; font-size: 0.6875rem; color: var(--vc-text-muted); }
 .kw-factory-run .fr-fence::before { content: ""; position: absolute; top: 0; height: 6px;
-  left: calc(100% * var(--from) / var(--n)); width: calc(100% * (var(--to) - var(--from)) / var(--n));
+  left: calc(1px + 100% * var(--from) / var(--n) + 100% * 0.5 / var(--n)); 
+  width: calc(100% * (var(--to) - var(--from)) / var(--n) - 100% * 1 / var(--n));
   border: 1px dashed var(--vc-border-strong); border-top: 0; }
-.kw-factory-run .fr-fence { text-indent: calc(100% * var(--from) / var(--n)); padding-top: 8px; }
+.kw-factory-run .fr-fence { padding-top: 8px; padding-left: calc(1px + 100% * var(--from) / var(--n) + 100% * 0.5 / var(--n)); white-space: nowrap; }
 .kw-factory-run .kw-dots li { list-style: none; }
 .kw-factory-run .kw-dots .kw-dot { display: block; box-sizing: content-box; padding: 0; cursor: pointer; position: relative; }
 .kw-factory-run .kw-dots .kw-dot::before { content: ""; position: absolute; inset: -8px; }
