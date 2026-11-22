@@ -1,0 +1,101 @@
+# The software factory map. Each station is one factory idea and the Kiro Crew parts that play it.
+# Facts: Kiro Crew 0.13.0 docs (apps, issue-radar-pipeline, work-ledger, monitor-loops,
+# inbound-webhooks, workflows) and the cookbook pages each station links to.
+# papers: which sources below back the idea.
+# Python checks that every station has a zone, features and an anchor that exists on the page.
+title: The software factory, part by part
+
+sources:
+  - { id: anthropic, label: Anthropic 2026 }
+  - { id: openai, label: OpenAI 2025 }
+  - { id: sogeti, label: Sogeti 2026 }
+  - { id: dora, label: DORA 2025 }
+  - { id: janda, label: Janda 2026 }
+
+zones:
+  - { id: front, label: Front office }
+  - { id: floor, label: Factory floor }
+  - { id: back, label: Back office }
+
+stations:
+  - id: intake
+    zone: front
+    name: Orders in
+    features: [Conductor chat, Cron jobs]
+    says: Work arrives as a goal you give a chat, or on a schedule.
+    anchor: 1-orders-come-in
+    papers: [sogeti, dora]
+
+  - id: planning
+    zone: front
+    name: Planning
+    features: [Conductor]
+    says: A conductor splits a goal into items that a worker can pick up.
+    anchor: 2-planning-turns-an-order-into-work
+    papers: [sogeti, openai]
+
+  - id: orders
+    zone: front
+    name: Work orders
+    features: [Work ledger, Crew board]
+    says: Each item has a title and a completion condition written before any work starts.
+    anchor: 3-work-orders-say-what-done-means
+    papers: [sogeti, janda]
+
+  - id: line
+    zone: floor
+    name: The line
+    features: [Conductor, Worker, Reviewer]
+    says: Goal, item, worker, tests, acceptance, review, integration, merge.
+    anchor: 4-the-line-moves-items-through-fixed-steps
+    papers: [dora, sogeti]
+
+  - id: benches
+    zone: floor
+    name: Workbenches
+    features: [Worker chats, Git worktrees, Workers at once]
+    says: Each worker gets its own chat and context, and code work gets its own worktree.
+    anchor: 5-workbenches-keep-workers-apart
+    papers: [anthropic, janda, openai]
+
+  - id: quality
+    zone: floor
+    name: Quality control
+    features: [Acceptance check, Second-agent review, Monitor loops]
+    says: A worker saying done is only a claim until the conductor checks it.
+    anchor: 6-quality-control-checks-every-claim
+    papers: [janda, anthropic]
+
+  - id: safety
+    zone: floor
+    name: Safety
+    features: [Tool approvals, Read-only folders, Pause all, Needs you]
+    says: Fences limit what a worker can touch, and you can stop the whole floor.
+    anchor: 7-safety-fences-and-the-stop-button
+    papers: [openai, anthropic]
+
+  - id: shipping
+    zone: back
+    name: Shipping
+    features: [Branch per worker, Integration branch]
+    says: The product is a committed branch. A person merges it.
+    anchor: 8-shipping-ends-at-a-pull-request
+    papers: [dora, sogeti]
+
+  - id: gauges
+    zone: back
+    name: Gauges
+    features: [Traces, Crew board]
+    says: You see what is done and what needs you, and where a turn spent its time.
+    anchor: 9-gauges-show-where-work-piles-up
+    papers: [dora]
+
+  - id: better
+    zone: back
+    name: Getting better
+    features: [Lessons]
+    says: A correction becomes a lesson that later workers follow.
+    anchor: 10-getting-better-every-run
+    papers: [openai, dora]
+
+start: intake
