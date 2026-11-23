@@ -1,6 +1,11 @@
 # Kiro Crew Cookbook
 
+[![Build and Deploy](https://github.com/requix/kirocrew-cookbook/actions/workflows/deploy.yml/badge.svg)](https://github.com/requix/kirocrew-cookbook/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Recipes from real work with Kiro Crew. Checked against the Kiro Crew source, not written from memory.
+
+🌐 **Live site:** [requix.github.io/kirocrew-cookbook](https://requix.github.io/kirocrew-cookbook)
 
 ## Interactive widgets
 
