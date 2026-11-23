@@ -66,6 +66,10 @@ I_SEARCH = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><circle
 I_DOC = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5h5l3.5 3.5v9.5H4z"/>'
          '<path d="M9 1.5V5h3.5M6.5 8.5h3.5M6.5 11h3.5"/></svg>')
 I_ARROW = '<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>'
+I_GITHUB = ('<svg class="vc-icon" viewBox="0 0 16 16" aria-hidden="true">'
+            '<path fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round" '
+            'd="M6 15v-2.5c0-1 .5-1.5.5-1.5s-2-.25-3-1.5c-.75-1-1-2.5-.5-3.5 0 0-.5-1 0-2 0 0 1-.25 2.5 1 1-.25 3-.25 4 0 1.5-1.25 2.5-1 2.5-1 .5 1 0 2 0 2 .5.5 1 1.5.5 3.5-1 1.25-3 1.5-3 1.5s.5.5.5 1.5V15M6 13c-3 1-3-2-4-2"/>'
+            '</svg>')
 COPY_BTN = (f'<button type="button" class="vc-copy" data-copy aria-label="Copy to clipboard">{I_COPY}'
             '<span class="vc-copy__tip" aria-live="polite"></span></button>')
 
@@ -428,6 +432,7 @@ def nav(depth: int, current: str = "") -> str:
 <li><a href="{r}llms.txt">llms.txt</a></li>
 </ul></nav>
 <div class="vc-nav__end">
+<a class="vc-nav__action" href="https://github.com/requix/kirocrew-cookbook" aria-label="GitHub repository" title="View on GitHub">{I_GITHUB}</a>
 <a class="vc-nav__action" href="{r}recipes/index.html#search" data-search-href="{r}recipes/index.html#search" aria-label="Search recipes" title="Search recipes (⌘K)">{I_SEARCH}</a>
 <a class="vc-btn vc-btn--primary vc-nav__cta" href="{r}index.html#paths">Start {I_ARROW}</a>
 </div></div></header>
@@ -435,16 +440,19 @@ def nav(depth: int, current: str = "") -> str:
 
 
 def footer(site: dict, depth: int) -> str:
-    links = lambda pages: "".join(f'<li><a href="{href(p, depth)}">{esc(p["meta"]["title"])}</a></li>' for p in pages)
-    cols = "".join(f'<div><p class="vc-label">{esc(s["title"])}</p><ul>{links(s["pages"])}</ul></div>' for s in site["sections"])
-    return f"""<footer class="vc-footer"><div class="vc-wrap vc-footer__grid">
-<div class="vc-footer__brand"><a class="vc-brand" href="{rel(depth)}index.html">{BRAND}</a>
-<p>Recipes from real work with Kiro Crew. Checked against the Kiro Crew source, not written from memory.</p></div>
-{cols}
-<div><p class="vc-label">For agents</p><ul><li><a href="{rel(depth)}llms.txt">llms.txt</a></li>
-<li><a href="{rel(depth)}start/first-hour.md">Markdown per page</a></li></ul></div>
+    r = rel(depth)
+    return f"""<footer class="vc-footer"><div class="vc-wrap vc-footer__row">
+<a class="vc-brand vc-footer__brand" href="{r}index.html">{MARK}</a>
+<nav class="vc-footer__links">
+<a href="{r}start/install.html">Install</a>
+<a href="{r}concepts/what-kirocrew-is.html">Concepts</a>
+<a href="{r}recipes/index.html">Recipes</a>
+<a href="{r}find/where-is.html">Find</a>
+<a href="{r}llms.txt">llms.txt</a>
+</nav>
+<a class="vc-footer__github" href="https://github.com/requix/kirocrew-cookbook" aria-label="GitHub">{I_GITHUB}</a>
 </div></footer>
-<script src="{rel(depth)}assets/site.js"></script>
+<script src="{r}assets/site.js"></script>
 </body>
 </html>
 """
