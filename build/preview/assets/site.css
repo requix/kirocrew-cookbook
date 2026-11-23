@@ -153,6 +153,11 @@ h1, h2, h3, h4, .vc-head { font-weight: 400; letter-spacing: 0; }
 }
 .vc-new a:hover { color: var(--vc-link-hover); }
 .vc-new small { color: var(--vc-text-muted); white-space: nowrap; font-size: inherit; }
+.vc-new a span { min-width: 0; }
+@media (max-width: 671px) {
+  .vc-new a { flex-wrap: wrap; }
+  .vc-new small { white-space: normal; text-align: right; flex-shrink: 0; }
+}
 .vc-badge {
   display: inline-flex; align-items: center; height: 24px; padding: 0 8px; width: fit-content;
   border-radius: var(--vc-radius-pill); background: var(--vc-accent-soft); color: var(--vc-accent-text);
@@ -421,8 +426,8 @@ button.vc-tag[aria-pressed="true"] { background: var(--vc-text); border-color: v
 .vc-prose .vc-checklist { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
 .vc-prose .vc-checklist li { position: relative; padding-left: 28px; margin: 0; }
 .vc-prose .vc-checklist li::before {
-  content: ""; position: absolute; left: 0; top: 4px; width: 16px; height: 16px;
-  border: 1px solid var(--vc-border-strong); border-radius: 0;
+  content: ""; position: absolute; left: 0; top: 4px; width: 14px; height: 14px;
+  border: 1.5px solid var(--vc-border-subtle); border-radius: 3px;
 }
 
 /* Data table: header one layer up, rows on layer-1, no zebra */
@@ -554,13 +559,16 @@ button.vc-tag[aria-pressed="true"] { background: var(--vc-text); border-color: v
 .vc-toc-inline a { color: var(--vc-link); text-decoration: none; }
 
 /* ---------- Footer ---------- */
-.vc-footer { margin-top: 96px; border-top: 1px solid var(--vc-border-subtle); padding-block: 32px 48px; color: var(--vc-text-muted); font-size: 0.875rem; letter-spacing: 0.16px; }
-.vc-footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-@media (min-width: 1056px) { .vc-footer__grid { grid-template-columns: 2fr repeat(4, 1fr); } }
-.vc-footer__brand { grid-column: 1 / -1; display: grid; gap: 12px; max-width: 40ch; }
-@media (min-width: 1056px) { .vc-footer__brand { grid-column: auto; } }
-.vc-footer__brand .vc-brand { padding: 0; }
-.vc-footer__brand p { margin: 0; }
+.vc-footer { margin-top: 96px; border-top: 1px solid var(--vc-border-subtle); padding-block: 24px; color: var(--vc-text-muted); font-size: 0.875rem; letter-spacing: 0.16px; }
+.vc-footer__row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.vc-footer__brand { padding: 0; flex-shrink: 0; }
+.vc-footer__brand svg { width: 24px; height: 24px; }
+.vc-footer__links { display: flex; gap: 24px; flex-wrap: wrap; flex: 1; }
+.vc-footer__links a { color: var(--vc-text-muted); text-decoration: none; }
+.vc-footer__links a:hover { color: var(--vc-link-hover); }
+.vc-footer__github { color: var(--vc-text-muted); margin-left: auto; }
+.vc-footer__github:hover { color: var(--vc-link-hover); }
+.vc-footer__github svg { width: 20px; height: 20px; }
 .vc-footer ul { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
 .vc-footer a { color: var(--vc-text-body); text-decoration: none; }
 .vc-footer a:hover { color: var(--vc-text); text-decoration: underline; }

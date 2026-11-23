@@ -1,18 +1,30 @@
 # Kiro Crew Cookbook
 
-[![Build and Deploy](https://github.com/requix/kirocrew-cookbook/actions/workflows/deploy.yml/badge.svg)](https://github.com/requix/kirocrew-cookbook/actions/workflows/deploy.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 Recipes from real work with Kiro Crew. Checked against the Kiro Crew source, not written from memory.
 
-🌐 **Live site:** [requix.github.io/kirocrew-cookbook](https://requix.github.io/kirocrew-cookbook)
+## Interactive widgets
 
-## What's inside
+The cookbook includes interactive widgets that make navigation and learning easier:
 
-- **Getting started guides** — Install, first hour, dashboard basics
-- **Core concepts** — How Kiro Crew works under the hood
-- **Apps documentation** — Building and using Kiro Crew apps
-- **Recipes** — Step-by-step solutions to real problems
+### Software Factory
+![Software Factory](assets/software-factory.gif)
+
+Watch how an issue flows through the agent pipeline — from triage to code to pull request.
+
+### Dashboard Map
+![Dashboard Map](assets/dashboard-map.png)
+
+Click any part of the dashboard to learn what it does.
+
+### Where Is It?
+![Where Is It](assets/where-is.png)
+
+Search for hard-to-find controls by what they do.
+
+### Architecture
+![Architecture](assets/concept-map.png)
+
+See how the pieces connect — gateway, bots, memory, tools.
 
 ## Quick start
 
@@ -25,7 +37,7 @@ cd kirocrew-cookbook
 pip install pygments pyyaml markdown-it-py
 
 # Build
-cd build/preview
+cd cookbook-site/preview
 python3 build.py
 
 # Preview locally
@@ -33,33 +45,10 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 # Open http://localhost:8000
 ```
 
-## Local preview
-
-After building, start a local server:
-
-```bash
-cd build/preview/dist
-python3 -m http.server 8000
-```
-
-Then open http://localhost:8000 in your browser.
-
-**Custom port or network access:**
-
-```bash
-# Different port
-python3 -m http.server 3000
-
-# Accessible from other devices on your network
-python3 -m http.server 8000 --bind 0.0.0.0
-```
-
-The server runs until you press Ctrl+C.
-
 ## Project structure
 
 ```
-content/                  # Markdown content (contributors edit here)
+cookbook/                 # Markdown content (edit this)
 ├── index.md             # Landing page
 ├── meta.json            # Section order
 ├── start/               # Getting started guides
@@ -68,7 +57,7 @@ content/                  # Markdown content (contributors edit here)
 ├── apps/                # Apps documentation
 └── recipes/             # How-to recipes
 
-build/                   # Build system (maintainers only)
+cookbook-site/
 ├── preview/             # Python static site generator
 │   ├── build.py         # Build script
 │   ├── dist/            # Generated site (gitignored)
@@ -76,40 +65,16 @@ build/                   # Build system (maintainers only)
 └── data/                # Shared data files
 ```
 
-## Contributing
+## Adding a recipe
 
-We welcome contributions! Here's how you can help:
+1. Copy `cookbook/recipes/_template.md`
+2. Fill in the frontmatter and content
+3. Add the filename (without `.md`) to `cookbook/recipes/meta.json`
+4. Run `python3 build.py` — it validates your content
+5. Open a PR
 
-### Found a typo or error?
-
-[Open an issue](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml) describing what's wrong and where you found it.
-
-### Have a content idea?
-
-[Suggest content](https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml) — tell us what recipe, concept, or topic you'd like documented.
-
-### Want to contribute a recipe?
-
-1. Fork this repository
-2. Copy `content/recipes/TEMPLATE.txt` to `content/recipes/your-recipe.md`
-3. Fill in the frontmatter and content
-4. Add the filename (without `.md`) to `content/recipes/meta.json`
-5. Run `cd build/preview && python3 build.py` — it validates your content
-6. Open a PR
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
-
-## Code of Conduct
-
-Be kind. Be helpful. Assume good intent.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
-
-## Links
-
-- [Live Cookbook](https://requix.github.io/kirocrew-cookbook)
-- [Kiro Crew](https://crew.kiro.dev)
-- [Report an Issue](https://github.com/requix/kirocrew-cookbook/issues/new?template=bug_report.yml)
-- [Suggest Content](https://github.com/requix/kirocrew-cookbook/issues/new?template=suggest_content.yml)
+Content is licensed under [CC BY 4.0](LICENSE).
